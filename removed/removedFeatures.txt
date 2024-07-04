@@ -1,0 +1,156 @@
+ <li>
+                <label htmlFor="language">Language:</label>
+                <div>
+                  <select name="language" id="language">
+                    <option value="All">All</option>
+                    <option value="28">Action</option>
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="it">Italian</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ko">Korean</option>
+                    <option value="zh">Chinese</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ru">Russian</option>
+                    <option value="ar">Arabic</option>
+                    <option value="pt">Portuguese</option>
+                  </select>
+                </div>
+              </li>
+
+
+               let allGenres =
+    "12%7C16%7C28%7C35%7C80%7C99%7C18%7C10751%7C14%7C36%7C27%7C10402%7C9648%7C10749%7C878%7C10770%7C53%7C10752%7C37";
+
+
+
+  const [urlList] = useState({
+    search: `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&include_adult=false&language=en-US`,
+    trending: "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
+    discover_popularity: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=true&language=en-US&page=${currentPage}&sort_by=popularity.desc`,
+    discover_test: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&primary_release_year=${filterReleaseYear}&sort_by=${filterSortBy}&vote_average.gte=${filterVoteAverage}&with_genres=${filterGenre}`,
+  });
+
+  <div className="pagination">
+            <div
+              className="previous-page nav"
+              onClick={() => changePage(+page - 1)}
+            >
+              {"<<"} Previous
+            </div>
+
+            {+page > 1 ? (
+              <div className="first-page nav" onClick={() => changePage(1)}>
+                First Page
+              </div>
+            ) : (
+              ""
+            )}
+
+            <div
+              className={`page_button ${
+                page ? (page == 1 ? "nav" : "") : "nav"
+              }`}
+              onClick={() => changePage(1)}
+              style={{
+                color: total_pages > 1 ? "" : "grey",
+                backgroundColor: total_pages > 1 ? "" : "grey",
+              }}
+            >
+              {1}
+            </div>
+            <div
+              className={`page_button ${page == 2 ? "nav" : ""}`}
+              onClick={() => changePage(2)}
+              style={{
+                color: total_pages > 2 ? "" : "grey",
+                backgroundColor: total_pages > 2 ? "" : "grey",
+              }}
+            >
+              {2}
+            </div>
+            <div
+              className={`page_button ${page == 3 ? "nav" : ""}`}
+              onClick={() => (page < 7 ? changePage(3) : "")}
+              style={{
+                color: total_pages > 3 ? "" : "grey",
+                backgroundColor: total_pages > 3 ? "" : "grey",
+              }}
+            >
+              {page > 6 ? "***" : 3}
+            </div>
+
+            {generatePaginationNumbers}
+            <div className={`page_button`}>{"***"}</div>
+            <div
+              className="next-page nav"
+              onClick={() => changePage(+page + 1)}
+            >
+              Next {">>"}
+            </div>
+          </div>
+
+
+               {/* <li>
+                <label htmlFor="genre">Genre:</label>
+                <div>
+                  <select
+                    name="genre"
+                    id="genre"
+                    value={filterGenre}
+                    onChange={(e) => setFilterGenre(e.target.value)}
+                    disabled={searchTerm.length > 0 ? true : false}
+                  >
+                    <option value={allGenres}>All</option>
+                    {Object.entries(Genres).map(([id, name], index) => {
+                      return (
+                        <option value={id} key={index}>
+                          {name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </li> */}
+
+              {/* <li>
+                <label htmlFor="sort-by">Sort By:</label>
+                <div>
+                  <select
+                    name="sort-by"
+                    id="sort-by"
+                    value={filterSortBy}
+                    onChange={(e) => setFilterSortBy(e.target.value)}
+                    disabled={searchTerm.length > 0 ? true : false}
+                  >
+                    <option value={filterPopular}>Most Popular</option>
+                    <option value={filterUpcoming}>Upcoming</option>
+                    <option value={filterOldest}>Oldest</option>
+                  </select>
+                </div>
+              </li> */}
+
+
+                {/* <li>
+                <label htmlFor="ratings">Ratings:</label>
+                <div>
+                  <select
+                    name="ratings"
+                    id="ratings"
+                    value={filterVoteAverage}
+                    onChange={(e) => setFilterVoteAverage(e.target.value)}
+                    disabled={searchTerm.length > 0 ? true : false}
+                  >
+                    <option value="All">All</option>
+                    {[...Array(9)].map((_, index) => {
+                      return (
+                        <option value={9 - index} key={index}>
+                          {9 - index}+
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </li> */}
