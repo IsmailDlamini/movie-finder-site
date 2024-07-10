@@ -145,8 +145,8 @@ const Trending = () => {
                     value={timeFrame}
                     onChange={(e) => setTimeFrame(e.target.value)}
                   >
-                    <option value="day">Today</option>
-                    <option value="week">This week</option>
+                    <option value="today">Today</option>
+                    <option value="this-week">This week</option>
                   </select>
                 </div>
               </li>
