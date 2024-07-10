@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom";
 import Genres from "../data/Genres";
 import { FaDownload } from "react-icons/fa";
 import { BiSolidMoviePlay } from "react-icons/bi";
+import { FaStar } from "react-icons/fa6";
+import { FaImdb } from "react-icons/fa";
+import no_avatar from '../assets/no-avatar.jpg'
 
 const Movie = () => {
   const { id } = useParams();
@@ -13,6 +16,7 @@ const Movie = () => {
   const [movieDetails, setMovieDetails] = useState({});
   const [movieImages, setMovieImages] = useState();
   const [similarMovies, setSimilarMovies] = useState();
+  const [movieReviews, setMovieReviews] = useState();
 
   const options = {
     method: "GET",
@@ -49,6 +53,18 @@ const Movie = () => {
       .then((response) => response.json())
       .then((data) => {
         setSimilarMovies(data.results);
+        console.log(data);
+        console.log(similarMovies);
+      })
+      .catch((err) => console.error(err));
+
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1`,
+      options
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setMovieReviews(data.results);
         console.log(data);
         console.log(similarMovies);
       })
@@ -107,7 +123,9 @@ const Movie = () => {
               </div>
 
               <div className="ratings">
-                <div>★</div>
+                <div>
+                  <FaStar id="rating-star" />
+                </div>
                 {Object.keys(movieDetails).length > 0
                   ? movieDetails.vote_average.toString().length > 3
                     ? movieDetails.vote_average.toString().substring(0, 3)
@@ -115,29 +133,43 @@ const Movie = () => {
                   : 0}{" "}
                 / 10
               </div>
+
+              <div className="keywords">
+                <div className="keyword"></div>
+              </div>
+
+              <div className="language">
+                Language: <span>En</span>
+              </div>
+
+              <div className="imdb">
+                <FaImdb id="imdb" />
+              </div>
             </div>
           </div>
           <div className="similar-movies-container">
             <div className="title">Similar Movies</div>
 
             <div className="movies">
-              {similarMovies ? <>
-                <div className="movie">
-                <img
-                  src={`https://image.tmdb.org/t/p/original${similarMovies[0].poster_path}`}
-                  alt="movie-image"
-                />
-              </div>
+              {similarMovies ? (
+                <>
+                  <div className="movie">
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${similarMovies[0].poster_path}`}
+                      alt="movie-image"
+                    />
+                  </div>
 
-              <div className="movie">
-                <img
-                  src={`https://image.tmdb.org/t/p/original${similarMovies[5].poster_path}`}
-                  alt="movie-image"
-                />
-              </div>
-              
-              </>
-             : ""}
+                  <div className="movie">
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${similarMovies[5].poster_path}`}
+                      alt="movie-image"
+                    />
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
@@ -181,6 +213,51 @@ const Movie = () => {
                   src={`https://image.tmdb.org/t/p/original${movieImages[2].file_path}`}
                   alt="test"
                 />
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+
+          <div className="reviews">
+            <div className="review-header"> Movie Reviews</div>
+
+            <div className="review-container">
+              {movieReviews ? (
+                movieReviews.length > 0 ? (
+                  movieReviews.map((review, index) => {
+                    return (
+                      <div className="review" key={index}>
+                        <div className="avatar-name-date">
+                          <div className="avatar">
+                            {review.author_details.avatar_path ? <img
+                              src={`https://image.tmdb.org/t/p/original${review.author_details.avatar_path}`}
+                              alt="avatar"
+                            /> : <img
+                            src={no_avatar}
+                            alt="no-avatar"
+                          />}
+                          </div>
+                          <div className="name-date">
+                            <div className="name">{review.author_details.username}</div>
+                            <div className="date">{review.updated_at.substring(0, 10)}</div>
+                          </div>
+                        </div>
+
+                              <div className="rating">
+                                Rating: {review.author_details.rating} 
+                              </div>
+
+                              <div className="comment">
+                                {review.content}
+                              </div>
+
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div id="no-reviews">No Reviews Available for this movie</div>
+                )
               ) : (
                 ""
               )}

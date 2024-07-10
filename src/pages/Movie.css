@@ -135,7 +135,7 @@
   .movie-info-container
   .movie-details
   .movie-title {
-  font-family: var(--font-poppins);
+  font-family: var(--font-inter);
   font-size: 2rem;
   font-weight: 700;
   color: rgb(225, 232, 235);
@@ -147,7 +147,7 @@
   .movie-info-container
   .movie-details
   .release-year {
-  font-family: var(--font-poppins);
+  font-family: var(--font-inter);
   font-size: 1.1rem;
   font-weight: 700;
   color: rgb(225, 232, 235);
@@ -156,7 +156,7 @@
 
 .movie-page-container .first-half .movie-info-container .movie-details .genres {
   display: flex;
-  font-family: var(--font-poppins);
+  font-family: var(--font-inter);
   font-size: 1.1rem;
   font-weight: 400;
   color: rgb(225, 232, 235);
@@ -176,7 +176,7 @@
   .movie-info-container
   .movie-details
   .ratings {
-  font-family: var(--font-poppins);
+  font-family: var(--font-inter);
   font-size: 0.9rem;
   font-weight: 700;
   color: rgb(225, 232, 235);
@@ -192,6 +192,51 @@
   .ratings
   div {
   margin-right: 4px;
+}
+
+.movie-page-container
+  .first-half
+  .movie-info-container
+  .movie-details
+  .ratings
+  #rating-star {
+  color: rgb(34, 224, 34);
+  font-size: 1.5rem;
+}
+
+.movie-page-container .first-half .movie-info-container .movie-details #imdb {
+  color: yellow;
+  font-size: 2rem;
+  margin-top: 30px;
+}
+
+.movie-page-container
+  .first-half
+  .movie-info-container
+  .movie-details
+  .keywords {
+  font-family: var(--font-inter);
+  margin: 10px 0;
+}
+
+.movie-page-container
+  .first-half
+  .movie-info-container
+  .movie-details
+  .language {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  font-weight: 400;
+  color: white;
+}
+
+.movie-page-container
+  .first-half
+  .movie-info-container
+  .movie-details
+  .language
+  span {
+  color: rgb(21, 255, 21);
 }
 
 .movie-page-container .first-half .similar-movies-container {
@@ -219,13 +264,13 @@
 .movie-page-container .first-half .similar-movies-container .movies .movie {
   width: 35%;
   height: 170px;
-margin-right: 5%;
-margin-top: 5%;
-border: 5px solid white;
-border-radius: 5px;
+  margin-right: 5%;
+  margin-top: 5%;
+  border: 5px solid white;
+  border-radius: 5px;
 }
 
-.movie-page-container .first-half .similar-movies-container .movies .movie img{
+.movie-page-container .first-half .similar-movies-container .movies .movie img {
   width: 100%;
   height: 100%;
 }
@@ -270,3 +315,148 @@ border-radius: 5px;
   width: 100%;
   height: 100%;
 }
+
+.movie-page-container .second-half .reviews {
+  width: 1100px;
+  margin: 0 auto;
+  background-color: rgb(36, 43, 45);
+  margin-top: 50px;
+  display: fex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.movie-page-container .second-half .reviews .review-header {
+  width: 100%;
+  background-color: rgb(27, 33, 34);
+  padding: 10px 20px;
+  font-family: var(--font-poppins);
+  font-size: 1.3rem;
+  color: rgb(120, 143, 150);
+  font-weight: 500;
+}
+
+.movie-page-container .second-half .reviews .review-container {
+  width: 100%;
+  padding: 10px 10px;
+  max-height: 300px;
+ overflow: auto;
+}
+
+.movie-page-container .second-half .reviews .review-container #no-reviews {
+  width: 100%;
+  text-align: center;
+  padding: 40px 0;
+  font-family: var(--font-inter);
+  font-size: 1.2rem;
+  color: rgb(111, 131, 140);
+}
+
+.movie-page-container .second-half .reviews .review-container .review {
+  width: 100%;
+  background-color: rgb(45, 50, 52);
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 20px 10px;
+}
+
+.movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .avatar-name-date {
+  width: 100%;
+  padding: 10px 5px;
+  display: flex;
+}
+
+.movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .avatar-name-date
+  .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .avatar-name-date
+  .avatar
+  img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .avatar-name-date
+  .name-date
+  {
+    margin-left: 10px;
+  }
+
+  .movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .avatar-name-date
+  .name{
+    font-family: var(--font-poppins);
+    font-weight: 500;
+    font-size: 1rem;
+    color: rgb(241, 241, 241);
+  }
+
+
+  .movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .avatar-name-date
+  .date{
+    font-family: var(--font-poppins);
+    font-weight: 500;
+    font-size: .6rem;
+    color: rgb(202, 202, 202);
+  }
+
+
+  .movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .rating, .comment{
+    margin-left: 30px;
+    margin-top: 10px;
+    padding-right: 20px;
+    font-family: var(--font-poppins);
+    font-size: .8rem;
+    color: rgb(201, 201, 201);
+  }
+
+  
+  .movie-page-container
+  .second-half
+  .reviews
+  .review-container
+  .review
+  .rating{
+    font-weight: 800;
+  }
+
+
