@@ -88,7 +88,7 @@ const Search = () => {
         <div className="movie-info">
           <div className="movie-name">{movie.title}</div>
           <div className="genres">
-            {Genres[movie.genre_ids[0]]}
+            {movie.genre_ids.length !== 0 ? Genres[movie.genre_ids[0]] : ""}
             {movie.genre_ids.length > 1 ? "," : ""} {Genres[movie.genre_ids[1]]}
           </div>
           <div className="rating">

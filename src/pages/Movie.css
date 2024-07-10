@@ -247,6 +247,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  font-family: var(--font-poppins);
+  color: rgb(146, 146, 146);
 }
 
 .movie-page-container .first-half .similar-movies-container .title {
@@ -270,6 +272,7 @@
   margin-top: 5%;
   border: 5px solid white;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .movie-page-container .first-half .similar-movies-container .movies .movie img {
@@ -336,6 +339,8 @@
   font-size: 1.3rem;
   color: rgb(120, 143, 150);
   font-weight: 500;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .movie-page-container .second-half .reviews .review-container {
