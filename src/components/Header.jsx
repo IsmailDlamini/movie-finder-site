@@ -15,7 +15,7 @@ const Header = () => {
           <li onClick={() => (window.location.href = "/trending")}>Trending</li>
           <li>Home</li>
           <li>About</li>
-          {/* <li>Contact</li> */}
+          <li>Contact</li>
         </ul>
 
         <div className="slogan">Find Your Next Favorite Flick</div>

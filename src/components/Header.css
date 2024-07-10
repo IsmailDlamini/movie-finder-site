@@ -33,7 +33,7 @@ header ul{
     display: flex;
     list-style-type: none;
     justify-content: space-between;
-    width: 220px;
+    width: 280px;
     margin-right: 50px;
     color: #747c86;
     font-family: var(--font-raleway);

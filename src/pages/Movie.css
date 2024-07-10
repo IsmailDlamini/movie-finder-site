@@ -11,6 +11,38 @@
 
 .movie-page-container {
   width: 100%;
+  position: relative;
+}
+
+.movie-page-container .page-background-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  filter: blur(25px);
+  z-index: -1;
+}
+
+.movie-page-container .page-background-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.movie-page-container .page-background-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #292f36 100%);
+  pointer-events: none;
 }
 
 .movie-page-container .first-half {
@@ -18,6 +50,7 @@
   padding-top: 160px;
   margin: 0 auto;
   margin-bottom: 50px;
+  display: flex;
 }
 
 .movie-page-container .first-half .movie-info-container {
@@ -25,20 +58,76 @@
   display: flex;
 }
 
+.movie-page-container .first-half .movie-info-container .download-button {
+  width: 100%;
+  background-color: rgb(19, 196, 19);
+  margin: 7px 0;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  color: rgb(234, 234, 234);
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  padding-left: 60px;
+  font-size: 1rem;
+}
+
+.movie-page-container
+  .first-half
+  .movie-info-container
+  .download-button
+  #download-icon {
+  margin-left: 10px;
+}
+
+.movie-page-container
+  .first-half
+  .movie-info-container
+  .stream-button
+  #stream-icon {
+  margin-left: 10px;
+}
+
+/* .movie-page-container .first-half .movie-info-container .download-button:hover{
+
+} */
+
+.movie-page-container .first-half .movie-info-container .stream-button {
+  width: 100%;
+  background-color: rgb(19, 128, 168);
+  margin: 7px 0;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  color: rgb(234, 234, 234);
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  padding-left: 60px;
+}
+
 .movie-page-container .first-half .movie-info-container .movie-image {
-  height: 400px;
   width: 250px;
   border-radius: 8px;
 }
 
 .movie-page-container .first-half .movie-info-container .movie-image img {
   width: 100%;
-  height: 100%;
+  height: 80%;
   border-radius: 8px;
+  border: 5px solid white;
 }
 
 .movie-page-container .first-half .movie-info-container .movie-details {
   margin-left: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .movie-page-container
@@ -60,7 +149,7 @@
   .release-year {
   font-family: var(--font-poppins);
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 700;
   color: rgb(225, 232, 235);
   margin-top: 30px;
 }
@@ -89,7 +178,7 @@
   .ratings {
   font-family: var(--font-poppins);
   font-size: 0.9rem;
-  font-weight: 400;
+  font-weight: 700;
   color: rgb(225, 232, 235);
   margin-top: 20px;
   display: flex;
@@ -105,6 +194,42 @@
   margin-right: 4px;
 }
 
+.movie-page-container .first-half .similar-movies-container {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.movie-page-container .first-half .similar-movies-container .title {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+  color: white;
+  font-family: var(--font-inter);
+  font-weight: 700;
+}
+
+.movie-page-container .first-half .similar-movies-container .movies {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movie-page-container .first-half .similar-movies-container .movies .movie {
+  width: 35%;
+  height: 170px;
+margin-right: 5%;
+margin-top: 5%;
+border: 5px solid white;
+border-radius: 5px;
+}
+
+.movie-page-container .first-half .similar-movies-container .movies .movie img{
+  width: 100%;
+  height: 100%;
+}
+
 .movie-page-container .second-half {
   width: 1100px;
   margin: 0 auto;
@@ -115,6 +240,7 @@
   font-weight: 700;
   font-size: 1.3rem;
   margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .movie-page-container .second-half .plot-summary {
@@ -124,6 +250,7 @@
   font-weight: 300;
   color: rgb(225, 232, 235);
   line-height: 1.6;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .movie-page-container .second-half .images-and-trailer {

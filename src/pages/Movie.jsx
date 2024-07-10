@@ -4,12 +4,15 @@ import Header from "../components/Header";
 import "./Movie.css";
 import { useParams } from "react-router-dom";
 import Genres from "../data/Genres";
+import { FaDownload } from "react-icons/fa";
+import { BiSolidMoviePlay } from "react-icons/bi";
 
 const Movie = () => {
   const { id } = useParams();
 
   const [movieDetails, setMovieDetails] = useState({});
   const [movieImages, setMovieImages] = useState();
+  const [similarMovies, setSimilarMovies] = useState();
 
   const options = {
     method: "GET",
@@ -38,12 +41,35 @@ const Movie = () => {
         console.log(movieImages);
       })
       .catch((err) => console.error(err));
+
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`,
+      options
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setSimilarMovies(data.results);
+        console.log(data);
+        console.log(similarMovies);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   return (
     <>
       <Header />
       <div className="movie-page-container">
+        <div
+          className="page-background-image"
+          style={{
+            backgroundImage: `${
+              movieImages
+                ? `url(https://image.tmdb.org/t/p/original${movieImages[0].file_path})`
+                : ""
+            }`,
+            backgroundSize: "cover",
+          }}
+        ></div>
         <div className="first-half">
           <div className="movie-info-container">
             <div className="movie-image">
@@ -51,6 +77,12 @@ const Movie = () => {
                 src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`}
                 alt={movieDetails.poster_path}
               />
+              <div className="download-button">
+                <div>Download</div> <FaDownload id="download-icon" />
+              </div>
+              <div className="stream-button">
+                <div>Stream</div> <BiSolidMoviePlay id="stream-icon" />
+              </div>
             </div>
             <div className="movie-details">
               <div className="movie-title">{movieDetails.title}</div>
@@ -85,7 +117,29 @@ const Movie = () => {
               </div>
             </div>
           </div>
-          <div className="similar-movies-container"></div>
+          <div className="similar-movies-container">
+            <div className="title">Similar Movies</div>
+
+            <div className="movies">
+              {similarMovies ? <>
+                <div className="movie">
+                <img
+                  src={`https://image.tmdb.org/t/p/original${similarMovies[0].poster_path}`}
+                  alt="movie-image"
+                />
+              </div>
+
+              <div className="movie">
+                <img
+                  src={`https://image.tmdb.org/t/p/original${similarMovies[5].poster_path}`}
+                  alt="movie-image"
+                />
+              </div>
+              
+              </>
+             : ""}
+            </div>
+          </div>
         </div>
 
         <div className="second-half">
@@ -108,7 +162,6 @@ const Movie = () => {
               ) : (
                 ""
               )}
-              
             </div>
 
             <div className="image">
@@ -120,9 +173,7 @@ const Movie = () => {
               ) : (
                 ""
               )}
-              
             </div>
-
 
             <div className="image">
               {movieImages ? (
@@ -133,7 +184,6 @@ const Movie = () => {
               ) : (
                 ""
               )}
-              
             </div>
           </div>
         </div>
