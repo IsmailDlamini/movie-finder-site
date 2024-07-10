@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search/:query" element={<Search />} />
-        <Route path="/trending" element={<Trending />} />
+        <Route path="/trending/:timeFrame" element={<Trending />} />
         <Route path="/movie/:id" element={<Movie />}/>
       </Routes>
     </Router>

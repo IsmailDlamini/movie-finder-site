@@ -7,32 +7,22 @@ import Genres from "../data/Genres";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
+import { useParams } from "react-router-dom";
 
 const Trending = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  let allGenres =
-    "12%7C16%7C28%7C35%7C80%7C99%7C18%7C10751%7C14%7C36%7C27%7C10402%7C9648%7C10749%7C878%7C10770%7C53%7C10752%7C37";
+  const {timeFrame} = useParams();
 
-  const year = searchParams.get("year");
-  const rating = searchParams.get("ratings");
-  const genre = searchParams.get("genre");
   const page = searchParams.get("page");
-  const sort = searchParams.get("sortBy");
-
-  const filterPopular = "popularity.desc";
-  const filterOldest = "primary_release_date.asc";
-  const filterUpcoming = "primary_release_date.desc";
 
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterReleaseYear, setFilterReleaseYear] = useState(year);
-  const [filterSortBy, setFilterSortBy] = useState(sort);
-  const [filterVoteAverage, setFilterVoteAverage] = useState(rating);
-  const [filterGenre, setFilterGenre] = useState(genre);
   const [total_pages, setTotal_pages] = useState(0);
+
+  const [_timeFrame, setTimeFrame] = useState();
 
   const options = {
     method: "GET",
@@ -45,7 +35,7 @@ const Trending = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${
+      `https://api.themoviedb.org/3/trending/movie/${timeFrame == "today" ? 'day' : 'week'}?language=en-US&page=${
         page ? page : 1
       }`,
       options
@@ -60,26 +50,25 @@ const Trending = () => {
 
   const search = () => {
     navigate(
-      `/search/${searchTerm}?${
-        filterReleaseYear != null ? `year=${filterReleaseYear}` : ""
-      }&page=${1}`
+      `/search/${searchTerm}?page=${1}`
     );
   };
 
   const applyFilters = () => {
     navigate(
-      `/?page=${1}${
-        filterVoteAverage != null ? `&ratings=${filterVoteAverage}` : ""
-      }${filterReleaseYear != null ? `&year=${filterReleaseYear}` : ""}${
-        filterGenre != null ? `&genre=${filterGenre}` : ""
-      }${filterSortBy != null ? `&sortBy=${filterSortBy}` : ""}`
+      `/trending/${_timeFrame}`
     );
     window.location.reload();
   };
 
+
+  const viewMovieDetails = (movieId) => {
+    window.location.href = `/movie/${movieId}`
+  }
+
   const Movie_list = movies.map((movie, index) => {
     return (
-      <div className="movie-object" key={index}>
+      <div className="movie-object" key={index}  onClick={() => viewMovieDetails(movie.id)}>
         <div className="image">
         {movie.poster_path != null ? (
             <img
@@ -148,83 +137,16 @@ const Trending = () => {
           <div className="filters">
             <ul>
               <li>
-                <label htmlFor="ratings">Ratings:</label>
+                <label htmlFor="time-frame">Time frame: </label>
                 <div>
                   <select
-                    name="ratings"
-                    id="ratings"
-                    value={filterVoteAverage}
-                    onChange={(e) => setFilterVoteAverage(e.target.value)}
-                    disabled={searchTerm.length > 0 ? true : false}
+                    name="time-frame"
+                    id="time-frame"
+                    value={timeFrame}
+                    onChange={(e) => setTimeFrame(e.target.value)}
                   >
-                    <option value="All">All</option>
-                    {[...Array(9)].map((_, index) => {
-                      return (
-                        <option value={9 - index} key={index}>
-                          {9 - index}+
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="year">Year:</label>
-                <div>
-                  <select
-                    name="year"
-                    id="year"
-                    value={filterReleaseYear}
-                    onChange={(e) => setFilterReleaseYear(e.target.value)}
-                  >
-                    <option value={0}>All</option>
-                    {[...Array(15)].map((_, index) => {
-                      return (
-                        <option value={`20${24 - index}`} key={index}>
-                          20{24 - index}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="genre">Genre:</label>
-                <div>
-                  <select
-                    name="genre"
-                    id="genre"
-                    value={filterGenre}
-                    onChange={(e) => setFilterGenre(e.target.value)}
-                    disabled={searchTerm.length > 0 ? true : false}
-                  >
-                    <option value={allGenres}>All</option>
-                    {Object.entries(Genres).map(([id, name], index) => {
-                      return (
-                        <option value={id} key={index}>
-                          {name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="sort-by">Sort By:</label>
-                <div>
-                  <select
-                    name="sort-by"
-                    id="sort-by"
-                    value={filterSortBy}
-                    onChange={(e) => setFilterSortBy(e.target.value)}
-                    disabled={searchTerm.length > 0 ? true : false}
-                  >
-                    <option value={filterPopular}>Most Popular</option>
-                    <option value={filterUpcoming}>Upcoming</option>
-                    <option value={filterOldest}>Oldest</option>
+                    <option value="day">Today</option>
+                    <option value="week">This week</option>
                   </select>
                 </div>
               </li>
@@ -232,7 +154,7 @@ const Trending = () => {
               <li>
                 <label htmlFor="apply">.</label>
                 <div className="exception">
-                  <button onClick={() => applyFilters()}>Apply Filters</button>
+                  <button onClick={applyFilters}>Apply Filters</button>
                 </div>
               </li>
             </ul>
@@ -253,10 +175,6 @@ const Trending = () => {
           <Pagination
             page={page}
             total_pages={total_pages}
-            filterVoteAverage={filterVoteAverage}
-            filterReleaseYear={filterReleaseYear}
-            filterGenre={filterGenre}
-            filterSortBy={filterSortBy}
             pageToPaginate="Trending"
           />
         </div>

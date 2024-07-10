@@ -12,7 +12,7 @@ const Header = () => {
         />
         <ul>
           <li onClick={() => (window.location.href = "/")}>Discover</li>
-          <li onClick={() => (window.location.href = "/trending")}>Trending</li>
+          <li onClick={() => (window.location.href = "/trending/today")}>Trending</li>
           <li>Home</li>
           <li>About</li>
           <li>Contact</li>
