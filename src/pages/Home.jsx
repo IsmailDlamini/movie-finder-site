@@ -7,6 +7,15 @@ import Genres from "../data/Genres";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
+import { useRef } from "react";
+import {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} from "@google/generative-ai";
+import ReactMarkdown from "react-markdown";
+import { IoClose } from "react-icons/io5";
+import { SlOptionsVertical } from "react-icons/sl";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -33,6 +42,67 @@ const Home = () => {
   const [filterVoteAverage, setFilterVoteAverage] = useState(rating);
   const [filterGenre, setFilterGenre] = useState(genre);
   const [total_pages, setTotal_pages] = useState(0);
+
+  // const {
+  //   GoogleGenerativeAI,
+  //   HarmCategory,
+  //   HarmBlockThreshold,
+  // } = require("@google/generative-ai");
+
+  // const apiKey = process.env.GEMINI_API_KEY;
+  const genAI = new GoogleGenerativeAI(
+    "AIzaSyCE9GbFCwSLWzygppx6x8vbIxV-RC799wU"
+  );
+
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-pro",
+    systemInstruction:
+      "Your name is Ismail the movie bot\nand you are to assist me with finding a good movie and some recommendations\nand your name is Ismail the movie bot here to assist people with finding their next favorite flick,  make the messages short, and dont always re introduce yourself in the middle of the conversation, only introduce when i say hey, hello or hi, always give a list of ten movies when you are giving the recommendation",
+  });
+
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 64,
+    maxOutputTokens: 8192,
+    responseMimeType: "text/plain",
+  };
+
+  async function run() {
+    const chatSession = model.startChat({
+      generationConfig,
+      // safetySettings: Adjust safety settings
+      // See https://ai.google.dev/gemini-api/docs/safety-settings
+      history: [],
+    });
+
+    const result = await chatSession.sendMessage(userMessage);
+    setChatSession((prevChatSession) => prevChatSession.slice(0, -1));
+    setChatSession((prevChatSession) => [
+      ...prevChatSession,
+      result.response.text(),
+    ]);
+  }
+
+  const [chatSession, setChatSession] = useState([]);
+
+  const [userMessage, setUserMessage] = useState("");
+  const [chatBotState, setChatBotState] = useState(true);
+
+  const messageEndRef = useRef(null);
+
+  const addMessage = (e) => {
+    e.preventDefault();
+    setChatSession((prevChatSession) => [...prevChatSession, userMessage, " "]);
+    run(userMessage);
+    setUserMessage("");
+  };
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatSession]);
 
   const options = {
     method: "GET",
@@ -82,14 +152,18 @@ const Home = () => {
   };
 
   const viewMovieDetails = (movieId) => {
-    window.location.href = `/movie/${movieId}`
-  }
+    window.location.href = `/movie/${movieId}`;
+  };
 
   const Movie_list = movies.map((movie, index) => {
     return (
-      <div className="movie-object" key={index} onClick={() => viewMovieDetails(movie.id)}>
+      <div
+        className="movie-object"
+        key={index}
+        onClick={() => viewMovieDetails(movie.id)}
+      >
         <div className="image">
-        {movie.poster_path != null ? (
+          {movie.poster_path != null ? (
             <img
               src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               alt={movie.title}
@@ -269,9 +343,95 @@ const Home = () => {
           />
         </div>
 
-        <div className="chat-bot-icon">
-          <img src={ismail_bot} alt="ismail-bot-icon" />
+        <div className="chat-bot-icon" onClick={() =>
+              chatBotState ? setChatBotState(false) : setChatBotState(true)
+            }>
+          <img
+            src={ismail_bot}
+            alt="ismail-bot-icon"
+            
+          />
         </div>
+
+        {chatBotState && (
+          <div className="chat-window">
+            <div className="chat-header">
+              <div className="close-chat-window">
+                <IoClose id="close" onClick={() =>
+              setChatBotState(false)
+            }/>
+              </div>
+
+             
+
+              <div className="chat-bot-avatar">
+                <img src={ismail_bot} alt="ismail-bot-icon" />
+                <div className="status-green"></div>
+              </div>
+              <div className="chat-bot-name-status">
+                <div className="chat-bot-name">
+                  Ismail - <span>Bot</span>
+                </div>
+                <div className="chat-bot-status">online</div>
+              </div>
+
+              <div className="options">
+              <SlOptionsVertical id="options"/>
+              </div>
+              
+            </div>
+
+            <div className="message-session">
+              {chatSession.map((message, index) => {
+                return index % 2 != 0 ? (
+                  chatSession[index] == " " ? (
+                    <div className="ai-load" key={index}>
+                      <div className="loader-ai"></div>
+                    </div>
+                  ) : (
+                    <div className="chat-bot-message" key={index}>
+                      <div className="chat-bot-avatar">
+                        <img src={ismail_bot} alt="ismail-bot-icon" />
+                      </div>
+
+                      <div className="chat-bot-name-message">
+                        <div className="name">
+                          Ismail - <span>Bot</span>
+                        </div>
+                        <ReactMarkdown className="message">
+                          {message}
+                        </ReactMarkdown>
+                      </div>
+                    </div>
+                  )
+                ) : (
+                  <div className="user-message" key={index}>
+                    <div>{message}</div>
+                  </div>
+                );
+              })}
+
+              <div ref={messageEndRef} />
+            </div>
+
+            <div className="message-box">
+              <input
+                type="text"
+                placeholder="compose a message"
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
+              />
+              <button
+                onClick={addMessage}
+                disabled={
+                  chatSession[chatSession.length - 1] == " " ? true : false
+                }
+              >
+                send
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <Footer />
