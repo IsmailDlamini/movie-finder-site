@@ -87,7 +87,7 @@ const Home = () => {
   const [chatSession, setChatSession] = useState([]);
 
   const [userMessage, setUserMessage] = useState("");
-  const [chatBotState, setChatBotState] = useState(true);
+  const [chatBotState, setChatBotState] = useState(false);
 
   const messageEndRef = useRef(null);
 
