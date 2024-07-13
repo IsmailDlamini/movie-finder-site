@@ -23,6 +23,10 @@ header{
     z-index: 1;
 }
 
+header .mobile-nav{
+ display: none;   
+}
+
 header img{
     width: 100px;
     margin-left: 20px;
@@ -87,8 +91,68 @@ header .beta-tag{
 
 @media screen and (max-width: 700px) {
 
-    header ul{
-        display: none;
-    }
+  
+header{
+    height: 70px;
+    padding: 10px 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(84, 84, 84);
+}
+
+header img{
+    width: 80px;
+    margin-left: 0px;
+}
+
+header ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    width: 280px;
+    margin-right: 50px;
+    color: #747c86;
+    font-family: var(--font-raleway);
+    font-size: .8rem;
+    font-weight: 700;
+    display: none;
+}
+
+header ul li:nth-child(1){
+    color: rgb(70, 134, 218);
+}
+
+
+header ul li:nth-child(2){
+    color: rgb(70, 134, 218);
+}
+
+header ul li{
+    cursor: pointer;
+}
+
+header .slogan{
+left: 60%;
+  transform: translate(-50%, -50%);
+  font-size: .7rem;
+  display: none;
+}
+
+header .beta-tag{
+    left: 125px;
+  top: 52%;
+  padding: 0 5px;
+  font-size: .5rem;
+}
+
+header .mobile-nav{
+display: block;
+}
+
+header .mobile-nav #mobile-burger-menu{
+    font-size: 1.5rem;
+    color: #587190;
+}
+
+
 
 }

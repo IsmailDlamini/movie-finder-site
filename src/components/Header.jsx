@@ -1,5 +1,6 @@
 import SiteLogo from "../assets/site-logo.png";
 import "./Header.css";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Header = () => {
   return (
@@ -17,6 +18,10 @@ const Header = () => {
           <li>About</li>
           <li>Contact</li>
         </ul>
+
+        <div className="mobile-nav">
+        <GiHamburgerMenu id="mobile-burger-menu"/>
+        </div>
 
         <div className="slogan">Find Your Next Favorite Flick</div>
 
