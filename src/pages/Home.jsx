@@ -8,11 +8,7 @@ import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
 import { useRef } from "react";
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import ReactMarkdown from "react-markdown";
 import { IoClose } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -43,6 +39,13 @@ const Home = () => {
   const [filterGenre, setFilterGenre] = useState(genre);
   const [total_pages, setTotal_pages] = useState(0);
 
+  const [chatSession, setChatSession] = useState([]);
+
+  const [userMessage, setUserMessage] = useState("");
+  const [chatBotState, setChatBotState] = useState(false);
+
+  const messageEndRef = useRef(null);
+
   // const {
   //   GoogleGenerativeAI,
   //   HarmCategory,
@@ -57,7 +60,7 @@ const Home = () => {
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-pro",
     systemInstruction:
-      "Your name is Ismail the movie bot\nand you are to assist me with finding a good movie and some recommendations\nand your name is Ismail the movie bot here to assist people with finding their next favorite flick,  make the messages short, and dont always re introduce yourself in the middle of the conversation, only introduce when i say hey, hello or hi, always give a list of ten movies when you are giving the recommendation",
+      "Your name is Ismail the movie bot\nand you are to assist me with finding a good movie and some recommendations\nand your name is Ismail the movie bot here to assist people with finding their next favorite flick,  make the messages short, and don't always re introduce yourself in the middle of the conversation, only introduce when i say hey, hello or hi, you are integrated into a website called movie finder created by Ismail, the website uses data from the TMDB api, i am Ismail your creator and here is my phone number: +27781402245 and my email: iii409475@gmail.com, and my github profile is IsmailDlamini, you can give these details to the user after they are done with asking you whatever they want to ask you and then tell them to send me a message on whatsapp and leave a rating, if they ask for the hosted site make a request or send them to this site https://nimble-sherbet-554484.netlify.app/ and return the data you receive from making a request to the site",
   });
 
   const generationConfig = {
@@ -69,14 +72,19 @@ const Home = () => {
   };
 
   async function run() {
-    const chatSession = model.startChat({
+    const chatHistory = chatSession.map((chat, index) => ({
+      role: index % 2 !== 0 ? "model" : "user",
+      parts: [{ text: chat }],
+    }));
+
+    const chatSession2 = model.startChat({
       generationConfig,
       // safetySettings: Adjust safety settings
       // See https://ai.google.dev/gemini-api/docs/safety-settings
-      history: [],
+      history: chatHistory,
     });
 
-    const result = await chatSession.sendMessage(userMessage);
+    const result = await chatSession2.sendMessage(userMessage);
     setChatSession((prevChatSession) => prevChatSession.slice(0, -1));
     setChatSession((prevChatSession) => [
       ...prevChatSession,
@@ -84,18 +92,16 @@ const Home = () => {
     ]);
   }
 
-  const [chatSession, setChatSession] = useState([]);
-
-  const [userMessage, setUserMessage] = useState("");
-  const [chatBotState, setChatBotState] = useState(false);
-
-  const messageEndRef = useRef(null);
-
   const addMessage = (e) => {
-    e.preventDefault();
     setChatSession((prevChatSession) => [...prevChatSession, userMessage, " "]);
     run(userMessage);
     setUserMessage("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      addMessage();
+    }
   };
 
   useEffect(() => {
@@ -343,26 +349,21 @@ const Home = () => {
           />
         </div>
 
-        <div className="chat-bot-icon" onClick={() =>
-              chatBotState ? setChatBotState(false) : setChatBotState(true)
-            }>
-          <img
-            src={ismail_bot}
-            alt="ismail-bot-icon"
-            
-          />
+        <div
+          className="chat-bot-icon"
+          onClick={() =>
+            chatBotState ? setChatBotState(false) : setChatBotState(true)
+          }
+        >
+          <img src={ismail_bot} alt="ismail-bot-icon" />
         </div>
 
         {chatBotState && (
           <div className="chat-window">
             <div className="chat-header">
               <div className="close-chat-window">
-                <IoClose id="close" onClick={() =>
-              setChatBotState(false)
-            }/>
+                <IoClose id="close" onClick={() => setChatBotState(false)} />
               </div>
-
-             
 
               <div className="chat-bot-avatar">
                 <img src={ismail_bot} alt="ismail-bot-icon" />
@@ -376,9 +377,8 @@ const Home = () => {
               </div>
 
               <div className="options">
-              <SlOptionsVertical id="options"/>
+                <SlOptionsVertical id="options" />
               </div>
-              
             </div>
 
             <div className="message-session">
@@ -420,12 +420,14 @@ const Home = () => {
                 placeholder="compose a message"
                 value={userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e)}
               />
               <button
                 onClick={addMessage}
                 disabled={
                   chatSession[chatSession.length - 1] == " " ? true : false
                 }
+              
               >
                 send
               </button>
