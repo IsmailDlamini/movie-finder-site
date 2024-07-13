@@ -162,7 +162,7 @@ const Trending = () => {
         </div>
 
         <div className="info-pagination-movie-container">
-          <div className="list-page-info">
+          <div className="list-page-info trending">
             <div className="list-type">Trending Movies</div>
 
             <div className="page-number">Page {page ? page : 1}</div>
