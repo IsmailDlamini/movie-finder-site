@@ -622,7 +622,7 @@ background-color: #292f36;
 
       .home-page-container .search-component .search-bar {
         width: 85%;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
       }
       
       .home-page-container .search-component .search-bar #search-term {
@@ -652,6 +652,7 @@ background-color: #292f36;
       .home-page-container .search-component .filters ul li {
         margin-right: 1vw;
         margin-top: 10px;
+        font-size: .7rem;
       }
       
       .home-page-container .search-component .filters ul li div {
@@ -820,13 +821,9 @@ background-color: #292f36;
       }
       
       .home-page-container .movie-container .loading-skeleton {
-        width: 200px;
-        height: 350px;
-        background-color: #6e7b94;
-        border-radius: 7px;
-        margin-bottom: 20px;
-        margin-right: 42px;
-        opacity: 0.5;
+        width: 48%;
+        height: 300px;
+        margin-right: 0;
         animation: pulsate 1.5s ease-in-out infinite;
       }
       
