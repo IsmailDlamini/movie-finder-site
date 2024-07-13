@@ -51,3 +51,57 @@ footer{
     margin-right: 10px;
     width: 40px;
   }
+
+
+  @media only screen and (min-width: 700px) and (max-width: 1024px) {
+
+  }
+  
+  
+  
+  @media screen and (max-width: 700px) {
+  
+    footer{
+      height: 200px;
+      align-items:last baseline;
+      padding: 0 10px;
+    }
+    
+    footer .logo{
+      height: 50%;
+      display: flex;
+      align-items: center;
+    }
+    
+    footer .logo img{
+      width: 100px;
+    }
+    
+    footer .copyright{
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-raleway);
+      font-size: .8rem;
+      text-align: center;
+      width: 90%;
+    }
+    
+    footer .copyright span{
+      font-size: .7rem;
+      color: rgb(185, 185, 185);
+    }
+    
+    footer .icons img{
+      width: 40px;
+      margin-top: 10px;
+    }
+
+    footer .icons{
+      display: flex;
+      flex-direction: row;
+    }
+  
+  
+  }
