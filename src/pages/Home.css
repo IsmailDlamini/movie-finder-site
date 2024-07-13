@@ -616,7 +616,8 @@ background-color: #292f36;
       .home-page-container .search-component .creator {
         right: 0%;
         left: 7.9%;
-        bottom: 2%;
+        bottom: 4.5%;
+        font-size: .6rem;
       }
 
       .home-page-container .search-component .search-bar {
