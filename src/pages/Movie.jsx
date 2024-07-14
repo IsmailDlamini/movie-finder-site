@@ -93,7 +93,6 @@ const Movie = () => {
                       : ""
                     : ""
                 }`,
-                backgroundSize: "cover",
               }}
             ></div>
             <div className="first-half">

@@ -20,6 +20,7 @@
   position: absolute;
   filter: blur(25px);
   z-index: -1;
+  background-size: cover;
 }
 
 .movie-page-container .page-background-image::before {
@@ -536,6 +537,7 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+    background-size: contain;
   }
 
   .movie-page-container .page-background-image::before {
@@ -686,6 +688,8 @@
     font-weight: 400;
     color: rgb(225, 232, 235);
     width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
     margin: 0 auto;
   }
 
