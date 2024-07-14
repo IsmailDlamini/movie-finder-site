@@ -1,0 +1,5 @@
+
+
+--> you need to fix the trending page(navigation)
+--> you also need to fix the ai messaging error of too many requests
+--> and create a menu for mobile and a pagination component for mobile
