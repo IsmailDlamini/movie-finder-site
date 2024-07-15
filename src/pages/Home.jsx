@@ -57,6 +57,10 @@ const Home = () => {
     "AIzaSyCE9GbFCwSLWzygppx6x8vbIxV-RC799wU"
   );
 
+
+  // 15 responses per minute for this model --> gemini-1.5-flash(recommended)
+  // 2 responses per minute for this model --> gemini-1.5-pro
+  
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     const safe = {
