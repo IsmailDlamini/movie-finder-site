@@ -57,7 +57,7 @@ const Home = () => {
 
   // const apiKey = process.env.GEMINI_API_KEY;
 
-const safetySetting = [
+const safetySettings = [
   {
     category: HarmCategory.HARM_CATEGORY_HARASSMENT,
     threshold: HarmBlockThreshold.BLOCK_NONE,
@@ -87,7 +87,7 @@ const safetySetting = [
     model: "gemini-1.5-flash",
     systemInstruction:
       "Your name is Ismail the movie bot\nand you are to assist me with finding a good movie and some recommendations\nand your name is Ismail the movie bot here to assist people with finding their next favorite flick,  make the messages short, and don't always re introduce yourself in the middle of the conversation, only introduce when i say hey, hello or hi, you are integrated into a website called movie finder created by Ismail, the website uses data from the TMDB api, i am Ismail your creator and here is my phone number: +27781402245 and my email: iii409475@gmail.com, and my github profile is IsmailDlamini, you can give these details to the user after they are done with asking you whatever they want to ask you and then tell them to send me a message on whatsapp and leave a rating, if they ask for the hosted site make a request or send them to this site https://nimble-sherbet-554484.netlify.app/ and return the data you receive from making a request to the site",
-      safetySetting
+      safetySettings
     });
 
   const generationConfig = {
