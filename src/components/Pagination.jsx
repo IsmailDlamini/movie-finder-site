@@ -18,7 +18,7 @@ const Pagination = (prop) => {
         prop.filterReleaseYear != null ? `year=${prop.filterReleaseYear}` : ""
       }&page=${pageNumber}`;
     } else if (prop.pageToPaginate == "Trending") {
-      window.location.href = `/trending?page=${pageNumber}`;
+      window.location.href = `/trending/${prop.timeframe}?page=${pageNumber}`;
     }
   };
 
