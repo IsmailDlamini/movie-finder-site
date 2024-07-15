@@ -176,6 +176,7 @@ const Trending = () => {
             page={page}
             total_pages={total_pages}
             pageToPaginate="Trending"
+            timeframe={timeframe}
           />
         </div>
 
