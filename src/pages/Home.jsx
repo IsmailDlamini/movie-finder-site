@@ -90,6 +90,8 @@ const Home = () => {
       ...prevChatSession,
       result.response.text(),
     ]);
+
+    console.log(chatHistory);
   }
 
   const addMessage = (e) => {
