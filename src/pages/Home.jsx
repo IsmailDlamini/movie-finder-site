@@ -63,7 +63,7 @@ const Home = () => {
   
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-    const safe = {
+    const safetySettings = {
     "HARM_CATEGORY_HARASSMENT": "BLOCK_NONE",
     "HARM_CATEGORY_HATE_SPEECH": "BLOCK_NONE",
     "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
