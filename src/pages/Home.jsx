@@ -8,7 +8,10 @@ import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
 import { useRef } from "react";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import {
+  HarmCategory,
+  HarmBlockThreshold,
+  GoogleGenerativeAI } from "@google/generative-ai";
 import ReactMarkdown from "react-markdown";
 import { IoClose } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
