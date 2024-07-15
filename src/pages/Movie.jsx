@@ -59,11 +59,6 @@ const Movie = () => {
         setMovieImages(imagesData.backdrops);
         setSimilarMovies(similarData.results);
         setMovieReviews(reviewsData.results);
-
-        console.log(detailsData);
-        console.log(similarData.results);
-        console.log(reviewsData.results);
-        console.log(imagesData.backdrops);
       } catch (err) {
         console.error(err);
       }
