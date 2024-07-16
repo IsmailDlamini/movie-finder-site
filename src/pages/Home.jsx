@@ -123,6 +123,14 @@ const safetySettings = [
     }
   };
 
+  const handleSearchKeyDown = () => {
+    if (e.key === "Enter") {
+      if(searchTerm.length > 0){
+         search()
+      }
+    }
+  }
+
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -242,6 +250,7 @@ const safetySettings = [
                 id="search-term"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+
               />{" "}
               <button
                 onClick={() => search()}
