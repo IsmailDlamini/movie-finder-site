@@ -131,7 +131,7 @@ const Pagination = (prop) => {
           className={`previous-button ${
             prop.page ? (prop.page < 2 ? "disable" : "") : "disable"
           }`}
-          onClick={() => changePage(prop.page ? (+prop.page - 1) : "")}
+          onClick={() => prop.page ? changePage((+prop.page - 1)) : ""}
         >
           {"<<"} Prev
         </div>
