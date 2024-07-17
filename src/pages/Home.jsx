@@ -246,7 +246,7 @@ const safetySettings = [
             <label htmlFor="search-term">Search Term:</label>
             <div>
               <input
-                type="text"
+                type="search"
                 id="search-term"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
