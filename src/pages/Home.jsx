@@ -11,7 +11,8 @@ import { useRef } from "react";
 import {
   HarmCategory,
   HarmBlockThreshold,
-  GoogleGenerativeAI } from "@google/generative-ai";
+  GoogleGenerativeAI,
+} from "@google/generative-ai";
 import ReactMarkdown from "react-markdown";
 import { IoClose } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -49,24 +50,24 @@ const Home = () => {
 
   const messageEndRef = useRef(null);
 
-const safetySettings = [
-  {
-    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-    threshold: HarmBlockThreshold.BLOCK_NONE,
-  },
-];
+  const safetySettings = [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
+    },
+  ];
 
   const genAI = new GoogleGenerativeAI(
     "AIzaSyCE9GbFCwSLWzygppx6x8vbIxV-RC799wU"
@@ -76,13 +77,13 @@ const safetySettings = [
   // 2 responses per minute for this model --> gemini-1.5-pro
 
   // move the integration to another page so that you can be able to distribute it to another page
-  
+
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction:
       "Your name is Ismail the movie bot\nand you are to assist me with finding a good movie and some recommendations,  make the messages short, and don't always re introduce yourself in the middle of the conversation, you are integrated into a website called movie finder created by Ismail, the website uses data from the TMDB api, i am Ismail your creator and here is my phone number: +27781402245 and my email: iii409475@gmail.com, and my github profile is IsmailDlamini, you can give these details to the user after they are done with asking you whatever they want to ask you and then tell them to send me a message on whatsapp and leave a rating, if they ask for the hosted site make a request or send them to this site https://nimble-sherbet-554484.netlify.app/ and return the data you receive from making a request to the site",
-      safetySettings
-    });
+    safetySettings,
+  });
 
   const generationConfig = {
     temperature: 1,
@@ -111,7 +112,7 @@ const safetySettings = [
     ]);
   }
 
-  const addMessage = (e) => {
+  const addMessage = () => {
     setChatSession((prevChatSession) => [...prevChatSession, userMessage, " "]);
     run(userMessage);
     setUserMessage("");
@@ -123,13 +124,13 @@ const safetySettings = [
     }
   };
 
-  const handleSearchKeyDown = () => {
+  const handleSearchKeyDown = (e) => {
     if (e.key === "Enter") {
-      if(searchTerm.length > 0){
-         search()
+      if (searchTerm.length > 0) {
+        search();
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (messageEndRef.current) {
@@ -250,7 +251,7 @@ const safetySettings = [
                 id="search-term"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-
+                onKeyDown={(e) => handleSearchKeyDown(e)}
               />{" "}
               <button
                 onClick={() => search()}
@@ -455,7 +456,6 @@ const safetySettings = [
                 disabled={
                   chatSession[chatSession.length - 1] == " " ? true : false
                 }
-              
               >
                 send
               </button>

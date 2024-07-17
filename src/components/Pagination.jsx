@@ -1,7 +1,6 @@
 import "./Pagination.css";
 
 const Pagination = (prop) => {
-
   const changePage = (pageNumber) => {
     if (prop.pageToPaginate == "Discover") {
       window.location.href = `/?page=${pageNumber}${
@@ -122,6 +121,45 @@ const Pagination = (prop) => {
         <div
           className="next-page nav"
           onClick={() => changePage(+prop.page + 1)}
+        >
+          Next {">>"}
+        </div>
+      </div>
+
+      <div className="pagination-mobile">
+        <div
+          className={`previous-button ${
+            prop.page ? (prop.page < 2 ? "disable" : "") : "disable"
+          }`}
+          onClick={() => changePage(prop.page ? (+prop.page - 1) : "")}
+        >
+          {"<<"} Prev
+        </div>
+        <div
+          className={`first-page ${
+            prop.page ? (prop.page < 2 ? "hide" : "") : "hide"
+          }`}
+        >
+          1
+        </div>
+        <div
+          className={`spacing ${
+            prop.page ? (prop.page < 2 ? "hide" : "") : "hide"
+          }`}
+        >
+          {"***"}
+        </div>
+        <div className="current-page">{prop.page ? prop.page : 1}</div>
+        <div
+          className={`next-button ${
+            prop.page
+              ? prop.page === prop.total_pages
+                ? "disable"
+                : ""
+              : prop.total_pages == 1
+              ? "disable"
+              : ""
+          }`}
         >
           Next {">>"}
         </div>
