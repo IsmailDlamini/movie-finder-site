@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
-import ismail_bot from "../assets/ismail-bot.png";
 import Header from "../components/Header";
 import { useNavigate, useLocation } from "react-router-dom";
 import Genres from "../data/Genres";
@@ -8,13 +7,15 @@ import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
 import { useParams } from "react-router-dom";
+import ChatBotIcon from "../components/ChatBotIcon";
+import Ai from "../utils/Ai";
 
 const Trending = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  const {timeFrame} = useParams();
+  const { timeFrame } = useParams();
 
   const page = searchParams.get("page");
 
@@ -23,6 +24,12 @@ const Trending = () => {
   const [total_pages, setTotal_pages] = useState(0);
 
   const [_timeFrame, setTimeFrame] = useState();
+
+  const [chatBotState, setChatBotState] = useState(false);
+
+  const changeChatBotState = (newState) => {
+    setChatBotState(newState);
+  };
 
   const options = {
     method: "GET",
@@ -35,9 +42,9 @@ const Trending = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/trending/movie/${timeFrame == "today" ? 'day' : 'week'}?language=en-US&page=${
-        page ? page : 1
-      }`,
+      `https://api.themoviedb.org/3/trending/movie/${
+        timeFrame == "today" ? "day" : "week"
+      }?language=en-US&page=${page ? page : 1}`,
       options
     )
       .then((response) => response.json())
@@ -49,28 +56,27 @@ const Trending = () => {
   }, []);
 
   const search = () => {
-    navigate(
-      `/search/${searchTerm}?page=${1}`
-    );
+    navigate(`/search/${searchTerm}?page=${1}`);
   };
 
   const applyFilters = () => {
-    navigate(
-      `/trending/${_timeFrame}`
-    );
+    navigate(`/trending/${_timeFrame}`);
     window.location.reload();
   };
 
-
   const viewMovieDetails = (movieId) => {
-    window.location.href = `/movie/${movieId}`
-  }
+    window.location.href = `/movie/${movieId}`;
+  };
 
   const Movie_list = movies.map((movie, index) => {
     return (
-      <div className="movie-object" key={index}  onClick={() => viewMovieDetails(movie.id)}>
+      <div
+        className="movie-object"
+        key={index}
+        onClick={() => viewMovieDetails(movie.id)}
+      >
         <div className="image">
-        {movie.poster_path != null ? (
+          {movie.poster_path != null ? (
             <img
               src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               alt={movie.title}
@@ -180,9 +186,11 @@ const Trending = () => {
           />
         </div>
 
-        <div className="chat-bot-icon">
-          <img src={ismail_bot} alt="ismail-bot-icon" />
-        </div>
+        <ChatBotIcon
+          changeChatBotState={changeChatBotState}
+          chatBotState={chatBotState}
+        />
+         {chatBotState && <Ai changeChatBotState={changeChatBotState} />}
       </div>
 
       <Footer />

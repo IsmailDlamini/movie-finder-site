@@ -5,9 +5,9 @@
 
 
 
---> Move the Ai to the other pages( create component that can be distributed safely) 
---> Clean Dead code
---> creade media queries for tablet devices
+--> Move the Ai to the other pages( create component that can be distributed safely) --> Done (18 July)
+--> Clean Dead code 
+--> create media queries for tablet devices
 
 
 

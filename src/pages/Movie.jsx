@@ -8,6 +8,8 @@ import { BiSolidMoviePlay } from "react-icons/bi";
 import { FaStar } from "react-icons/fa6";
 import { FaImdb } from "react-icons/fa";
 import no_avatar from "../assets/no-avatar.jpg";
+import Ai from "../utils/Ai";
+import ChatBotIcon from "../components/ChatBotIcon";
 
 const Movie = () => {
   const { id } = useParams();
@@ -16,6 +18,7 @@ const Movie = () => {
   const [movieImages, setMovieImages] = useState();
   const [similarMovies, setSimilarMovies] = useState();
   const [movieReviews, setMovieReviews] = useState();
+  const [chatBotState, setChatBotState] = useState(false); // required on every page
 
   const options = {
     method: "GET",
@@ -69,6 +72,10 @@ const Movie = () => {
 
   const viewMovieDetails = (movieId) => {
     window.location.href = `/movie/${movieId}`;
+  };
+
+  const changeChatBotState = (newState) => {
+    setChatBotState(newState);
   };
 
   return (
@@ -272,6 +279,13 @@ const Movie = () => {
             </div>
           </>
         )}
+
+        <ChatBotIcon
+          changeChatBotState={changeChatBotState}
+          chatBotState={chatBotState}
+        />
+
+        {chatBotState && <Ai changeChatBotState={changeChatBotState} />}
       </div>
       <Footer />
     </>

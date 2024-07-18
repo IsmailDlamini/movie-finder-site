@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
-import SiteLogo from "../assets/site-logo.png";
 import "./Home.css";
-import linkedin from "../assets/linkedin.png";
-import github from "../assets/github.png";
-import ismail_bot from "../assets/ismail-bot.png";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Genres from "../data/Genres";
 import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
+import Ai from "../utils/Ai";
+import ChatBotIcon from "../components/ChatBotIcon";
+import Footer from "../components/Footer";
 
 const Search = () => {
   const location = useLocation();
@@ -27,6 +26,12 @@ const Search = () => {
   const [filterReleaseYear, setFilterReleaseYear] = useState(year);
   const [numberOfResults, setNumberOfResults] = useState(0);
   const [total_pages, setTotal_pages] = useState();
+
+  const [chatBotState, setChatBotState] = useState(false);
+
+  const changeChatBotState = (newState) => {
+    setChatBotState(newState);
+  };
 
   const options = {
     method: "GET",
@@ -63,13 +68,16 @@ const Search = () => {
   };
 
   const viewMovieDetails = (movieId) => {
-    window.location.href = `/movie/${movieId}`
-  }
-
+    window.location.href = `/movie/${movieId}`;
+  };
 
   const Movie_list = movies.map((movie, index) => {
     return (
-      <div className="movie-object" key={index} onClick={() => viewMovieDetails(movie.id)} >
+      <div
+        className="movie-object"
+        key={index}
+        onClick={() => viewMovieDetails(movie.id)}
+      >
         <div className="image">
           {movie.poster_path != null ? (
             <img
@@ -227,32 +235,14 @@ const Search = () => {
           )}
         </div>
 
-        <div className="chat-bot-icon">
-          <img src={ismail_bot} alt="ismail-bot-icon" />
-        </div>
+        <ChatBotIcon
+          changeChatBotState={changeChatBotState}
+          chatBotState={chatBotState}
+        />
+        {chatBotState && <Ai changeChatBotState={changeChatBotState} />}
       </div>
 
-      <footer>
-        <div className="logo">
-          <img src={SiteLogo} alt="logo" />
-        </div>
-
-        <div className="copyright">
-          © 2024 Ismail. All rights reserved. <br />
-          <br />
-          <span>
-            Movie Finder aggregates movie info from various sources including
-            [TMDB, IMDB, etc.]. Content is for informational purposes only. We
-            do not host or upload any video, films, or media files. All content
-            is sourced from publicly available third-party services.
-          </span>
-        </div>
-
-        <div className="icons">
-          <img src={linkedin} alt="linkedin-icon" />
-          <img src={github} alt="github-icon" />
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 };

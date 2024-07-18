@@ -7,12 +7,15 @@ import {
 import ReactMarkdown from "react-markdown";
 import { IoClose } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
+import { useEffect, useState } from "react";
+import ismail_bot from "../assets/ismail-bot.png";
+import propTypes from "prop-types"
+import "./Ai.css"
 
-const Ai = () => {
+const Ai = ({changeChatBotState}) => {
   
   const [chatSession, setChatSession] = useState([]);
   const [userMessage, setUserMessage] = useState("");
-  const [chatBotState, setChatBotState] = useState(false);
   const messageEndRef = useRef(null);
 
   const safetySettings = [
@@ -97,7 +100,7 @@ const Ai = () => {
           <div className="chat-window">
             <div className="chat-header">
               <div className="close-chat-window">
-                <IoClose id="close" onClick={() => setChatBotState(false)} />
+                <IoClose id="close" onClick={() => changeChatBotState(false)} />
               </div>
 
               <div className="chat-bot-avatar">
@@ -167,10 +170,14 @@ const Ai = () => {
               </button>
             </div>
           </div>
-        )
+        
   </>
 )
   
+}
+
+Ai.propTypes = {
+  changeChatBotState : propTypes.func.isRequired,
 }
 
 export default Ai;
