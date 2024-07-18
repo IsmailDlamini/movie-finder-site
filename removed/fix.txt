@@ -3,8 +3,6 @@
 --> you also need to fix the ai messaging error of too many requests  --> Done (15 july)
 --> and create a menu for mobile and a pagination component for mobile  --> Pagination Done (15 july)
 
-
-
 --> Move the Ai to the other pages( create component that can be distributed safely) --> Done (18 July)
 --> Clean Dead code 
 --> create media queries for tablet devices

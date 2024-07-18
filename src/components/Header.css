@@ -81,6 +81,9 @@ header .beta-tag{
   font-size: .7rem;
 }
 
+header .mobile-navigation{
+    display: none;
+}
 
 
 @media only screen and (min-width: 700px) and (max-width: 1024px) {
@@ -88,15 +91,14 @@ header .beta-tag{
 }
 
 
-
 @media screen and (max-width: 700px) {
 
-  
 header{
     height: 70px;
     padding: 10px 25px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgb(84, 84, 84);
+    z-index: 1;
 }
 
 header img{
@@ -151,6 +153,51 @@ display: block;
 header .mobile-nav #mobile-burger-menu{
     font-size: 1.5rem;
     color: #587190;
+}
+
+header .mobile-navigation{
+    display: block;
+    width: 160px;
+    right: 0;
+    height: 250px;
+    position: absolute;
+    background-color: #25292E;
+    margin-top: 320px;
+    border-bottom-left-radius: 60px;
+    border: 2px solid rgb(84, 84, 84);
+    padding-left: 35px;
+    padding-top: 5px;
+    padding-right: 10px;
+    transition: .4s all ease-in-out;
+    z-index: -1;
+
+}
+
+header .mobile-navigation div{
+    margin-top: 20px;
+    font-family: var(--font-inter);
+    font-weight: 700;
+    color: #c6d2e0;
+    padding: 2px 4px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+
+}
+
+header .open{
+    transform: translateX(0);
+}
+
+header .closed{
+    transform: translateX(600px);
+}
+
+
+
+header .mobile-navigation div .icon{
+    margin-left: 10px;
 }
 
 
