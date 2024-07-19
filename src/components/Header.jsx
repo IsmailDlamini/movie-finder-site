@@ -71,9 +71,9 @@ const Header = () => {
 
           <div className="contact">
             <Link to={"/"} style={{ textDecoration: "none", color: "#c6d2e0" }}>
-              Di
+              Contact
             </Link>
-            Contact <MdContactPhone className="icon" />
+            <MdContactPhone className="icon" />
           </div>
         </div>
       </header>
