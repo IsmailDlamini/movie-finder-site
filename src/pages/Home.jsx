@@ -75,7 +75,7 @@ const Home = () => {
         setTotal_pages(data.total_pages);
       })
       .catch((err) => console.error(err));
-  }, [page]);
+  });
 
   const search = () => {
     navigate(
