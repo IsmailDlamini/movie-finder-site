@@ -53,7 +53,7 @@ const Trending = () => {
         setTotal_pages(data.total_pages);
       })
       .catch((err) => console.error(err));
-  }, []);
+  });
 
   const search = () => {
     navigate(`/search/${searchTerm}?page=${1}`);

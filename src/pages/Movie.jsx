@@ -68,7 +68,7 @@ const Movie = () => {
     };
 
     fetchMovieData();
-  }, [id]);
+  });
 
   const viewMovieDetails = (movieId) => {
     window.location.href = `/movie/${movieId}`;

@@ -159,10 +159,10 @@ header .mobile-navigation{
     display: block;
     width: 160px;
     right: 0;
-    height: 250px;
+    height: 205px;
     position: absolute;
     background-color: #25292E;
-    margin-top: 320px;
+    margin-top: 280px;
     border-bottom-left-radius: 60px;
     border: 2px solid rgb(84, 84, 84);
     padding-left: 35px;

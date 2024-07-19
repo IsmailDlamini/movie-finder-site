@@ -9,11 +9,10 @@ import { IoClose } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
 import { useEffect, useState } from "react";
 import ismail_bot from "../assets/ismail-bot.png";
-import propTypes from "prop-types"
-import "./Ai.css"
+import propTypes from "prop-types";
+import "./Ai.css";
 
-const Ai = ({changeChatBotState}) => {
-  
+const Ai = ({ changeChatBotState }) => {
   const [chatSession, setChatSession] = useState([]);
   const [userMessage, setUserMessage] = useState("");
   const messageEndRef = useRef(null);
@@ -89,95 +88,89 @@ const Ai = ({changeChatBotState}) => {
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [chatSession]);
 
   return (
-  <>
-          <div className="chat-window">
-            <div className="chat-header">
-              <div className="close-chat-window">
-                <IoClose id="close" onClick={() => changeChatBotState(false)} />
-              </div>
-
-              <div className="chat-bot-avatar">
-                <img src={ismail_bot} alt="ismail-bot-icon" />
-                <div className="status-green"></div>
-              </div>
-              <div className="chat-bot-name-status">
-                <div className="chat-bot-name">
-                  Ismail - <span>Bot</span>
-                </div>
-                <div className="chat-bot-status">online</div>
-              </div>
-
-              <div className="options">
-                <SlOptionsVertical id="options" />
-              </div>
-            </div>
-
-            <div className="message-session">
-              {chatSession.map((message, index) => {
-                return index % 2 != 0 ? (
-                  chatSession[index] == " " ? (
-                    <div className="ai-load" key={index}>
-                      <div className="loader-ai"></div>
-                    </div>
-                  ) : (
-                    <div className="chat-bot-message" key={index}>
-                      <div className="chat-bot-avatar">
-                        <img src={ismail_bot} alt="ismail-bot-icon" />
-                      </div>
-
-                      <div className="chat-bot-name-message">
-                        <div className="name">
-                          Ismail - <span>Bot</span>
-                        </div>
-                        <ReactMarkdown className="message">
-                          {message}
-                        </ReactMarkdown>
-                      </div>
-                    </div>
-                  )
-                ) : (
-                  <div className="user-message" key={index}>
-                    <div>{message}</div>
-                  </div>
-                );
-              })}
-
-              <div ref={messageEndRef} />
-            </div>
-
-            <div className="message-box">
-              <input
-                type="text"
-                placeholder="compose a message"
-                value={userMessage}
-                onChange={(e) => setUserMessage(e.target.value)}
-                onKeyDown={(e) => handleKeyDown(e)}
-              />
-              <button
-                onClick={addMessage}
-                disabled={
-                  chatSession[chatSession.length - 1] == " " ? true : false
-                }
-              >
-                send
-              </button>
-            </div>
+    <>
+      <div className="chat-window">
+        <div className="chat-header">
+          <div className="close-chat-window">
+            <IoClose id="close" onClick={() => changeChatBotState(false)} />
           </div>
-        
-  </>
-)
-  
-}
+
+          <div className="chat-bot-avatar">
+            <img src={ismail_bot} alt="ismail-bot-icon" />
+            <div className="status-green"></div>
+          </div>
+          <div className="chat-bot-name-status">
+            <div className="chat-bot-name">
+              Ismail - <span>Bot</span>
+            </div>
+            <div className="chat-bot-status">online</div>
+          </div>
+
+          <div className="options">
+            <SlOptionsVertical id="options" />
+          </div>
+        </div>
+
+        <div className="message-session">
+          {chatSession.map((message, index) => {
+            return index % 2 != 0 ? (
+              chatSession[index] == " " ? (
+                <div className="ai-load" key={index}>
+                  <div className="loader-ai"></div>
+                </div>
+              ) : (
+                <div className="chat-bot-message" key={index}>
+                  <div className="chat-bot-avatar">
+                    <img src={ismail_bot} alt="ismail-bot-icon" />
+                  </div>
+
+                  <div className="chat-bot-name-message">
+                    <div className="name">
+                      Ismail - <span>Bot</span>
+                    </div>
+                    <ReactMarkdown className="message">{message}</ReactMarkdown>
+                  </div>
+                </div>
+              )
+            ) : (
+              <div className="user-message" key={index}>
+                <div>{message}</div>
+              </div>
+            );
+          })}
+
+          <div ref={messageEndRef} />
+        </div>
+
+        <div className="message-box">
+          <input
+            type="text"
+            placeholder="compose a message"
+            value={userMessage}
+            onChange={(e) => setUserMessage(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e)}
+          />
+          <button
+            onClick={addMessage}
+            disabled={chatSession[chatSession.length - 1] == " " ? true : false}
+          >
+            send
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
 
 Ai.propTypes = {
-  changeChatBotState : propTypes.func.isRequired,
-}
+  changeChatBotState: propTypes.func.isRequired,
+};
 
 export default Ai;

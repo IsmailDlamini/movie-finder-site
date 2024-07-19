@@ -56,7 +56,7 @@ const Search = () => {
         setNumberOfResults(data.total_results);
       })
       .catch((err) => console.error(err));
-  }, [page]);
+  });
 
   const search = () => {
     navigate(

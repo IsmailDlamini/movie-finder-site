@@ -160,7 +160,7 @@ const Pagination = (prop) => {
               ? "disable"
               : ""
           }`}
-               onClick={() => prop.page ? +prop.page !== +prop.total_pages ? changePage((+prop.page + 1)) : changePage(+prop.total_pages > 1 ? 2 : 1): ""}
+               onClick={() => prop.page ? +prop.page !== prop.total_pages ? changePage((+prop.page + 1)) : "" : changePage(+prop.total_pages > 1 ? 2 : 1)}
 
         >
           Next {">>"}

@@ -289,8 +289,6 @@ const Home = () => {
           />
         </div>
 
-        
-
         <ChatBotIcon
           changeChatBotState={changeChatBotState}
           chatBotState={chatBotState}
