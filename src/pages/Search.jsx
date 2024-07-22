@@ -29,6 +29,8 @@ const Search = () => {
 
   const [chatBotState, setChatBotState] = useState(false);
 
+  const [loadingResults, setLoadingResults] = useState(true);
+
   const changeChatBotState = (newState) => {
     setChatBotState(newState);
   };
@@ -55,8 +57,13 @@ const Search = () => {
         setTotal_pages(data.total_pages);
         setNumberOfResults(data.total_results);
       })
+      .then(() => {
+        setLoadingResults(false)
+      }
+      
+      )
       .catch((err) => console.error(err));
-  });
+  }, []);
 
   const search = () => {
     navigate(
@@ -206,7 +213,7 @@ const Search = () => {
           </div>
 
           <div className="movie-container">
-            {movies.length > 0 ? (
+            {!loadingResults ? (
               numberOfResults > 0 ? (
                 Movie_list
               ) : (
