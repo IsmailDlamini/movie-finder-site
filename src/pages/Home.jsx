@@ -151,7 +151,7 @@ const Home = () => {
       <div className="home-page-container">
         <div className="search-component">
           <div className="creator">
-            Created with love by <span>Ismail-Tate</span> &hearts;
+            Created with love by <span>Ismail</span> &hearts;
           </div>
 
           <div className="search-bar">
