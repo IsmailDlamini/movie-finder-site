@@ -292,6 +292,7 @@ const Home = () => {
         <ChatBotIcon
           changeChatBotState={changeChatBotState}
           chatBotState={chatBotState}
+          showHint={true}
         />
         {chatBotState && <Ai changeChatBotState={changeChatBotState} />}
       </div>
