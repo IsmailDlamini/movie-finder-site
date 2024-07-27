@@ -10,6 +10,7 @@ import { FaImdb } from "react-icons/fa";
 import no_avatar from "../assets/no-avatar.jpg";
 import Ai from "../utils/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
+import ReactMarkdown from "react-markdown";
 
 const Movie = () => {
   const { id } = useParams();
@@ -256,7 +257,9 @@ const Movie = () => {
                               Rating: {review.author_details.rating} / 10
                             </div>
 
-                            <div className="comment">{review.content}</div>
+                            {/* <div className="comment">{review.content}</div> */}
+
+                            <ReactMarkdown className="comment">{review.content}</ReactMarkdown>
                           </div>
                         );
                       })

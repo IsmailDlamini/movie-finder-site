@@ -17,8 +17,8 @@ const ChatBotIcon = ({ changeChatBotState, chatBotState, showHint }) => {
         ? showHint
           ? hintMessage && (
               <div className="chat-bot-availability-hint">
-                hello.👋 My name is Ismail the movie bot and I am here to assist
-                you with movie🎬 recommendations ✨
+                hello.👋 My name is <span>Ismail</span> the movie bot and I am here to assist
+                you with <span>movie🎬 recommendations ✨</span>
                 <IoCloseCircle
                   id="close-message-icon"
                   onClick={() => {

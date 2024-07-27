@@ -8,6 +8,16 @@
 --> create media queries for tablet devices
 
 
+Task List
+
+1. Fix the search bars --> let them all have a search type on the elements
+2. to change the color of the navigation bars that are not active
+to match the color of the background
+3. change the look of the mobile navigation burger menu bars
+4. create media queries for the tablets
+5. add error handling to the bot section
+6. add a backend service to collect all the data that people send to the bot 
+for study to better understand what people are looking for
 
 
 
