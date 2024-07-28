@@ -37,7 +37,7 @@ const Ai = ({ changeChatBotState }) => {
   ];
 
   const genAI = new GoogleGenerativeAI(
-    "AIzaSyCE9GbFCwSLWzygppx6x8vbIxV-RC799wU"
+    import.meta.env.VITE_GOOGLE_GEMINI_API_KEY
   );
 
   // 15 responses per minute for this model --> gemini-1.5-flash(recommended)
