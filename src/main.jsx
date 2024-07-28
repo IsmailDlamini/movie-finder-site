@@ -4,7 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import ReactGA from "react-ga4";
 
-ReactGA.initialize("YOUR_MEASURING_ID");
+ReactGA.initialize("G-BTM6YJ7R5D");
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
