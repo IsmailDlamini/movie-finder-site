@@ -8,8 +8,14 @@ import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
 import Ai from "../utils/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
+import ReactGA from 'react-ga'
 
 const Home = () => {
+
+  ReactGA.initialize('G-BTM6YJ7R5D', )
+
+
+
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
