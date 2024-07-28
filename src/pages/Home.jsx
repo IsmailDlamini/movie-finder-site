@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     ReactGA.send({
-      hitType: "page view",
+      hitType: "pageview",
       page: "/",
       title: "home page",
     });
