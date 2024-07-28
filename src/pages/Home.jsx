@@ -8,13 +8,17 @@ import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
 import Ai from "../utils/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
-import ReactGA from 'react-ga'
+import ReactGA from "react-ga4";
 
 const Home = () => {
 
-  ReactGA.initialize('G-BTM6YJ7R5D', )
-
-
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "page view",
+      page: "/",
+      title: "home page",
+    });
+  });
 
   const navigate = useNavigate();
   const location = useLocation();
