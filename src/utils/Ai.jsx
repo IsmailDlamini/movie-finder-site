@@ -204,6 +204,7 @@ const Ai = ({ changeChatBotState }) => {
   );
 };
 
+
 Ai.propTypes = {
   changeChatBotState: propTypes.func.isRequired,
 };
