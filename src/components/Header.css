@@ -157,19 +157,20 @@ header .mobile-nav #mobile-burger-menu{
 
 header .mobile-navigation{
     display: block;
-    width: 160px;
+    width: 140px;
     right: 0;
     height: 205px;
     position: absolute;
     background-color: #25292E;
     margin-top: 280px;
-    border-bottom-left-radius: 60px;
+    border-bottom-left-radius: 0;
     border: 2px solid rgb(84, 84, 84);
-    padding-left: 35px;
+    padding-left: 15px;
     padding-top: 5px;
     padding-right: 10px;
     transition: .4s all ease-in-out;
     z-index: -1;
+    border-bottom: 4px solid rgb(20, 123, 192);
 
 }
 

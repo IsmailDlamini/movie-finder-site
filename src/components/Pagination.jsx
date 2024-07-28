@@ -25,38 +25,40 @@ const Pagination = (prop) => {
     return (
       <div
         className={`page_button ${
-          prop.page > 6
-            ? prop.page == prop.page - (4 - (index + 1))
+          +prop.page > 6
+            ? +prop.page == +prop.page - (4 - (index + 1))
               ? "nav"
               : ""
-            : prop.page == index + 4
+            : +prop.page == index + 4
             ? "nav"
             : ""
         }`}
         style={{
           color:
-            prop.page > 6
-              ? prop.page - (4 - (index + 1)) >= prop.total_pages
-                ? "grey"
+            +prop.page > 6
+              ? +prop.page - (4 - (index + 1)) > prop.total_pages
+                ? "#292F36"
                 : ""
-              : index + 4 >= prop.total_pages
-              ? "grey"
+              : index + 4 > prop.total_pages
+              ? "#292F36"
               : "",
           backgroundColor:
-            prop.page > 6
-              ? prop.page - (4 - (index + 1)) >= prop.total_pages
-                ? "grey"
+            +prop.page > 6
+              ? +prop.page - (4 - (index + 1)) > prop.total_pages
+                ? "#292F36"
                 : ""
-              : index + 4 >= prop.total_pages
-              ? "grey"
+              : +index + 4 > prop.total_pages
+              ? "#292F36"
               : "",
         }}
         key={index}
         onClick={() => {
           if (+prop.page > 6) {
-            changePage(+prop.page - (4 - (index + 1)));
+            prop.total_pages >= +prop.page - (4 - (index + 1))
+              ? changePage(+prop.page - (4 - (index + 1)))
+              : "";
           } else {
-            changePage(index + 4);
+            prop.total_pages >= index + 4 ? changePage(index + 4) : "";
           }
         }}
       >
@@ -87,30 +89,34 @@ const Pagination = (prop) => {
           className={`page_button ${
             prop.page ? (prop.page == 1 ? "nav" : "") : "nav"
           }`}
-          onClick={() => changePage(1)}
+          onClick={() => {
+            prop.total_pages >= 1 ? changePage(1) : "";
+          }}
           style={{
-            color: prop.total_pages >= 1 ? "" : "grey",
-            backgroundColor: prop.total_pages >= 1 ? "" : "grey",
+            color: prop.total_pages >= 1 ? "" : "#292F36",
+            backgroundColor: prop.total_pages >= 1 ? "" : "#292F36",
           }}
         >
           {1}
         </div>
         <div
           className={`page_button ${prop.page == 2 ? "nav" : ""}`}
-          onClick={() => changePage(2)}
+          onClick={() => (prop.total_pages >= 2 ? changePage(2) : "")}
           style={{
-            color: prop.total_pages >= 2 ? "" : "grey",
-            backgroundColor: prop.total_pages >= 2 ? "" : "grey",
+            color: prop.total_pages >= 2 ? "" : "#292F36",
+            backgroundColor: prop.total_pages >= 2 ? "" : "#292F36",
           }}
         >
           {2}
         </div>
         <div
           className={`page_button ${prop.page == 3 ? "nav" : ""}`}
-          onClick={() => (prop.page < 7 ? changePage(3) : "")}
+          onClick={() =>
+            prop.page < 7 ? (prop.total_pages >= 3 ? changePage(3) : "") : ""
+          }
           style={{
-            color: prop.total_pages >= 3 ? "" : "grey",
-            backgroundColor: prop.total_pages >= 3 ? "" : "grey",
+            color: prop.total_pages >= 3 ? "" : "#292F36",
+            backgroundColor: prop.total_pages >= 3 ? "" : "#292F36",
           }}
         >
           {prop.page > 6 ? "***" : 3}
@@ -131,7 +137,9 @@ const Pagination = (prop) => {
           className={`previous-button ${
             prop.page ? (prop.page < 2 ? "disable" : "") : "disable"
           }`}
-          onClick={() => prop.page ? prop.page > 1 ? changePage((+prop.page - 1)) : "" : ""}
+          onClick={() =>
+            prop.page ? (prop.page > 1 ? changePage(+prop.page - 1) : "") : ""
+          }
         >
           {"<<"} Prev
         </div>
@@ -160,8 +168,13 @@ const Pagination = (prop) => {
               ? "disable"
               : ""
           }`}
-               onClick={() => prop.page ? +prop.page !== prop.total_pages ? changePage((+prop.page + 1)) : "" : changePage(+prop.total_pages > 1 ? 2 : 1)}
-
+          onClick={() =>
+            prop.page
+              ? +prop.page !== prop.total_pages
+                ? changePage(+prop.page + 1)
+                : ""
+              : changePage(+prop.total_pages > 1 ? 2 : 1)
+          }
         >
           Next {">>"}
         </div>
