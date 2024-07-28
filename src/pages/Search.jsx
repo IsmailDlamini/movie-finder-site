@@ -74,6 +74,14 @@ const Search = () => {
     window.location.reload();
   };
 
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (searchTerm.length > 0) {
+        search();
+      }
+    }
+  };
+
   const viewMovieDetails = (movieId) => {
     window.location.href = `/movie/${movieId}`;
   };
@@ -145,10 +153,11 @@ const Search = () => {
             <label htmlFor="search-term">Search Term:</label>
             <div>
               <input
-                type="text"
+              type="search"
                 id="search-term"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => handleSearchKeyDown(e)}
               />{" "}
               <button
                 onClick={() => search()}
