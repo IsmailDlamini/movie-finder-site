@@ -337,7 +337,257 @@
 }
 
     @media only screen and (min-width: 700px) and (max-width: 1024px) {
+      .home-page-container {
+        padding-top: 70px;
+        display: flex;
+      }
+      
+      .home-page-container .search-component {
+        height: fit-content;
+        padding: 15px 0;
+        padding-bottom: 40px;
+      }
+      
+      .home-page-container .search-component .creator {
+        right: 0%;
+        left: 7.9%;
+        bottom: 4.5%;
+        font-size: .6rem;
+      }
 
+      .home-page-container .search-component .search-bar {
+        width: 85%;
+        font-size: 0.7rem;
+      }
+      
+      .home-page-container .search-component .search-bar #search-term {
+        width: 76%;
+        height: 35px;
+        margin-top: 5px;
+      }
+      
+      .home-page-container .search-component .search-bar button {
+        width: fit-content;
+        padding: 10px 10px;
+        height: fit-content;
+      }
+      
+      .home-page-container .search-component .filters {
+        font-size: 0.8rem;
+        width: 85%;
+        margin-top: 0;
+      }
+      
+      .home-page-container .search-component .filters ul {
+        width: 100%;
+        flex-wrap: wrap;
+        margin-top: 0px;
+      }
+      
+      .home-page-container .search-component .filters ul li {
+        margin-right: 1vw;
+        margin-top: 10px;
+        font-size: .7rem;
+      }
+      
+      .home-page-container .search-component .filters ul li div {
+        padding: 1px 0px;
+        padding-right: 10px;
+        margin-top: 5px;
+      }
+      
+      .home-page-container .search-component .filters ul .exception {
+        padding: 0 0;
+      }
+      
+      .home-page-container .search-component .filters ul li div button {
+        border-radius: 4px;
+        font-size: 0.75rem;
+      }
+      
+      .home-page-container .search-component .filters ul li select {
+
+        padding: 8px 15px;
+        font-size: 0.76rem;
+      }
+      
+      .home-page-container .movie-container {
+        width: 85%;
+        margin: 0 auto;
+        padding: 5px 0px;
+        justify-content: space-between;
+      }
+      
+      .home-page-container .movie-container .movie-object {
+        width: 28%;
+        height: 300px;
+        margin-right: 0;
+        cursor: pointer;
+      }
+      
+      .home-page-container .movie-container .movie-object .image {
+        width: 100%;
+        height: 70%;
+      }
+      
+      .home-page-container .movie-container .movie-object .image img {
+        width: 100%;
+        height: 100%;
+      }
+      
+      .home-page-container .movie-container .no-results {
+        width: 85%;
+        margin: 0 auto;
+        height: 60vh;
+        text-align: center;
+        font-size: 1.5rem;
+        padding-top: 70px;
+      }
+      
+      .home-page-container .movie-container .movie-object .movie-info {
+        padding: 0px 8px;
+        padding-top: 5px;
+      }
+      
+      .home-page-container .movie-container .movie-object .movie-info .movie-name {
+        width: 100%;
+        font-size: .95rem;
+      }
+      
+      .home-page-container .movie-container .movie-object .movie-info .rating {
+        font-size: .7rem;
+        margin-top: 1px;
+      }
+      
+      .home-page-container .movie-container .movie-object .movie-info .genres {
+        font-size: .7rem;
+        margin-top: 1px;
+      }
+      
+      .home-page-container .movie-container .movie-object .movie-info .year {
+        font-weight: 200;
+        font-size: .7rem;
+        margin-top: 2px;
+      }
+      
+      .home-page-container .pagination {
+        display: none;
+      }
+      
+      .home-page-container .pagination .page_button {
+        width: 35px;
+        height: 35px;
+        border: 2px solid rgb(93, 113, 130);
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        font-family: var(--font-poppins);
+        font-weight: 300;
+        font-size: 0.9rem;
+        color: white;
+        cursor: pointer;
+        margin: 0 5px;
+      }
+      
+      .home-page-container .pagination .page_button:hover {
+        background-color: #116caf;
+        color: #23222c;
+      }
+      
+      .home-page-container .pagination .nav {
+        padding: 10px 10px;
+        height: 35px;
+        border: 2px solid grey;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        font-family: var(--font-poppins);
+        color: white;
+        cursor: pointer;
+        margin: 0 5px;
+        background-color: #116caf;
+        font-weight: 300;
+        font-size: 0.9rem;
+      }
+      
+      .home-page-container .pagination .nav:hover {
+        background-color: grey;
+        color: white;
+      }
+      
+      .home-page-container .list-page-info {
+        width: 85%;
+        margin: 0px auto;
+        margin-bottom: 20px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+      }
+
+      .home-page-container .search-page {
+        margin: 10px auto;
+        margin-bottom: 20px;
+      }
+
+      .home-page-container .trending {
+        margin: 0px auto;
+        margin-bottom: 20px;
+      }
+
+      .home-page-container .search-page .page-number{
+        font-size: 1rem;
+      }
+      
+      .home-page-container .list-page-info .list-type {
+        padding: 5px 10px;
+        width: fit-content;
+        font-size: 0.8rem;
+        height: fit-content;
+        align-items: center;
+        border-radius: 3px;
+      }
+      
+      .home-page-container .list-page-info .page-number {
+        font-size: 0.8rem;
+        margin-left: 30px;
+      }
+      
+      .home-page-container .list-page-info .number-of-results {
+        color: #5786ed;
+        font-weight: 400;
+        font-size: .8rem;
+        margin-left: 70px;
+      }
+      
+      .home-page-container .movie-container .loading-skeleton {
+        width: 28%;
+        height: 300px;
+        margin-right: 0;
+        animation: pulsate 1.5s ease-in-out infinite;
+      }
+      
+      @keyframes pulsate {
+        0% {
+          opacity: 0.7;
+        }
+        50% {
+          opacity: 0.3;
+        }
+        100% {
+          opacity: 0.7;
+        }
+      }
+      
+      .home-page-container .info-pagination-movie-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 200px;
+      }
+      
     }
 
 

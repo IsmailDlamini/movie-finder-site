@@ -18,6 +18,42 @@
 
 @media only screen and (min-width: 700px) and (max-width: 1024px) {
 
+    .pagination-mobile{
+        display: block;
+        width: 85%;
+        margin:  0 auto;
+        display: flex;
+        margin-bottom: 15px;
+        justify-content: space-between;
+    }
+
+    .pagination-mobile .previous-button, .next-button{
+        padding: 5px 10px;
+        width: fit-content;
+        font-family: var(--font-inter);
+        background-color: #116caf;
+        color: white;
+        border-radius: 3px;
+    }
+
+    .pagination-mobile .current-page, .first-page, .spacing{
+        padding: 5px 10px;
+        width: fit-content;
+        font-family: var(--font-inter);
+        background-color: #525e66;
+        color: rgb(255, 255, 255);
+        border-radius: 3px;
+        display: flex;
+    }
+
+    .pagination-mobile .hide{
+        display: none;
+    }
+
+    .pagination-mobile .disable{
+        background-color: #525e66; 
+    }
+      
 }
 
 

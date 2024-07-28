@@ -88,6 +88,109 @@ header .mobile-navigation{
 
 @media only screen and (min-width: 700px) and (max-width: 1024px) {
 
+    header{
+        height: 70px;
+        padding: 10px 25px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgb(84, 84, 84);
+        z-index: 1;
+    }
+    
+    header img{
+        width: 80px;
+        margin-left: 0px;
+    }
+    
+    header ul{
+        display: flex;
+        list-style-type: none;
+        justify-content: space-between;
+        width: 280px;
+        margin-right: 50px;
+        color: #747c86;
+        font-family: var(--font-raleway);
+        font-size: .8rem;
+        font-weight: 700;
+        display: none;
+    }
+    
+    header ul li:nth-child(1){
+        color: rgb(70, 134, 218);
+    }
+    
+    
+    header ul li:nth-child(2){
+        color: rgb(70, 134, 218);
+    }
+    
+    header ul li{
+        cursor: pointer;
+    }
+    
+    header .slogan{
+    left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: .7rem;
+      display: block;
+    }
+    
+    header .beta-tag{
+        left: 125px;
+      top: 52%;
+      padding: 0 5px;
+      font-size: .5rem;
+    }
+    
+    header .mobile-nav{
+    display: block;
+    }
+    
+    header .mobile-nav #mobile-burger-menu{
+        font-size: 1.5rem;
+        color: #587190;
+    }
+    
+    header .mobile-navigation{
+        display: block;
+        width: 140px;
+        right: 0;
+        height: 205px;
+        position: absolute;
+        background-color: #25292E;
+        margin-top: 280px;
+        border-bottom-left-radius: 0;
+        border: 2px solid rgb(84, 84, 84);
+        padding-left: 15px;
+        padding-top: 5px;
+        padding-right: 10px;
+        transition: .4s all ease-in-out;
+        z-index: -1;
+        border-bottom: 4px solid rgb(20, 123, 192);
+    
+    }
+    
+    header .mobile-navigation div{
+        margin-top: 20px;
+        font-family: var(--font-inter);
+        font-weight: 700;
+        color: #c6d2e0;
+        padding: 2px 4px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+    
+    header .open{
+        transform: translateX(0);
+    }
+    
+    header .closed{
+        transform: translateX(600px);
+    }
+    
+    header .mobile-navigation div .icon{
+        margin-left: 10px;
+    }
 }
 
 

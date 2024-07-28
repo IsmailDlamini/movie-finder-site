@@ -13,12 +13,13 @@ Task List
 1. Fix the search bars --> let them all have a search type on the elements  --> DONE
 2. to change the color of the navigation bars that are not active
 to match the color of the background  --> DONE
-3. change the look of the mobile navigation burger menu bars
-4. create media queries for the tablets
+3. change the look of the mobile navigation burger menu bars --> DONE
+4. create media queries for the tablets  --> DONE
 5. add error handling to the bot section
 6. add a backend service to collect all the data that people send to the bot 
 for study to better understand what people are looking for
 7. add an environment file --> DONE
 8. fix navigation issues --> DONE
+9. optimize images for better loading  
 
 
