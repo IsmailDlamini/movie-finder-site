@@ -50,6 +50,24 @@
   
   .chat-window .chat-header .options{
     margin-left: 30px;
+    position: relative;
+  }
+
+  .chat-window .chat-header .options .option-container{
+    position: absolute;
+    white-space: normal;
+    width: 70px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .chat-window .chat-header .options .option-container .option{
+    background-color: white;
+    padding: 5px 5px;
+    border-radius: 3px;
+    font-family: var(--font-inter);
+    color: #292f36;
+    font-size: .7rem;
   }
   
   .chat-window .chat-header .options #options{

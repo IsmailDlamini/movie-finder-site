@@ -13,10 +13,13 @@ import propTypes from "prop-types";
 import "./Ai.css";
 
 const Ai = ({ changeChatBotState }) => {
-  const storedChatSession = JSON.parse(sessionStorage.getItem('chatSession') || '[]');
+  const storedChatSession = JSON.parse(
+    sessionStorage.getItem("chatSession") || "[]"
+  );
   const [chatSession, setChatSession] = useState(storedChatSession);
   const [userMessage, setUserMessage] = useState("");
   const messageEndRef = useRef(null);
+  const [optionShowing, setOptionShowing] = useState(false);
 
   const safetySettings = [
     {
@@ -42,17 +45,19 @@ const Ai = ({ changeChatBotState }) => {
   );
 
   const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
+    model: `${import.meta.env.VITE_AI_MODEL}`,
     systemInstruction: import.meta.env.VITE_SYSTEM_INSTRUCTIONS,
     safetySettings,
   });
 
   const generationConfig = {
-    temperature: 1,
-    topP: 0.95,
-    topK: 64,
-    maxOutputTokens: 8192,
-    responseMimeType: "text/plain",
+    temperature: import.meta.env.VITE_GENERATION_CONFIG_TEMPERATURE,
+    topP: import.meta.env.VITE_GENERATION_CONFIG_TOPP,
+    topK: import.meta.env.VITE_GENERATION_CONFIG_TOPK,
+    maxOutputTokens: import.meta.env.VITE_GENERATION_CONFIG_MAXOUTPUTTOKENS,
+    responseMimeType: `${
+      import.meta.env.VITE_GENERATION_CONFIG_RESPONSEMIMETYPE
+    }`,
   };
 
   async function run() {
@@ -68,8 +73,11 @@ const Ai = ({ changeChatBotState }) => {
 
     const result = await chatSession2.sendMessage(userMessage);
     setChatSession((prevChatSession) => {
-      const newChatSession = [...prevChatSession.slice(0, -1), result.response.text()];
-      sessionStorage.setItem('chatSession', JSON.stringify(newChatSession));
+      const newChatSession = [
+        ...prevChatSession.slice(0, -1),
+        result.response.text(),
+      ];
+      sessionStorage.setItem("chatSession", JSON.stringify(newChatSession));
       return newChatSession;
     });
   }
@@ -77,7 +85,7 @@ const Ai = ({ changeChatBotState }) => {
   const addMessage = () => {
     setChatSession((prevChatSession) => {
       const newChatSession = [...prevChatSession, userMessage, " "];
-      sessionStorage.setItem('chatSession', JSON.stringify(newChatSession));
+      sessionStorage.setItem("chatSession", JSON.stringify(newChatSession));
       return newChatSession;
     });
     run(userMessage);
@@ -116,12 +124,30 @@ const Ai = ({ changeChatBotState }) => {
           </div>
 
           <div className="options">
-            <SlOptionsVertical id="options" />
+            <SlOptionsVertical
+              id="options"
+              onClick={() => setOptionShowing(!optionShowing)}
+            />
+            {optionShowing && (
+              <div
+                className="option-container"
+                onClick={() => {
+                  setOptionShowing(false);
+                  sessionStorage.setItem("chatSession", "[]");
+                  changeChatBotState(false);
+                  setTimeout(() => {
+                    changeChatBotState(true);
+                  }, 100);
+                }}
+              >
+                <div className="option">Reset Chat</div>
+              </div>
+            )}
           </div>
         </div>
 
         <div className="message-session">
-          {chatSession.length > 0 ? 
+          {chatSession.length > 0 ? (
             chatSession.map((message, index) => {
               return index % 2 != 0 ? (
                 chatSession[index] == " " ? (
@@ -138,7 +164,9 @@ const Ai = ({ changeChatBotState }) => {
                       <div className="name">
                         Ismail - <span>Bot</span>
                       </div>
-                      <ReactMarkdown className="message">{message}</ReactMarkdown>
+                      <ReactMarkdown className="message">
+                        {message}
+                      </ReactMarkdown>
                     </div>
                   </div>
                 )
@@ -147,8 +175,12 @@ const Ai = ({ changeChatBotState }) => {
                   <div>{message}</div>
                 </div>
               );
-            }) 
-          : <p id="user-guide">{'Type your question or say "Hi" to begin our chat!'}</p>}
+            })
+          ) : (
+            <p id="user-guide">
+              {'Type your question or say "Hi" to begin our chat!'}
+            </p>
+          )}
           <div ref={messageEndRef} />
         </div>
 
