@@ -18,7 +18,7 @@ const Home = () => {
       page: "/",
       title: "home page",
     });
-  });
+  }, []);
 
   const navigate = useNavigate();
   const location = useLocation();
