@@ -181,7 +181,7 @@ const Home = () => {
                   <select
                     name="ratings"
                     id="ratings"
-                    value={filterVoteAverage}
+                    value={filterVoteAverage ? filterVoteAverage : ''}
                     onChange={(e) => setFilterVoteAverage(e.target.value)}
                     disabled={searchTerm.length > 0 ? true : false}
                   >
@@ -203,7 +203,7 @@ const Home = () => {
                   <select
                     name="year"
                     id="year"
-                    value={filterReleaseYear}
+                    value={filterReleaseYear ? filterReleaseYear : ''}
                     onChange={(e) => setFilterReleaseYear(e.target.value)}
                   >
                     <option value={0}>All</option>
@@ -224,7 +224,7 @@ const Home = () => {
                   <select
                     name="genre"
                     id="genre"
-                    value={filterGenre}
+                    value={filterGenre ? filterGenre : ''}
                     onChange={(e) => setFilterGenre(e.target.value)}
                     disabled={searchTerm.length > 0 ? true : false}
                   >
@@ -246,7 +246,7 @@ const Home = () => {
                   <select
                     name="sort-by"
                     id="sort-by"
-                    value={filterSortBy}
+                    value={filterSortBy ? filterSortBy : ''}
                     onChange={(e) => setFilterSortBy(e.target.value)}
                     disabled={searchTerm.length > 0 ? true : false}
                   >

@@ -13,7 +13,8 @@ import propTypes from "prop-types";
 import "./Ai.css";
 
 const Ai = ({ changeChatBotState }) => {
-  const [chatSession, setChatSession] = useState([]);
+  const storedChatSession = JSON.parse(sessionStorage.getItem('chatSession') || '[]');
+  const [chatSession, setChatSession] = useState(storedChatSession);
   const [userMessage, setUserMessage] = useState("");
   const messageEndRef = useRef(null);
 
@@ -40,13 +41,9 @@ const Ai = ({ changeChatBotState }) => {
     import.meta.env.VITE_GOOGLE_GEMINI_API_KEY
   );
 
-  // 15 responses per minute for this model --> gemini-1.5-flash(recommended)
-  // 2 responses per minute for this model --> gemini-1.5-pro
-  
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-    systemInstruction:
-      "Your name is Ismail the movie bot\nand you are to assist me with finding a good movie and some recommendations,  make the messages short, and don't always re introduce yourself in the middle of the conversation, you are integrated into a website called movie finder created by Ismail, the website uses data from the TMDB api, i am Ismail your creator and here is my phone number: +27781402245 and my email: iii409475@gmail.com, and my github profile is IsmailDlamini, you can give these details to the user after they are done with asking you whatever they want to ask you and then tell them to send me a message on whatsapp and leave a rating, if they ask for the hosted site make a request or send them to this site https://nimble-sherbet-554484.netlify.app/ and return the data you receive from making a request to the site",
+    systemInstruction: import.meta.env.VITE_SYSTEM_INSTRUCTIONS,
     safetySettings,
   });
 
@@ -70,15 +67,19 @@ const Ai = ({ changeChatBotState }) => {
     });
 
     const result = await chatSession2.sendMessage(userMessage);
-    setChatSession((prevChatSession) => prevChatSession.slice(0, -1));
-    setChatSession((prevChatSession) => [
-      ...prevChatSession,
-      result.response.text(),
-    ]);
+    setChatSession((prevChatSession) => {
+      const newChatSession = [...prevChatSession.slice(0, -1), result.response.text()];
+      sessionStorage.setItem('chatSession', JSON.stringify(newChatSession));
+      return newChatSession;
+    });
   }
 
   const addMessage = () => {
-    setChatSession((prevChatSession) => [...prevChatSession, userMessage, " "]);
+    setChatSession((prevChatSession) => {
+      const newChatSession = [...prevChatSession, userMessage, " "];
+      sessionStorage.setItem('chatSession', JSON.stringify(newChatSession));
+      return newChatSession;
+    });
     run(userMessage);
     setUserMessage("");
   };
@@ -120,35 +121,34 @@ const Ai = ({ changeChatBotState }) => {
         </div>
 
         <div className="message-session">
-
-       { chatSession.length > 0 ?   
-          chatSession.map((message, index) => {
-            return index % 2 != 0 ? (
-              chatSession[index] == " " ? (
-                <div className="ai-load" key={index}>
-                  <div className="loader-ai"></div>
-                </div>
-              ) : (
-                <div className="chat-bot-message" key={index}>
-                  <div className="chat-bot-avatar">
-                    <img src={ismail_bot} alt="ismail-bot-icon" />
+          {chatSession.length > 0 ? 
+            chatSession.map((message, index) => {
+              return index % 2 != 0 ? (
+                chatSession[index] == " " ? (
+                  <div className="ai-load" key={index}>
+                    <div className="loader-ai"></div>
                   </div>
-
-                  <div className="chat-bot-name-message">
-                    <div className="name">
-                      Ismail - <span>Bot</span>
+                ) : (
+                  <div className="chat-bot-message" key={index}>
+                    <div className="chat-bot-avatar">
+                      <img src={ismail_bot} alt="ismail-bot-icon" />
                     </div>
-                    <ReactMarkdown className="message">{message}</ReactMarkdown>
-                  </div>
-                </div>
-              )
-            ) : (
-              <div className="user-message" key={index}>
-                <div>{message}</div>
-              </div>
-            );
-          }) :  <p id="user-guide">{'Type your question or say "Hi" to begin our chat!'}</p>}
 
+                    <div className="chat-bot-name-message">
+                      <div className="name">
+                        Ismail - <span>Bot</span>
+                      </div>
+                      <ReactMarkdown className="message">{message}</ReactMarkdown>
+                    </div>
+                  </div>
+                )
+              ) : (
+                <div className="user-message" key={index}>
+                  <div>{message}</div>
+                </div>
+              );
+            }) 
+          : <p id="user-guide">{'Type your question or say "Hi" to begin our chat!'}</p>}
           <div ref={messageEndRef} />
         </div>
 

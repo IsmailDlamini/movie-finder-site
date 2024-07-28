@@ -176,7 +176,7 @@ const Search = () => {
                   <select
                     name="year"
                     id="year"
-                    value={filterReleaseYear}
+                    value={filterReleaseYear ? filterReleaseYear : ''}
                     onChange={(e) => setFilterReleaseYear(e.target.value)}
                   >
                     <option value={0}>All</option>

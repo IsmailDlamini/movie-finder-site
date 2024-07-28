@@ -47,7 +47,7 @@ const ChatBotIcon = ({ changeChatBotState, chatBotState, showHint }) => {
 ChatBotIcon.propTypes = {
   changeChatBotState: propTypes.func.isRequired,
   chatBotState: propTypes.bool.isRequired,
-  showHint: propTypes.string.isRequired,
+  showHint: propTypes.bool,
 };
 
 export default ChatBotIcon;

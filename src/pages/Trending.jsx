@@ -157,7 +157,7 @@ const Trending = () => {
                   <select
                     name="time-frame"
                     id="time-frame"
-                    value={timeFrame}
+                    value={timeFrame ? timeFrame : ''}
                     onChange={(e) => setTimeFrame(e.target.value)}
                   >
                     <option value="today">Today</option>
@@ -169,7 +169,7 @@ const Trending = () => {
               <li>
                 <label htmlFor="apply">.</label>
                 <div className="exception">
-                  <button onClick={applyFilters}>Apply Filters</button>
+                  <button onClick={applyFilters}>Apply Filter</button>
                 </div>
               </li>
             </ul>
