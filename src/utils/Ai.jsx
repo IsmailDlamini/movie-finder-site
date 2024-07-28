@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import ismail_bot from "../assets/ismail-bot.png";
 import propTypes from "prop-types";
 import "./Ai.css";
+import ReactGA from "react-ga4";
+
 
 const Ai = ({ changeChatBotState }) => {
   const storedChatSession = JSON.parse(
@@ -82,12 +84,23 @@ const Ai = ({ changeChatBotState }) => {
     });
   }
 
+
+  const handleSendMessage = () => {
+    ReactGA.event({
+      category: "User-chat",
+      action: "user sent message to bot",
+      label: userMessage,
+    });
+    // Additional logic for adding to cart
+  };
+
   const addMessage = () => {
     setChatSession((prevChatSession) => {
       const newChatSession = [...prevChatSession, userMessage, " "];
       sessionStorage.setItem("chatSession", JSON.stringify(newChatSession));
       return newChatSession;
     });
+    handleSendMessage()
     run(userMessage);
     setUserMessage("");
   };
@@ -103,6 +116,8 @@ const Ai = ({ changeChatBotState }) => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [chatSession]);
+
+ 
 
   return (
     <>
