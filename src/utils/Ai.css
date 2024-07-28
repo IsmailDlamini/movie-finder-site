@@ -14,6 +14,8 @@
     width: 300px;
     height: 70vh;
     background-color: rgb(235, 235, 235);
+    background-image: url('../assets/chatBoxBackground.jpg');
+    background-size: cover;
     bottom: 13%;
     right: 2%;
     z-index: 2;
@@ -29,6 +31,8 @@
     padding: 10px 20px;
     display: flex;
     align-items: center;
+    background-image: url('../assets/chatBotBackground.jpg');
+    background-size: cover;
   }
   
   .chat-window .chat-header .close-chat-window{
@@ -90,14 +94,14 @@
   .chat-window .chat-header .chat-bot-name-status .chat-bot-name {
     font-size: 1rem;
     color: rgb(213, 213, 213);
-    font-weight: 700;
+    font-weight: 400;
   }
   
   .chat-window .chat-header .chat-bot-name-status .chat-bot-name span {
     padding: 1px 4px;
     background-color: #292f36;
     border-radius: 3px;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 0.8rem;
   }
   
@@ -112,6 +116,7 @@
     width: 100%;
     height: 40px;
     border-bottom: 10px;
+    border-top: 1px solid rgb(193, 193, 193);
   }
   
   .chat-window .message-box input {
@@ -140,12 +145,13 @@
     padding: 10px 10px;
     height: 75%;
     overflow: auto;
+    
   }
   
   .chat-window .message-session .chat-bot-message {
     display: flex;
     margin-top: 30px;
-    width: 95%;
+    width: 100%;
     margin-bottom: 15px;
   }
   
@@ -154,6 +160,7 @@
     height: 30px;
     border-radius: 50%;
     /* background-color: rgb(36, 45, 53); */
+    display: none;
   }
   
   .chat-window .message-session .chat-bot-avatar img {
@@ -162,7 +169,7 @@
   }
   
   .chat-window .message-session .chat-bot-message .chat-bot-name-message {
-    margin-left: 10px;
+    margin-left: 5px;
     width: 95%;
     max-width: 95%;
     
@@ -171,8 +178,8 @@
   .chat-window .message-session .chat-bot-message .chat-bot-name-message .name {
     font-family: var(--font-inter);
     font-size: .9rem;
-    font-weight: 500;
-    color: #23222c;
+    font-weight: 400;
+    color: #57575b;
   }
   
   .chat-window
@@ -184,9 +191,9 @@
       padding: 1px 4px;
       background-color: #292f36;
       border-radius: 3px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      color: white;
+      font-weight: 400;
+      font-size: 0.65rem;
+      color: rgb(255, 255, 255);
   }
   
   
@@ -221,13 +228,23 @@
     div{
       font-family: var(--font-inter);
       padding: 8px 10px;
-      background-color: #ffffff;
+      background-color: #ececec;
       border-radius: 8px;
       font-weight: 500;
       font-size: 0.8rem;
       color: rgb(92, 111, 116);
       margin-top: 5px;
       margin-bottom: 5px;
+    }
+
+    .chat-window #user-guide{
+      width: 90%;
+      font-family: inter;
+      font-weight: 400;
+      color: #292f36;
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 50%;
     }
   
   

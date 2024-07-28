@@ -120,7 +120,9 @@ const Ai = ({ changeChatBotState }) => {
         </div>
 
         <div className="message-session">
-          {chatSession.map((message, index) => {
+
+       { chatSession.length > 0 ?   
+          chatSession.map((message, index) => {
             return index % 2 != 0 ? (
               chatSession[index] == " " ? (
                 <div className="ai-load" key={index}>
@@ -145,7 +147,7 @@ const Ai = ({ changeChatBotState }) => {
                 <div>{message}</div>
               </div>
             );
-          })}
+          }) :  <p id="user-guide">{'Type your question or say "Hi" to begin our chat!'}</p>}
 
           <div ref={messageEndRef} />
         </div>
