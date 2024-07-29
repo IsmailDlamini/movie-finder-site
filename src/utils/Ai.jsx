@@ -30,6 +30,8 @@ const Ai = ({ changeChatBotState }) => {
   );
   const [lastUserMessage, setLastUserMessage] = useState("");
 
+  const [errorCountDownValue, setErrorCountDownValue] = useState(60);
+
   const safetySettings = [
     {
       category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -75,10 +77,27 @@ const Ai = ({ changeChatBotState }) => {
     }
   }, [chatSession]);
 
+  
   useEffect(() => {
     sessionStorage.setItem("chatSession", JSON.stringify(chatSession));
     sessionStorage.setItem("errorState", JSON.stringify(encounteredError));
   }, [chatSession, encounteredError]);
+
+  useEffect(() => {
+    let interval;
+    if (encounteredError && errorCountDownValue > 0) {
+      interval = setInterval(() => {
+        setErrorCountDownValue((prevCountDownValue) => {
+          if (prevCountDownValue <= 0) {
+            clearInterval(interval);
+            return 0;
+          }
+          return prevCountDownValue - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [encounteredError, errorCountDownValue]);
 
   async function run() {
     const chatHistory = chatSession.map((chat, index) => ({
@@ -103,11 +122,14 @@ const Ai = ({ changeChatBotState }) => {
         return newChatSession;
       });
       setEncounteredError(false);
+      setErrorCountDownValue(60);
     } catch (error) {
+
       setChatSession((prevChatSession) => {
         const newChatSession = [...prevChatSession.slice(0, -1)];
         return newChatSession;
       });
+
       setEncounteredError(true);
     }
   }
@@ -219,7 +241,8 @@ const Ai = ({ changeChatBotState }) => {
           <div className="error-box">
             <div className="error-message">
               An error occurred, please check your internet connection or resend
-              the message.
+              the message. <br /> Try resending message in{" "}
+              <strong>{errorCountDownValue}</strong> seconds
             </div>
             <div
               className="resend-message-button"
@@ -241,10 +264,15 @@ const Ai = ({ changeChatBotState }) => {
           value={userMessage}
           onChange={(e) => setUserMessage(e.target.value)}
           onKeyDown={handleKeyDown}
+          disabled={encounteredError ? true : false}
         />
         <button
           onClick={addMessage}
-          disabled={chatSession[chatSession.length - 1] === " "}
+          disabled={
+            chatSession[chatSession.length - 1] === " " || encounteredError
+              ? true
+              : false || userMessage === ""
+          }
         >
           send
         </button>

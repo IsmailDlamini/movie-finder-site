@@ -15,7 +15,7 @@ Task List
 to match the color of the background  --> DONE
 3. change the look of the mobile navigation burger menu bars --> DONE
 4. create media queries for the tablets  --> DONE
-5. add error handling to the bot section
+5. add error handling to the bot section --> DONE
 6. add a backend service to collect all the data that people send to the bot 
 for study to better understand what people are looking for
 7. add an environment file --> DONE
