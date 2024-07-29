@@ -1,27 +1,34 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   HarmCategory,
   HarmBlockThreshold,
   GoogleGenerativeAI,
 } from "@google/generative-ai";
 import ReactMarkdown from "react-markdown";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoReload } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
-import { useEffect, useState } from "react";
 import ismail_bot from "../assets/ismail-bot.png";
 import propTypes from "prop-types";
 import "./Ai.css";
 import ReactGA from "react-ga4";
 
-
 const Ai = ({ changeChatBotState }) => {
   const storedChatSession = JSON.parse(
     sessionStorage.getItem("chatSession") || "[]"
   );
+
+  const storedEncounteredError = JSON.parse(
+    sessionStorage.getItem("errorState") || "false"
+  );
+
   const [chatSession, setChatSession] = useState(storedChatSession);
   const [userMessage, setUserMessage] = useState("");
   const messageEndRef = useRef(null);
   const [optionShowing, setOptionShowing] = useState(false);
+  const [encounteredError, setEncounteredError] = useState(
+    storedEncounteredError
+  );
+  const [lastUserMessage, setLastUserMessage] = useState("");
 
   const safetySettings = [
     {
@@ -62,6 +69,17 @@ const Ai = ({ changeChatBotState }) => {
     }`,
   };
 
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatSession]);
+
+  useEffect(() => {
+    sessionStorage.setItem("chatSession", JSON.stringify(chatSession));
+    sessionStorage.setItem("errorState", JSON.stringify(encounteredError));
+  }, [chatSession, encounteredError]);
+
   async function run() {
     const chatHistory = chatSession.map((chat, index) => ({
       role: index % 2 !== 0 ? "model" : "user",
@@ -73,17 +91,26 @@ const Ai = ({ changeChatBotState }) => {
       history: chatHistory,
     });
 
-    const result = await chatSession2.sendMessage(userMessage);
-    setChatSession((prevChatSession) => {
-      const newChatSession = [
-        ...prevChatSession.slice(0, -1),
-        result.response.text(),
-      ];
-      sessionStorage.setItem("chatSession", JSON.stringify(newChatSession));
-      return newChatSession;
-    });
+    try {
+      const result = await chatSession2.sendMessage(
+        encounteredError ? lastUserMessage : userMessage
+      );
+      setChatSession((prevChatSession) => {
+        const newChatSession = [
+          ...prevChatSession.slice(0, -1),
+          result.response.text(),
+        ];
+        return newChatSession;
+      });
+      setEncounteredError(false);
+    } catch (error) {
+      setChatSession((prevChatSession) => {
+        const newChatSession = [...prevChatSession.slice(0, -1)];
+        return newChatSession;
+      });
+      setEncounteredError(true);
+    }
   }
-
 
   const handleSendMessage = () => {
     ReactGA.event({
@@ -91,90 +118,83 @@ const Ai = ({ changeChatBotState }) => {
       action: "user sent message to bot",
       label: userMessage,
     });
-    // Additional logic for adding to cart
   };
 
   const addMessage = () => {
     setChatSession((prevChatSession) => {
-      const newChatSession = [...prevChatSession, userMessage, " "];
-      sessionStorage.setItem("chatSession", JSON.stringify(newChatSession));
+      const newChatSession = !encounteredError
+        ? [...prevChatSession, userMessage, " "]
+        : [...prevChatSession, " "];
       return newChatSession;
     });
-    handleSendMessage()
-    run(userMessage);
+    handleSendMessage();
+    run();
+    setLastUserMessage(userMessage);
     setUserMessage("");
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && chatSession[chatSession.length - 1] !== " ") {
       addMessage();
     }
   };
 
-  useEffect(() => {
-    if (messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [chatSession]);
-
- 
-
   return (
-    <>
-      <div className="chat-window">
-        <div className="chat-header">
-          <div className="close-chat-window">
-            <IoClose id="close" onClick={() => changeChatBotState(false)} />
-          </div>
-
-          <div className="chat-bot-avatar">
-            <img src={ismail_bot} alt="ismail-bot-icon" />
-            <div className="status-green"></div>
-          </div>
-          <div className="chat-bot-name-status">
-            <div className="chat-bot-name">
-              Ismail - <span>Bot</span>
-            </div>
-            <div className="chat-bot-status">online</div>
-          </div>
-
-          <div className="options">
-            <SlOptionsVertical
-              id="options"
-              onClick={() => setOptionShowing(!optionShowing)}
-            />
-            {optionShowing && (
-              <div
-                className="option-container"
-                onClick={() => {
-                  setOptionShowing(false);
-                  sessionStorage.setItem("chatSession", "[]");
-                  changeChatBotState(false);
-                  setTimeout(() => {
-                    changeChatBotState(true);
-                  }, 100);
-                }}
-              >
-                <div className="option">Reset Chat</div>
-              </div>
-            )}
-          </div>
+    <div className="chat-window">
+      <div className="chat-header">
+        <div className="close-chat-window">
+          <IoClose id="close" onClick={() => changeChatBotState(false)} />
         </div>
-
-        <div className="message-session">
-          {chatSession.length > 0 ? (
-            chatSession.map((message, index) => {
-              return index % 2 != 0 ? (
-                chatSession[index] == " " ? (
-                  <div className="ai-load" key={index}>
+        <div className="chat-bot-avatar">
+          <img src={ismail_bot} alt="ismail-bot-icon" />
+          <div className="status-green"></div>
+        </div>
+        <div className="chat-bot-name-status">
+          <div className="chat-bot-name">
+            Ismail - <span>Bot</span>
+          </div>
+          <div className="chat-bot-status">online</div>
+        </div>
+        <div className="options">
+          <SlOptionsVertical
+            id="options"
+            onClick={() => setOptionShowing(!optionShowing)}
+          />
+          {optionShowing && (
+            <div
+              className="option-container"
+              onClick={() => {
+                setOptionShowing(false);
+                sessionStorage.setItem("chatSession", "[]");
+                changeChatBotState(false);
+                setTimeout(() => {
+                  changeChatBotState(true);
+                }, 100);
+                sessionStorage.setItem("errorState", JSON.stringify(false));
+              }}
+            >
+              <div className="option">Reset Chat</div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="message-session">
+        {chatSession.length > 0 ? (
+          chatSession.map((message, index) => (
+            <div
+              key={index}
+              className={index % 2 !== 0 ? "chat-bot-message" : "user-message"}
+            >
+              {index % 2 !== 0 ? (
+                message === " " ? (
+                  <div className="ai-load">
                     <div className="loader-ai"></div>
                   </div>
                 ) : (
-                  <div className="chat-bot-message" key={index}>
+                  <>
                     <div className="chat-bot-avatar">
                       <img src={ismail_bot} alt="ismail-bot-icon" />
                     </div>
-
                     <div className="chat-bot-name-message">
                       <div className="name">
                         Ismail - <span>Bot</span>
@@ -183,42 +203,55 @@ const Ai = ({ changeChatBotState }) => {
                         {message}
                       </ReactMarkdown>
                     </div>
-                  </div>
+                  </>
                 )
               ) : (
-                <div className="user-message" key={index}>
-                  <div>{message}</div>
-                </div>
-              );
-            })
-          ) : (
-            <p id="user-guide">
-              {'Type your question or say "Hi" to begin our chat!'}
-            </p>
-          )}
-          <div ref={messageEndRef} />
-        </div>
-
-        <div className="message-box">
-          <input
-            type="text"
-            placeholder="compose a message"
-            value={userMessage}
-            onChange={(e) => setUserMessage(e.target.value)}
-            onKeyDown={(e) => handleKeyDown(e)}
-          />
-          <button
-            onClick={addMessage}
-            disabled={chatSession[chatSession.length - 1] == " " ? true : false}
-          >
-            send
-          </button>
-        </div>
+                <div>{message}</div>
+              )}
+            </div>
+          ))
+        ) : (
+          <p id="user-guide">
+            {'Type your question or say "Hi" to begin our chat!'}
+          </p>
+        )}
+        {encounteredError && (
+          <div className="error-box">
+            <div className="error-message">
+              An error occurred, please check your internet connection or resend
+              the message.
+            </div>
+            <div
+              className="resend-message-button"
+              onClick={() => {
+                setEncounteredError(false);
+                addMessage();
+              }}
+            >
+              Resend Message <IoReload />
+            </div>
+          </div>
+        )}
+        <div ref={messageEndRef} />
       </div>
-    </>
+      <div className="message-box">
+        <input
+          type="text"
+          placeholder="compose a message"
+          value={userMessage}
+          onChange={(e) => setUserMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <button
+          onClick={addMessage}
+          disabled={chatSession[chatSession.length - 1] === " "}
+        >
+          send
+        </button>
+      </div>
+    </div>
   );
 };
-
 
 Ai.propTypes = {
   changeChatBotState: propTypes.func.isRequired,
