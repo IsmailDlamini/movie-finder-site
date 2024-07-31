@@ -77,7 +77,6 @@ const Ai = ({ changeChatBotState }) => {
     }
   }, [chatSession]);
 
-  
   useEffect(() => {
     sessionStorage.setItem("chatSession", JSON.stringify(chatSession));
     sessionStorage.setItem("errorState", JSON.stringify(encounteredError));
@@ -124,7 +123,6 @@ const Ai = ({ changeChatBotState }) => {
       setEncounteredError(false);
       setErrorCountDownValue(60);
     } catch (error) {
-
       setChatSession((prevChatSession) => {
         const newChatSession = [...prevChatSession.slice(0, -1)];
         return newChatSession;

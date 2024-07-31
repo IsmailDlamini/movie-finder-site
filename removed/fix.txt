@@ -21,5 +21,9 @@ for study to better understand what people are looking for
 7. add an environment file --> DONE
 8. fix navigation issues --> DONE
 9. optimize images for better loading  
+10. Add a 404 file (design and add to site)
+11. add about and contact page section
+12. Fix issues and errors with navigation on search
+13. Create production environment .env variable
 
 
