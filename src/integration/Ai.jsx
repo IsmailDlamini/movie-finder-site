@@ -143,9 +143,12 @@ const Ai = ({ changeChatBotState }) => {
 
   //Ghost Function
   const sendMessageToDatabase = (userMessage) => {
-    axios.post(`https://${import.meta.env.VITE_REVIEW_SYSTEM_API_BASE_URL}/api/chat`, {
-      user_message: userMessage,
-    });
+    axios.post(
+      `https://${import.meta.env.VITE_REVIEW_SYSTEM_API_BASE_URL}/api/chat`,
+      {
+        user_message: userMessage,
+      }
+    );
   };
 
   const addMessage = () => {
@@ -158,7 +161,8 @@ const Ai = ({ changeChatBotState }) => {
     handleSendMessage();
     run();
     setLastUserMessage(userMessage);
-    sendMessageToDatabase(userMessage);
+    if (import.meta.env.VITE_ENVIRONMENT == "PRODUCTION")
+      sendMessageToDatabase(userMessage);
     setUserMessage("");
   };
 
