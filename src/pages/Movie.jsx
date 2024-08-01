@@ -8,7 +8,7 @@ import { BiSolidMoviePlay } from "react-icons/bi";
 import { FaStar } from "react-icons/fa6";
 import { FaImdb } from "react-icons/fa";
 import no_avatar from "../assets/no-avatar.jpg";
-import Ai from "../utils/Ai";
+import Ai from "../integration/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
 import ReactMarkdown from "react-markdown";
 

@@ -8,7 +8,7 @@ import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
 import { useParams } from "react-router-dom";
 import ChatBotIcon from "../components/ChatBotIcon";
-import Ai from "../utils/Ai";
+import Ai from "../integration/Ai";
 
 const Trending = () => {
   const navigate = useNavigate();

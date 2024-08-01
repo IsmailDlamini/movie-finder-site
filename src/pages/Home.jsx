@@ -6,7 +6,7 @@ import Genres from "../data/Genres";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import noImage from "../assets/no-image.jpg";
-import Ai from "../utils/Ai";
+import Ai from "../integration/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
 import ReactGA from "react-ga4";
 
