@@ -11,6 +11,7 @@ import ismail_bot from "../assets/ismail-bot.png";
 import propTypes from "prop-types";
 import "./Ai.css";
 import ReactGA from "react-ga4";
+import axios from "axios";
 
 const Ai = ({ changeChatBotState }) => {
   const storedChatSession = JSON.parse(
@@ -140,6 +141,13 @@ const Ai = ({ changeChatBotState }) => {
     });
   };
 
+  //Ghost Function
+  const sendMessageToDatabase = (userMessage) => {
+    axios.post(`https://${import.meta.env.VITE_REVIEW_SYSTEM_API_BASE_URL}/api/chat`, {
+      user_message: userMessage,
+    });
+  };
+
   const addMessage = () => {
     setChatSession((prevChatSession) => {
       const newChatSession = !encounteredError
@@ -150,6 +158,7 @@ const Ai = ({ changeChatBotState }) => {
     handleSendMessage();
     run();
     setLastUserMessage(userMessage);
+    sendMessageToDatabase(userMessage);
     setUserMessage("");
   };
 

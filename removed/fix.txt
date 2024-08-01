@@ -24,6 +24,6 @@ for study to better understand what people are looking for
 10. Add a 404 file (design and add to site)
 11. add about and contact page section
 12. Fix issues and errors with navigation on search
-13. Create production environment .env variable
-
+13. Create production environment .env variable --> DONE
+14. add base url key environment variable master deployment on netlify
 
