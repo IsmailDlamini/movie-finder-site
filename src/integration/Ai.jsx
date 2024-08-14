@@ -98,7 +98,7 @@ const Ai = ({ changeChatBotState }) => {
     }
     return () => clearInterval(interval);
   }, [encounteredError, errorCountDownValue]);
-
+    
   async function run() {
     const chatHistory = chatSession.map((chat, index) => ({
       role: index % 2 !== 0 ? "model" : "user",
