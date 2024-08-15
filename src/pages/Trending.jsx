@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import "./Home.css";
 import Header from "../components/Header";
 import { useNavigate, useLocation } from "react-router-dom";
-import Genres from "../data/Genres";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
-import noImage from "../assets/no-image.jpg";
 import { useParams } from "react-router-dom";
 import ChatBotIcon from "../components/ChatBotIcon";
 import Ai from "../integration/Ai";
+import MovieObject from "../components/MovieObject";
 
 const Trending = () => {
   const navigate = useNavigate();
@@ -71,51 +70,6 @@ const Trending = () => {
     navigate(`/trending/${_timeFrame}`);
     window.location.reload();
   };
-
-  const viewMovieDetails = (movieId) => {
-    window.location.href = `/movie/${movieId}`;
-  };
-
-  const Movie_list = movies.map((movie, index) => {
-    return (
-      <div
-        className="movie-object"
-        key={index}
-        onClick={() => viewMovieDetails(movie.id)}
-      >
-        <div className="image">
-          {movie.poster_path != null ? (
-            <img
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-              alt={movie.title}
-            />
-          ) : movie.backdrop_path != null ? (
-            <img
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-              alt={movie.title}
-            />
-          ) : (
-            <img src={noImage} alt={movie.title} />
-          )}
-        </div>
-        <div className="movie-info">
-          <div className="movie-name">{movie.title}</div>
-          <div className="genres">
-            {Genres[movie.genre_ids[0]]}
-            {movie.genre_ids.length > 1 ? "," : ""} {Genres[movie.genre_ids[1]]}
-          </div>
-          <div className="rating">
-            {movie.vote_average.toString().length > 3
-              ? movie.vote_average.toString().substring(0, 3)
-              : movie.vote_average}{" "}
-            / 10
-          </div>
-
-          <div className="year">{movie.release_date.substring(0, 4)}</div>
-        </div>
-      </div>
-    );
-  });
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
     return <div className="loading-skeleton" key={index}></div>;
@@ -184,7 +138,14 @@ const Trending = () => {
           </div>
 
           <div className="movie-container">
-            {movies.length > 0 ? Movie_list : Loading_skeleton}
+      
+            {movies.length > 0
+              ? movies.map((movie, index) => {
+                  return (
+                    <MovieObject index={index} movie_json={movie} key={index} />
+                  );
+                })
+              : Loading_skeleton}
           </div>
 
           <Pagination

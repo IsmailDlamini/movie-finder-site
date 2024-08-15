@@ -57,7 +57,7 @@ const Ai = ({ changeChatBotState }) => {
   );
 
   const model = genAI.getGenerativeModel({
-    model: `${import.meta.env.VITE_AI_MODEL}`,
+    model: `${import.meta.env.VITE_AI_MODEL}`, 
     systemInstruction: import.meta.env.VITE_SYSTEM_INSTRUCTIONS,
     safetySettings,
   });

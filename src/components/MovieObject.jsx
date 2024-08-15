@@ -9,8 +9,6 @@ const MovieObject = ({ movie_json, index }) => {
     window.location.href = `/movie/${movieId}`;
   };
 
-  //testing to push and commit
-
   return (
     <>
       <div className="movie-object">

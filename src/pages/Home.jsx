@@ -5,13 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Genres from "../data/Genres";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
-import noImage from "../assets/no-image.jpg";
 import Ai from "../integration/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
 import ReactGA from "react-ga4";
+import MovieObject from "../components/MovieObject";
 
 const Home = () => {
-
   useEffect(() => {
     ReactGA.send({
       hitType: "pageview",
@@ -63,8 +62,7 @@ const Home = () => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        `Bearer ${import.meta.env.VITE_TMDB_AUTHORIZATION_TOKEN}`,
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_AUTHORIZATION_TOKEN}`,
     },
   };
 
@@ -81,11 +79,11 @@ const Home = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setMovies(data.results);
+        setMovies(data.results); 
         setTotal_pages(data.total_pages);
       })
       .catch((err) => console.error(err));
-  });
+  }, []);
 
   const search = () => {
     navigate(
@@ -105,51 +103,6 @@ const Home = () => {
     );
     window.location.reload();
   };
-
-  const viewMovieDetails = (movieId) => {
-    window.location.href = `/movie/${movieId}`;
-  };
-
-  const Movie_list = movies.map((movie, index) => {
-    return (
-      <div
-        className="movie-object"
-        key={index}
-        onClick={() => viewMovieDetails(movie.id)}
-      >
-        <div className="image">
-          {movie.poster_path != null ? (
-            <img
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-              alt={movie.title}
-            />
-          ) : movie.backdrop_path != null ? (
-            <img
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-              alt={movie.title}
-            />
-          ) : (
-            <img src={noImage} alt={movie.title} />
-          )}
-        </div>
-        <div className="movie-info">
-          <div className="movie-name">{movie.title}</div>
-          <div className="genres">
-            {Genres[movie.genre_ids[0]]}
-            {movie.genre_ids.length > 1 ? "," : ""} {Genres[movie.genre_ids[1]]}
-          </div>
-          <div className="rating">
-            {movie.vote_average.toString().length > 3
-              ? movie.vote_average.toString().substring(0, 3)
-              : movie.vote_average}{" "}
-            / 10
-          </div>
-
-          <div className="year">{movie.release_date.substring(0, 4)}</div>
-        </div>
-      </div>
-    );
-  });
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
     return <div className="loading-skeleton" key={index}></div>;
@@ -191,7 +144,7 @@ const Home = () => {
                   <select
                     name="ratings"
                     id="ratings"
-                    value={filterVoteAverage ? filterVoteAverage : ''}
+                    value={filterVoteAverage ? filterVoteAverage : ""}
                     onChange={(e) => setFilterVoteAverage(e.target.value)}
                     disabled={searchTerm.length > 0 ? true : false}
                   >
@@ -213,7 +166,7 @@ const Home = () => {
                   <select
                     name="year"
                     id="year"
-                    value={filterReleaseYear ? filterReleaseYear : ''}
+                    value={filterReleaseYear ? filterReleaseYear : ""}
                     onChange={(e) => setFilterReleaseYear(e.target.value)}
                   >
                     <option value={0}>All</option>
@@ -234,7 +187,7 @@ const Home = () => {
                   <select
                     name="genre"
                     id="genre"
-                    value={filterGenre ? filterGenre : ''}
+                    value={filterGenre ? filterGenre : ""}
                     onChange={(e) => setFilterGenre(e.target.value)}
                     disabled={searchTerm.length > 0 ? true : false}
                   >
@@ -256,7 +209,7 @@ const Home = () => {
                   <select
                     name="sort-by"
                     id="sort-by"
-                    value={filterSortBy ? filterSortBy : ''}
+                    value={filterSortBy ? filterSortBy : ""}
                     onChange={(e) => setFilterSortBy(e.target.value)}
                     disabled={searchTerm.length > 0 ? true : false}
                   >
@@ -285,7 +238,14 @@ const Home = () => {
           </div>
 
           <div className="movie-container">
-            {movies.length > 0 ? Movie_list : Loading_skeleton}
+      
+            {movies.length > 0
+              ? movies.map((movie, index) => {
+                  return (
+                    <MovieObject index={index} movie_json={movie} key={index} />
+                  );
+                })
+              : Loading_skeleton}
           </div>
 
           <Pagination
