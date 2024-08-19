@@ -1,6 +1,22 @@
 import "./Pagination.css";
+import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 
 const Pagination = (prop) => {
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const year = searchParams.get("year");
+  const rating = searchParams.get("ratings");
+  const genre = searchParams.get("genre");
+  const page = searchParams.get("page");
+  const sort = searchParams.get("sortBy");
+
+  const { timeFrame } = useParams();
+
+
   const changePage = (pageNumber) => {
     if (prop.pageToPaginate == "Discover") {
       window.location.href = `/?page=${pageNumber}${

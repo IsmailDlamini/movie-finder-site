@@ -14,12 +14,29 @@ const Home = () => {
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
 
   const year = searchParams.get("year");
   const rating = searchParams.get("ratings");
   const genre = searchParams.get("genre");
   const page = searchParams.get("page");
   const sort = searchParams.get("sortBy");
+
+  const { timeFrame } = useParams();
+
+  let allGenres =
+    "12%7C16%7C28%7C35%7C80%7C99%7C18%7C10751%7C14%7C36%7C27%7C10402%7C9648%7C10749%7C878%7C10770%7C53%7C10752%7C37";
+
+  const filterPopular = "popularity.desc";
+  const filterOldest = "primary_release_date.asc";
+  const filterUpcoming = "primary_release_date.desc";
+
+  const [filterReleaseYear, setFilterReleaseYear] = useState(year);
+  const [filterSortBy, setFilterSortBy] = useState(sort);
+  const [filterVoteAverage, setFilterVoteAverage] = useState(rating);
+  const [filterGenre, setFilterGenre] = useState(genre);
+  const [_timeFrame, setTimeFrame] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     ReactGA.send({
