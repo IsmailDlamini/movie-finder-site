@@ -165,15 +165,7 @@ const Search = () => {
         </div>
 
         <div className="info-pagination-movie-container">
-          <div className="list-page-info search-page">
-            <div className="list-type">Searched for : {query}</div>
-
-            <div className="page-number">Page {page ? page : 1}</div>
-
-            <div className="number-of-results">
-              {numberOfResults > 0 ? numberOfResults : ""} results
-            </div>
-          </div>
+          <PageInfo page="Search" pageNumber={page} numberOfResults={numberOfResults}/>
 
           <div className="movie-container">
             {!loadingResults ? (

@@ -11,29 +11,29 @@ const Pagination = (prop) => {
   const year = searchParams.get("year");
   const rating = searchParams.get("ratings");
   const genre = searchParams.get("genre");
-  const page = searchParams.get("page");
   const sort = searchParams.get("sortBy");
 
   const { timeFrame } = useParams();
+  const { query } = useParams();
 
 
   const changePage = (pageNumber) => {
     if (prop.pageToPaginate == "Discover") {
       window.location.href = `/?page=${pageNumber}${
-        prop.filterVoteAverage != null
-          ? `&ratings=${prop.filterVoteAverage}`
+        rating != null
+          ? `&ratings=${rating}`
           : ""
       }${
-        prop.filterReleaseYear != null ? `&year=${prop.filterReleaseYear}` : ""
-      }${prop.filterGenre != null ? `&genre=${prop.filterGenre}` : ""}${
-        prop.filterSortBy != null ? `&sortBy=${prop.filterSortBy}` : ""
+        year != null ? `&year=${year}` : ""
+      }${genre != null ? `&genre=${genre}` : ""}${
+        sort != null ? `&sortBy=${sort}` : ""
       }`;
     } else if (prop.pageToPaginate == "Search") {
-      window.location.href = `/search/${prop.query}?${
-        prop.filterReleaseYear != null ? `year=${prop.filterReleaseYear}` : ""
+      window.location.href = `/search/${query}?${
+        year != null ? `year=${year}` : ""
       }&page=${pageNumber}`;
     } else if (prop.pageToPaginate == "Trending") {
-      window.location.href = `/trending/${prop.timeframe}?page=${pageNumber}`;
+      window.location.href = `/trending/${timeFrame}?page=${pageNumber}`;
     }
   };
 
