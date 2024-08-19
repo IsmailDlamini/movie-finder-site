@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
 import Header from "../components/Header";
-import { useNavigate, useLocation } from "react-router-dom";
-import Genres from "../data/Genres";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import Ai from "../integration/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
 import ReactGA from "react-ga4";
 import MovieObject from "../components/MovieObject";
+import SearchFilter from "../components/SearchFilter";
 
 const Home = () => {
   useEffect(() => {
@@ -19,40 +18,9 @@ const Home = () => {
     });
   }, []);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
-  let allGenres =
-    "12%7C16%7C28%7C35%7C80%7C99%7C18%7C10751%7C14%7C36%7C27%7C10402%7C9648%7C10749%7C878%7C10770%7C53%7C10752%7C37";
-
-  const year = searchParams.get("year");
-  const rating = searchParams.get("ratings");
-  const genre = searchParams.get("genre");
-  const page = searchParams.get("page");
-  const sort = searchParams.get("sortBy");
-
-  const filterPopular = "popularity.desc";
-  const filterOldest = "primary_release_date.asc";
-  const filterUpcoming = "primary_release_date.desc";
-
   const [movies, setMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterReleaseYear, setFilterReleaseYear] = useState(year);
-  const [filterSortBy, setFilterSortBy] = useState(sort);
-  const [filterVoteAverage, setFilterVoteAverage] = useState(rating);
-  const [filterGenre, setFilterGenre] = useState(genre);
   const [total_pages, setTotal_pages] = useState(0);
-
   const [chatBotState, setChatBotState] = useState(false); // required on every page
-
-  const handleSearchKeyDown = (e) => {
-    if (e.key === "Enter") {
-      if (searchTerm.length > 0) {
-        search();
-      }
-    }
-  };
 
   const changeChatBotState = (newState) => {
     setChatBotState(newState);
@@ -65,6 +33,8 @@ const Home = () => {
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_AUTHORIZATION_TOKEN}`,
     },
   };
+
+  //to do and maybe try to be the one that does 
 
   useEffect(() => {
     fetch(
@@ -93,16 +63,6 @@ const Home = () => {
     );
   };
 
-  const applyFilters = () => {
-    navigate(
-      `/?page=${1}${
-        filterVoteAverage != null ? `&ratings=${filterVoteAverage}` : ""
-      }${filterReleaseYear != null ? `&year=${filterReleaseYear}` : ""}${
-        filterGenre != null ? `&genre=${filterGenre}` : ""
-      }${filterSortBy != null ? `&sortBy=${filterSortBy}` : ""}`
-    );
-    window.location.reload();
-  };
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
     return <div className="loading-skeleton" key={index}></div>;
@@ -112,123 +72,8 @@ const Home = () => {
     <>
       <Header />
       <div className="home-page-container">
-        <div className="search-component">
-          <div className="creator">
-            Created with love by <span>Ismail</span> &hearts;
-          </div>
-
-          <div className="search-bar">
-            <label htmlFor="search-term">Search Term:</label>
-            <div>
-              <input
-                type="search"
-                id="search-term"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => handleSearchKeyDown(e)}
-              />{" "}
-              <button
-                onClick={() => search()}
-                disabled={searchTerm.length > 0 ? false : true}
-              >
-                Search
-              </button>
-            </div>
-          </div>
-
-          <div className="filters">
-            <ul>
-              <li>
-                <label htmlFor="ratings">Ratings:</label>
-                <div>
-                  <select
-                    name="ratings"
-                    id="ratings"
-                    value={filterVoteAverage ? filterVoteAverage : ""}
-                    onChange={(e) => setFilterVoteAverage(e.target.value)}
-                    disabled={searchTerm.length > 0 ? true : false}
-                  >
-                    <option value="All">All</option>
-                    {[...Array(9)].map((_, index) => {
-                      return (
-                        <option value={9 - index} key={index}>
-                          {9 - index}+
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="year">Year:</label>
-                <div>
-                  <select
-                    name="year"
-                    id="year"
-                    value={filterReleaseYear ? filterReleaseYear : ""}
-                    onChange={(e) => setFilterReleaseYear(e.target.value)}
-                  >
-                    <option value={0}>All</option>
-                    {[...Array(15)].map((_, index) => {
-                      return (
-                        <option value={`20${24 - index}`} key={index}>
-                          20{24 - index}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="genre">Genre:</label>
-                <div>
-                  <select
-                    name="genre"
-                    id="genre"
-                    value={filterGenre ? filterGenre : ""}
-                    onChange={(e) => setFilterGenre(e.target.value)}
-                    disabled={searchTerm.length > 0 ? true : false}
-                  >
-                    <option value={allGenres}>All</option>
-                    {Object.entries(Genres).map(([id, name], index) => {
-                      return (
-                        <option value={id} key={index}>
-                          {name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="sort-by">Sort By:</label>
-                <div>
-                  <select
-                    name="sort-by"
-                    id="sort-by"
-                    value={filterSortBy ? filterSortBy : ""}
-                    onChange={(e) => setFilterSortBy(e.target.value)}
-                    disabled={searchTerm.length > 0 ? true : false}
-                  >
-                    <option value={filterPopular}>Most Popular</option>
-                    <option value={filterUpcoming}>Upcoming</option>
-                    <option value={filterOldest}>Oldest</option>
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="apply">.</label>
-                <div className="exception">
-                  <button onClick={() => applyFilters()}>Apply Filters</button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+      
+        <SearchFilter currentPage="Discover"/>
 
         <div className="info-pagination-movie-container">
           <div className="list-page-info">
