@@ -8,8 +8,19 @@ import ChatBotIcon from "../components/ChatBotIcon";
 import ReactGA from "react-ga4";
 import MovieObject from "../components/MovieObject";
 import SearchFilter from "../components/SearchFilter";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const year = searchParams.get("year");
+  const rating = searchParams.get("ratings");
+  const genre = searchParams.get("genre");
+  const page = searchParams.get("page");
+  const sort = searchParams.get("sortBy");
+
   useEffect(() => {
     ReactGA.send({
       hitType: "pageview",
@@ -54,6 +65,8 @@ const Home = () => {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  // we meed to set context of the app
 
   const search = () => {
     navigate(
