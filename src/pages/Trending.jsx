@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import ChatBotIcon from "../components/ChatBotIcon";
 import Ai from "../integration/Ai";
 import MovieObject from "../components/MovieObject";
+import PageInfo from "../components/PageInfo"
 
 const Trending = () => {
   const navigate = useNavigate();
@@ -79,56 +80,8 @@ const Trending = () => {
     <>
       <Header />
       <div className="home-page-container">
-        <div className="search-component">
-          <div className="creator">
-            Created with love by <span>Ismail</span> &hearts;
-          </div>
-
-          <div className="search-bar">
-            <label htmlFor="search-term">Search Term:</label>
-            <div>
-              <input
-              type="search"
-                id="search-term"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => handleSearchKeyDown(e)}
-              />{" "}
-              <button
-                onClick={() => search()}
-                disabled={searchTerm.length > 0 ? false : true}
-              >
-                Search
-              </button>
-            </div>
-          </div>
-
-          <div className="filters">
-            <ul>
-              <li>
-                <label htmlFor="time-frame">Time frame: </label>
-                <div>
-                  <select
-                    name="time-frame"
-                    id="time-frame"
-                    value={timeFrame ? timeFrame : ''}
-                    onChange={(e) => setTimeFrame(e.target.value)}
-                  >
-                    <option value="today">Today</option>
-                    <option value="this-week">This week</option>
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="apply">.</label>
-                <div className="exception">
-                  <button onClick={applyFilters}>Apply Filter</button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+        
+      <SearchFilter currentPage="Trending"/>
 
         <div className="info-pagination-movie-container">
         <PageInfo page="Trending" />

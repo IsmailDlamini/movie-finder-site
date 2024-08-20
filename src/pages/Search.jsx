@@ -9,6 +9,8 @@ import Ai from "../integration/Ai";
 import ChatBotIcon from "../components/ChatBotIcon";
 import Footer from "../components/Footer";
 import MovieObject from "../components/MovieObject";
+import SearchFilter from "../components/SearchFilter";
+import PageInfo from "../components/PageInfo"
 
 const Search = () => {
   const location = useLocation();
@@ -98,71 +100,8 @@ const Search = () => {
     <>
       <Header />
       <div className="home-page-container">
-        <div className="search-component">
-          <div className="creator">
-            Created with love by <span>Ismail</span> &hearts;
-          </div>
-
-          <div className="search-bar">
-            <label htmlFor="search-term">Search Term:</label>
-            <div>
-              <input
-              type="search"
-                id="search-term"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => handleSearchKeyDown(e)}
-              />{" "}
-              <button
-                onClick={() => search()}
-                disabled={searchTerm.length > 0 ? false : true}
-              >
-                Search
-              </button>
-            </div>
-          </div>
-
-          <div className="filters">
-            <ul>
-              <li>
-                <label htmlFor="year">Year:</label>
-                <div>
-                  <select
-                    name="year"
-                    id="year"
-                    value={filterReleaseYear ? filterReleaseYear : ''}
-                    onChange={(e) => setFilterReleaseYear(e.target.value)}
-                  >
-                    <option value={0}>All</option>
-                    {[...Array(15)].map((_, index) => {
-                      return (
-                        <option value={`20${24 - index}`} key={index}>
-                          20{24 - index}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </li>
-
-              <li>
-                <label htmlFor="apply">.</label>
-                <div className="exception">
-                  <button
-                    disabled={filterReleaseYear != year ? false : true}
-                    style={{
-                      backgroundColor:
-                        filterReleaseYear != year ? "" : "#12456B",
-                    }}
-                    onClick={applyFilter}
-                  >
-                    Apply Filter
-                  </button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+       
+      <SearchFilter currentPage="Search"/>
 
         <div className="info-pagination-movie-container">
           <PageInfo page="Search" pageNumber={page} numberOfResults={numberOfResults}/>
