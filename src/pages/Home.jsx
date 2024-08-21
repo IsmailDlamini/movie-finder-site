@@ -9,7 +9,9 @@ import ReactGA from "react-ga4";
 import MovieObject from "../components/MovieObject";
 import SearchFilter from "../components/SearchFilter";
 import { useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import PageInfo from "../components/PageInfo"
 
 const Home = () => {
 
