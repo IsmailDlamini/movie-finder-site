@@ -9,6 +9,7 @@ import ChatBotIcon from "../components/ChatBotIcon";
 import Ai from "../integration/Ai";
 import MovieObject from "../components/MovieObject";
 import PageInfo from "../components/PageInfo"
+import SearchFilter from "../components/SearchFilter";
 
 const Trending = () => {
   const navigate = useNavigate();
@@ -81,10 +82,16 @@ const Trending = () => {
       <Header />
       <div className="home-page-container">
         
-      <SearchFilter currentPage="Trending"/>
+      <SearchFilter currentPage="Discover"/>
 
         <div className="info-pagination-movie-container">
+
+
         <PageInfo page="Trending" />
+
+
+
+
           <div className="movie-container">
       
             {movies.length > 0

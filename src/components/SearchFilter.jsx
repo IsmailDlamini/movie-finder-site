@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import propTypes from "prop-types";
 import Filter from "./Filter";
 import Genres from "../data/Genres";
 import { useParams } from "react-router-dom";
+import "../pages/Home.css"
 
 const SearchFilter = ({ currentPage }) => {
   const location = useLocation();
@@ -62,6 +63,23 @@ const SearchFilter = ({ currentPage }) => {
 
   const PageFilters = () => {
     switch (currentPage) {
+
+      case "Trending":
+        return (
+          <Filter
+            filterName="time-frame"
+            filterId="time-frame"
+            filterLabel="Time frame:"
+            filterValue={timeFrame}
+            filterFunction={setTimeFrame}
+          >
+            <option value="today">Today</option>
+            <option value="this-week">This week</option>
+          </Filter>
+        );
+
+
+
       case "Discover":
         return (
           <ul>
@@ -156,19 +174,7 @@ const SearchFilter = ({ currentPage }) => {
           </Filter>
         );
 
-      case "Trending":
-        return (
-          <Filter
-            filterName="time-frame"
-            filterId="time-frame"
-            filterLabel="Time frame:"
-            filterValue={timeFrame}
-            filterFunction={setTimeFrame}
-          >
-            <option value="today">Today</option>
-            <option value="this-week">This week</option>
-          </Filter>
-        );
+      
     }
   };
 

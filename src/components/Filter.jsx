@@ -1,4 +1,5 @@
 import propTypes from "prop-types";
+import "../pages/Home.css"
 
 const Filter = ({
   filterName,
@@ -33,9 +34,9 @@ Filter.propTypes = {
   filterName: propTypes.string.isRequired,
   filterId: propTypes.string.isRequired,
   filterFunction: propTypes.func.isRequired,
-  filterValue: propTypes.string.isRequired,
+  filterValue: propTypes.string,
   filterLabel: propTypes.string.isRequired,
-  children: propTypes.element.isRequired,
+  children: propTypes.node,
 };
 
 export default Filter;
