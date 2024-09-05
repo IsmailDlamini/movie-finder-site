@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import propTypes from "prop-types";
 
-const PageInfo = ({ page, pageNumber, numberOfResults }) => {
+const PageInfo = ({ page, pageNumber, numberOfResults, trendingData }) => {
   const { query } = useParams();
 
   switch (page) {
@@ -9,7 +9,7 @@ const PageInfo = ({ page, pageNumber, numberOfResults }) => {
       return (
         <div className="list-page-info">
           <div className="list-type">
-            {page == "Discover" ? "Discover" : "Trending"}
+            {trendingData == false ? "Discover" : "Trending"}
           </div>
 
           <div className="page-number">Page {pageNumber ? pageNumber : 1}</div>
@@ -35,6 +35,7 @@ PageInfo.propTypes = {
   page: propTypes.string.isRequired,
   pageNumber: propTypes.string,
   numberOfResults: propTypes.number,
+  trendingData: propTypes.boolean,
 };
 
 export default PageInfo;
