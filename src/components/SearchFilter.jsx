@@ -78,8 +78,6 @@ const SearchFilter = ({ currentPage }) => {
           </Filter>
         );
 
-
-
       case "Discover":
         return (
           <ul>
@@ -172,9 +170,7 @@ const SearchFilter = ({ currentPage }) => {
               );
             })}
           </Filter>
-        );
-
-      
+        );      
     }
   };
 
