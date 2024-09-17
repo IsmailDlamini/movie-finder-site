@@ -54,7 +54,10 @@ const Trending = () => {
         setTotal_pages(data.total_pages);
       })
       .catch((err) => console.error(err));
-  });
+  }, []);
+
+  // this will cause an inifite re render, because when i load the page at first the first useEffect will
+  // load what it wants to load giving all the work to the second
 
   const search = () => {
     navigate(`/search/${searchTerm}?page=${1}`);
@@ -82,7 +85,7 @@ const Trending = () => {
       <Header />
       <div className="home-page-container">
         
-      <SearchFilter currentPage="Discover"/>
+      <SearchFilter currentPage="Trending"/>
 
         <div className="info-pagination-movie-container">
 

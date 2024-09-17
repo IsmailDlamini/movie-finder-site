@@ -9,8 +9,7 @@ const Filter = ({
   filterFunction,
   children,
 }) => {
-
-    
+  
   return (
     <>
       <li>

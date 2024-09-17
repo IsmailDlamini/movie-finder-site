@@ -1,10 +1,13 @@
-import { creatContext, useContext } from "react"
+import { createContext, useContext } from "react"
 import { useLocation } from "react-router-dom";
 
-const MyContext = creatContext();
+const MyContext = createContext();
 
 export const useMyContext = () => {
   const context = useContext(MyContext);
+  if (context === undefined) {
+    throw new Error("useMyContext must be used within a MyContextProvider");
+  }
   return context;
 }
 
@@ -85,7 +88,7 @@ export const MyContextProvider = () => {
     trendingData
   }
 
-  return (<MyContext.Provider values={ }>{chidren}</MyContext.Provider>)
+  return (<MyContext.Provider value={contextValues}>{chidren}</MyContext.Provider>)
 }
 
 export default MyContext

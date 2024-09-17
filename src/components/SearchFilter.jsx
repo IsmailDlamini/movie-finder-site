@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate} from "react-router-dom";
 import propTypes from "prop-types";
 import Filter from "./Filter";
 import Genres from "../data/Genres";
 import { useParams } from "react-router-dom";
-import "../pages/Home.css"
+import "../pages/Home.css";
 
 const SearchFilter = ({ currentPage }) => {
   const location = useLocation();
@@ -33,6 +32,11 @@ const SearchFilter = ({ currentPage }) => {
   const [filterGenre, setFilterGenre] = useState(genre);
   const [_timeFrame, setTimeFrame] = useState();
   const [searchTerm, setSearchTerm] = useState("");
+
+  // useEffect(() => {
+  //   navigate(timeFrame ? `/trending/day` : `/trending/${_timeFrame}`);
+  //   window.location.reload();
+  // }, [_timeFrame]);
 
   const search = () => {
     navigate(
@@ -63,19 +67,20 @@ const SearchFilter = ({ currentPage }) => {
 
   const PageFilters = () => {
     switch (currentPage) {
-
       case "Trending":
         return (
-          <Filter
-            filterName="time-frame"
-            filterId="time-frame"
-            filterLabel="Time frame:"
-            filterValue={timeFrame}
-            filterFunction={setTimeFrame}
-          >
-            <option value="today">Today</option>
-            <option value="this-week">This week</option>
-          </Filter>
+          <ul>
+            <Filter
+              filterName="time-frame"
+              filterId="time-frame"
+              filterLabel="Time frame:"
+              filterValue={timeFrame}
+              filterFunction={setTimeFrame}
+            >
+              <option value="today">Today</option>
+              <option value="this-week">This week</option>
+            </Filter>
+          </ul>
         );
 
       case "Discover":
@@ -151,26 +156,27 @@ const SearchFilter = ({ currentPage }) => {
             </li>
           </ul>
         );
-       
 
       case "Search":
         return (
-          <Filter
-            filterName="year"
-            filterId="year"
-            filterLabel="Year:"
-            filterValue={filterReleaseYear}
-            filterFunction={setFilterReleaseYear}
-          >
-            {[...Array(15)].map((_, index) => {
-              return (
-                <option value={`20${24 - index}`} key={index}>
-                  20{24 - index}
-                </option>
-              );
-            })}
-          </Filter>
-        );      
+          <ul>
+            <Filter
+              filterName="year"
+              filterId="year"
+              filterLabel="Year:"
+              filterValue={filterReleaseYear}
+              filterFunction={setFilterReleaseYear}
+            >
+              {[...Array(15)].map((_, index) => {
+                return (
+                  <option value={`20${24 - index}`} key={index}>
+                    20{24 - index}
+                  </option>
+                );
+              })}
+            </Filter>
+          </ul>
+        );
     }
   };
 
@@ -200,7 +206,9 @@ const SearchFilter = ({ currentPage }) => {
           </div>
         </div>
 
-        <div className="filters"><PageFilters/></div>
+        <div className="filters">
+          <PageFilters />{" "}
+        </div>
       </div>
     </>
   );

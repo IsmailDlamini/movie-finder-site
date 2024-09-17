@@ -12,8 +12,12 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import PageInfo from "../components/PageInfo"
+// import { useContext } from "react";
+// import { useMyContext } from "../context/MyContext";
 
 const Home = () => {
+
+  // const {discoveryData} =  useMyContext();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);

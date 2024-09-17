@@ -14,7 +14,7 @@
   display: flex;
 }
 
-.home-page-container .search-component {
+.search-component {
   width: 100%;
   background-color: #23222c;
   height: 200px;
@@ -23,7 +23,7 @@
   margin: 0 auto;
 }
 
-.home-page-container .search-component .creator {
+ .search-component .creator {
   position: absolute;
   right: 13%;
   bottom: 5%;
@@ -32,11 +32,11 @@
   color: #bcc5cb;
 }
 
-.home-page-container .search-component .creator span {
+.search-component .creator span {
   color: #116caf;
 }
 
-.home-page-container .search-component .search-bar {
+ .search-component .search-bar {
   display: flex;
   width: 80%;
   margin: 0 auto;
@@ -46,7 +46,7 @@
   color: #868e98;
 }
 
-.home-page-container .search-component .search-bar #search-term {
+.search-component .search-bar #search-term {
   width: 60%;
   height: 40px;
   margin-top: 8px;
@@ -58,7 +58,7 @@
   padding: 0 10px;
 }
 
-.home-page-container .search-component .search-bar button {
+.search-component .search-bar button {
   width: 7%;
   height: 40px;
   border: none;
@@ -70,7 +70,7 @@
   font-size: 0.8rem;
 }
 
-.home-page-container .search-component .filters {
+.search-component .filters {
   font-family: var(--font-poppins);
   font-size: 0.8rem;
   color: #868e98;
@@ -79,30 +79,30 @@
   margin-top: 20px;
 }
 
-.home-page-container .search-component .filters ul {
+.search-component .filters ul {
   list-style: none;
   display: flex;
   width: 100%;
 }
 
-.home-page-container .search-component .filters ul li {
+.search-component .filters ul li {
   display: flex;
   flex-direction: column;
   margin-right: 1vw;
 }
 
-.home-page-container .search-component .filters ul li div {
+.search-component .filters ul li div {
   padding: 1px 0px;
   background-color: #292f36;
   padding-right: 10px;
   margin-top: 10px;
 }
 
-.home-page-container .search-component .filters ul .exception {
+.search-component .filters ul .exception {
   padding: 0 0;
 }
 
-.home-page-container .search-component .filters ul li div button {
+.search-component .filters ul li div button {
   background-color: #116caf;
   border: none;
   color: rgb(195, 209, 224);
@@ -112,7 +112,7 @@
   font-size: 0.8rem;
 }
 
-.home-page-container .search-component .filters ul li select {
+.search-component .filters ul li select {
   outline: none;
   border: none;
   color: rgb(195, 209, 224);
