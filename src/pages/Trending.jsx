@@ -10,8 +10,12 @@ import Ai from "../integration/Ai";
 import MovieObject from "../components/MovieObject";
 import PageInfo from "../components/PageInfo"
 import SearchFilter from "../components/SearchFilter";
+import { useMyContext } from "../context/MyContext";
 
 const Trending = () => {
+
+  const {trendingData} = useMyContext();
+
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -24,7 +28,7 @@ const Trending = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [total_pages, setTotal_pages] = useState(0);
 
-  const [_timeFrame, setTimeFrame] = useState();
+  // const [_timeFrame, setTimeFrame] = useState();
 
   const [chatBotState, setChatBotState] = useState(false);
 
@@ -71,10 +75,10 @@ const Trending = () => {
     }
   };
 
-  const applyFilters = () => {
-    navigate(`/trending/${_timeFrame}`);
-    window.location.reload();
-  };
+  // const applyFilters = () => {
+  //   navigate(`/trending/${_timeFrame}`);
+  //   window.location.reload();
+  // };
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
     return <div className="loading-skeleton" key={index}></div>;
@@ -93,8 +97,8 @@ const Trending = () => {
 
           <div className="movie-container">
       
-            {movies.length > 0
-              ? movies.map((movie, index) => {
+            {trendingData.length > 0
+              ? trendingData.map((movie, index) => {
                   return (
                     <MovieObject index={index} movie_json={movie} key={index} />
                   );

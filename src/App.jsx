@@ -8,7 +8,6 @@ import About from './pages/About';
 
 function App() {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search/:query" element={<Search />} />
@@ -16,7 +15,6 @@ function App() {
         <Route path="/movie/:id" element={<Movie />}/>
         <Route path="/about" element={<About />}/>
       </Routes>
-    </Router>
   );
 }
 

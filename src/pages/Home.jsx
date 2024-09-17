@@ -12,12 +12,12 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import PageInfo from "../components/PageInfo"
-// import { useContext } from "react";
-// import { useMyContext } from "../context/MyContext";
+import { useContext } from "react";
+import { useMyContext } from "../context/MyContext";
 
 const Home = () => {
 
-  // const {discoveryData} =  useMyContext();
+  const {discoveryData} =  useMyContext();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -86,12 +86,12 @@ const Home = () => {
 
         <div className="info-pagination-movie-container">
           
-          <PageInfo page="Discover"/>
+          <PageInfo page="Discover" trendingData={false}/>
 
-          <div className="movie-container">
+          <div className="movie-container" >
       
-            {movies.length > 0
-              ? movies.map((movie, index) => {
+            {discoveryData.length > 0
+              ? discoveryData.map((movie, index) => {
                   return (
                     <MovieObject index={index} movie_json={movie} key={index} />
                   );

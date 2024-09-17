@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import propTypes from "prop-types";
 import Filter from "./Filter";
 import Genres from "../data/Genres";
@@ -30,13 +30,8 @@ const SearchFilter = ({ currentPage }) => {
   const [filterSortBy, setFilterSortBy] = useState(sort);
   const [filterVoteAverage, setFilterVoteAverage] = useState(rating);
   const [filterGenre, setFilterGenre] = useState(genre);
-  const [_timeFrame, setTimeFrame] = useState();
+  const [_timeFrame, setTimeFrame] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
-  // useEffect(() => {
-  //   navigate(timeFrame ? `/trending/day` : `/trending/${_timeFrame}`);
-  //   window.location.reload();
-  // }, [_timeFrame]);
 
   const search = () => {
     navigate(
@@ -44,7 +39,17 @@ const SearchFilter = ({ currentPage }) => {
         filterReleaseYear != null ? `year=${filterReleaseYear}` : ""
       }&page=${1}`
     );
+    window.location.reload();
   };
+
+  useEffect(() => {
+    const currentUrl = `/trending/${_timeFrame ? _timeFrame : timeFrame}`;
+
+    if (location.pathname != currentUrl && location.pathname.includes("trending")) {
+      navigate(currentUrl);
+      window.location.reload();
+    }
+  }, [_timeFrame, location.pathname]);
 
   const handleSearchKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -74,7 +79,7 @@ const SearchFilter = ({ currentPage }) => {
               filterName="time-frame"
               filterId="time-frame"
               filterLabel="Time frame:"
-              filterValue={timeFrame}
+              filterValue={_timeFrame == "" ? timeFrame : _timeFrame}
               filterFunction={setTimeFrame}
             >
               <option value="today">Today</option>
