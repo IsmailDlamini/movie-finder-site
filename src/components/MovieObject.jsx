@@ -11,7 +11,7 @@ const MovieObject = ({ movie_json, index }) => {
 
   return (
     <>
-      <div className="movie-object">
+    
         <div
           className="movie-object"
           key={index}
@@ -51,7 +51,6 @@ const MovieObject = ({ movie_json, index }) => {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 };
