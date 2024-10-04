@@ -65,7 +65,7 @@ export const MyContextProvider = ({ children }) => {
           location.pathname.includes("trending")
             ? fetch(
                 `https://api.themoviedb.org/3/trending/movie/${
-                  timeFrame == "today" ? "week" : "week"
+                  timeFrame == "today" ? "day" : "week"
                 }?language=en-US&page=${page || 1}`,
                 options
               )
@@ -87,6 +87,8 @@ export const MyContextProvider = ({ children }) => {
         console.error("An error occurred: ", err);
       }
     };
+
+    console.log(timeFrame)
 
     fetchMovieData();
   }, [page, year, rating, genre, sort, query, location.pathname, timeFrame]);
