@@ -65,7 +65,7 @@ export const MyContextProvider = ({ children }) => {
           location.pathname.includes("trending")
             ? fetch(
                 `https://api.themoviedb.org/3/trending/movie/${
-                  timeFrame == "today" ? "day" : "week"
+                  timeFrame == "today" ? "week" : "week"
                 }?language=en-US&page=${page || 1}`,
                 options
               )
