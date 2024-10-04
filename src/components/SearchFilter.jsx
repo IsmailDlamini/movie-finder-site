@@ -47,7 +47,7 @@ const SearchFilter = ({ currentPage }) => {
 
     if (location.pathname != currentUrl && location.pathname.includes("trending")) {
       navigate(currentUrl);
-      // window.location.reload();
+      window.location.reload();
     }
   }, [_timeFrame, location.pathname]);
 
