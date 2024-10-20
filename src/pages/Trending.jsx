@@ -28,8 +28,6 @@ const Trending = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [total_pages, setTotal_pages] = useState(0);
 
-  // const [_timeFrame, setTimeFrame] = useState();
-
   const [chatBotState, setChatBotState] = useState(false);
 
   const changeChatBotState = (newState) => {
@@ -45,20 +43,20 @@ const Trending = () => {
     },
   };
 
-  useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/trending/movie/${
-        timeFrame == "today" ? "day" : "week"
-      }?language=en-US&page=${page ? page : 1}`,
-      options
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setMovies(data.results);
-        setTotal_pages(data.total_pages);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  // useEffect(() => {
+  //   fetch(
+  //     `https://api.themoviedb.org/3/trending/movie/${
+  //       timeFrame == "today" ? "day" : "week"
+  //     }?language=en-US&page=${page ? page : 1}`,
+  //     options
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setMovies(data.results);
+  //       setTotal_pages(data.total_pages);
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, []);
 
   const search = () => {
     navigate(`/search/${searchTerm}?page=${1}`);
@@ -86,7 +84,7 @@ const Trending = () => {
 
         <div className="info-pagination-movie-container">
 
-        <PageInfo page="Discover" trendingData={true}/>
+        <PageInfo page="Discover" trendingPage={true}/>
 
           <div className="movie-container">
       

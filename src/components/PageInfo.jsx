@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import propTypes from "prop-types";
 
-const PageInfo = ({ page, pageNumber, numberOfResults, trendingData }) => {
+const PageInfo = ({ page, pageNumber, numberOfResults, trendingPage }) => {
   const { query } = useParams();
 
   switch (page) {
@@ -9,7 +9,7 @@ const PageInfo = ({ page, pageNumber, numberOfResults, trendingData }) => {
       return (
         <div className="list-page-info">
           <div className="list-type">
-            {trendingData == false ? "Discover" : "Trending"}
+            {trendingPage == false ? "Discover" : "Trending"}
           </div>
 
           <div className="page-number">Page {pageNumber ? pageNumber : 1}</div>

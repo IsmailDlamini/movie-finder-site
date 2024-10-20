@@ -86,7 +86,7 @@ const Home = () => {
 
         <div className="info-pagination-movie-container">
           
-          <PageInfo page="Discover" trendingData={false} pageNumber={page}/>
+          <PageInfo page="Discover" trendingPage={false} pageNumber={page}/>
 
           <div className="movie-container" >
       
