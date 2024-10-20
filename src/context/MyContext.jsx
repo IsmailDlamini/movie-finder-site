@@ -88,8 +88,6 @@ export const MyContextProvider = ({ children }) => {
       }
     };
 
-    //console.log(timeFrame)
-
     fetchMovieData();
   }, [page, year, rating, genre, sort, query, location.pathname, timeFrame]);
 

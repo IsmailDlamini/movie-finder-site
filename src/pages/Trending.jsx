@@ -60,9 +60,6 @@ const Trending = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  // this will cause an inifite re render, because when i load the page at first the first useEffect will
-  // load what it wants to load giving all the work to the second
-
   const search = () => {
     navigate(`/search/${searchTerm}?page=${1}`);
   };
@@ -75,10 +72,6 @@ const Trending = () => {
     }
   };
 
-  // const applyFilters = () => {
-  //   navigate(`/trending/${_timeFrame}`);
-  //   window.location.reload();
-  // };
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
     return <div className="loading-skeleton" key={index}></div>;
