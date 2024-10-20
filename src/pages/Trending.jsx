@@ -43,21 +43,6 @@ const Trending = () => {
     },
   };
 
-  // useEffect(() => {
-  //   fetch(
-  //     `https://api.themoviedb.org/3/trending/movie/${
-  //       timeFrame == "today" ? "day" : "week"
-  //     }?language=en-US&page=${page ? page : 1}`,
-  //     options
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setMovies(data.results);
-  //       setTotal_pages(data.total_pages);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }, []);
-
   const search = () => {
     navigate(`/search/${searchTerm}?page=${1}`);
   };
@@ -69,7 +54,6 @@ const Trending = () => {
       }
     }
   };
-
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
     return <div className="loading-skeleton" key={index}></div>;

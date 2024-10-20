@@ -1,15 +1,25 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import propTypes from "prop-types";
 
 const PageInfo = ({ page, pageNumber, numberOfResults, trendingPage }) => {
   const { query } = useParams();
 
+  const location = useLocation();
+
   switch (page) {
     case "Discover":
       return (
-        <div className="list-page-info">
+        <div
+          className={`list-page-info ${
+            trendingPage ? "trending-page-info" : ""
+          }`}
+        >
           <div className="list-type">
-            {trendingPage == false ? "Discover" : "Trending"}
+            {trendingPage == false
+              ? "Discover"
+              : location.pathname.includes("today")
+              ? "Trending Today"
+              : "Trending This Week"}
           </div>
 
           <div className="page-number">Page {pageNumber ? pageNumber : 1}</div>
