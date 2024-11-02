@@ -107,8 +107,6 @@ export const MyContextProvider = ({ children }) => {
           ? (await trendingDataResponse.json()) || []
           : [];
 
-        console.log(searchDataCollection.results);
-
         // collect movie listings
         setDiscoveryData(discoveryDataCollection.results);
         setSearchData(searchDataCollection.results);
