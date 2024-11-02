@@ -22,11 +22,7 @@ const Home = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  const year = searchParams.get("year");
-  const rating = searchParams.get("ratings");
-  const genre = searchParams.get("genre");
   const page = searchParams.get("page");
-  const sort = searchParams.get("sortBy");
 
   useEffect(() => {
     ReactGA.send({
@@ -36,42 +32,11 @@ const Home = () => {
     });
   }, []);
 
-  const [movies, setMovies] = useState([]);
-  const [total_pages, setTotal_pages] = useState(0);
   const [chatBotState, setChatBotState] = useState(false); // required on every page
 
   const changeChatBotState = (newState) => {
     setChatBotState(newState);
   };
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_TMDB_AUTHORIZATION_TOKEN}`,
-    },
-  };
-
-
-  useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${
-        page ? page : 1
-      }${year ? `&primary_release_year=${year}` : ""}${
-        sort ? `&sort_by=${sort}` : ""
-      }${rating ? `&vote_average.gte=${rating}` : ""}${
-        genre ? `&with_genres=${genre}` : ""
-      }`,
-      options
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setMovies(data.results); 
-        setTotal_pages(data.total_pages);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
     return <div className="loading-skeleton" key={index}></div>;
