@@ -6,13 +6,12 @@ import Pagination from "../components/Pagination";
 import ChatBotIcon from "../components/ChatBotIcon";
 import Ai from "../integration/Ai";
 import MovieObject from "../components/MovieObject";
-import PageInfo from "../components/PageInfo"
+import PageInfo from "../components/PageInfo";
 import SearchFilter from "../components/SearchFilter";
 import { useMyContext } from "../context/MyContext";
 
 const Trending = () => {
-
-  const { trendingPages, trendingData, page, timeFrame} = useMyContext();
+  const { trendingPages, trendingData, page, timeFrame } = useMyContext();
 
   const [chatBotState, setChatBotState] = useState(false);
 
@@ -28,15 +27,12 @@ const Trending = () => {
     <>
       <Header />
       <div className="home-page-container">
-        
-      <SearchFilter currentPage="Trending"/>
+        <SearchFilter currentPage="Trending" />
 
         <div className="info-pagination-movie-container">
-
-        <PageInfo page="Discover" isTrendingPage={true} pageNumber={page}/>
+          <PageInfo page="Discover" isTrendingPage={true} pageNumber={page} />
 
           <div className="movie-container">
-      
             {trendingData.length > 0
               ? trendingData.map((movie, index) => {
                   return (
@@ -58,7 +54,7 @@ const Trending = () => {
           changeChatBotState={changeChatBotState}
           chatBotState={chatBotState}
         />
-         {chatBotState && <Ai changeChatBotState={changeChatBotState} />}
+        {chatBotState && <Ai changeChatBotState={changeChatBotState} />}
       </div>
 
       <Footer />

@@ -13,12 +13,13 @@ export const useMyContext = () => {
 
 export const MyContextProvider = ({ children }) => {
   const location = useLocation();
+
   const { timeFrame } = useParams();
+  const { query } = useParams();
 
   const searchParams = new URLSearchParams(location.search);
 
   // parameter data
-  const query = searchParams.get("query");
   const year = searchParams.get("year");
   const rating = searchParams.get("ratings");
   const genre = searchParams.get("genre");
@@ -35,6 +36,10 @@ export const MyContextProvider = ({ children }) => {
   const [discoveryPages, setDiscoveryPages] = useState(0);
   const [searchPages, setSearchPages] = useState(0);
   const [trendingPages, setTrendingPages] = useState(0);
+
+  // search page extra states
+  const [total_results, setTotalResults] = useState(0);
+  const [loadingData, setLoadingData] = useState(true);
 
   // options for the request to be sent to the api
   const options = {
@@ -54,22 +59,25 @@ export const MyContextProvider = ({ children }) => {
           trendingDataResponse,
         ] = await Promise.all([
           // check if we are in the main(discovery page) page and make the request if true
-          location.pathname == "/" ? 
-          fetch(
-            `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${
-              page || 1
-            }${year ? `&primary_release_year=${year}` : ""}${
-              sort ? `&sort_by=${sort}` : ""
-            }${rating ? `&vote_average.gte=${rating}` : ""}${
-              genre ? `&with_genres=${genre}` : ""
-            }`,
-            options
-          ) : Promise.resolve(new Response("{}")),
+          location.pathname == "/"
+            ? fetch(
+                `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${
+                  page || 1
+                }${year ? `&primary_release_year=${year}` : ""}${
+                  sort ? `&sort_by=${sort}` : ""
+                }${rating ? `&vote_average.gte=${rating}` : ""}${
+                  genre ? `&with_genres=${genre}` : ""
+                }`,
+                options
+              )
+            : Promise.resolve(new Response("{}")),
 
           // check if we are in the search page and make the request if it is true
-          location.pathname.includes("search")
+          location.pathname.includes("search/")
             ? fetch(
-                `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US${
+                `https://api.themoviedb.org/3/search/movie?query=${
+                  location.pathname.split("?").toString().split("/")[2]
+                }&include_adult=false&language=en-US${
                   year ? `&primary_release_year=${year}` : ""
                 }&page=${page || 1}`,
                 options
@@ -87,22 +95,36 @@ export const MyContextProvider = ({ children }) => {
             : Promise.resolve(new Response("{}")),
         ]);
 
-        const discoveryData = (await discoveryDataResponse.json()) || [];
-        const searchData = query ? (await searchDataResponse.json()) || [] : [];
-        const trendingData = location.pathname.includes("trending")
+        // fetch the movie data and store them in variables
+        const discoveryDataCollection =
+          location.pathname == "/"
+            ? (await discoveryDataResponse.json()) || []
+            : [];
+        const searchDataCollection = location.pathname.includes("search")
+          ? (await searchDataResponse.json()) || []
+          : [];
+        const trendingDataCollection = location.pathname.includes("trending")
           ? (await trendingDataResponse.json()) || []
           : [];
 
+        console.log(searchDataCollection.results);
+
         // collect movie listings
-        setDiscoveryData(discoveryData.results);
-        setSearchData(searchData.results);
-        setTrendingData(trendingData.results);
+        setDiscoveryData(discoveryDataCollection.results);
+        setSearchData(searchDataCollection.results);
+        setTrendingData(trendingDataCollection.results);
 
         // collect the total number of pages per request
-        setDiscoveryPages(discoveryData.total_pages);
-        setSearchPages(searchData.total_pages);
-        setTrendingPages(trendingData.total_pages);
+        setDiscoveryPages(discoveryDataCollection.total_pages);
+        setSearchPages(searchDataCollection.total_pages);
+        setTrendingPages(trendingDataCollection.total_pages);
 
+        setTotalResults(searchDataCollection.total_results);
+        location.pathname.includes("search")
+          ? searchData != []
+            ? setLoadingData(false)
+            : setLoadingData(true)
+          : "";
       } catch (err) {
         console.error("An error occurred while fetching movie data: ", err);
       }
@@ -120,7 +142,9 @@ export const MyContextProvider = ({ children }) => {
     searchPages,
     trendingPages,
     page,
-    timeFrame
+    timeFrame,
+    total_results,
+    loadingData,
   };
 
   // Further improvements to be made to the code for efficiency
