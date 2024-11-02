@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
 import Header from "../components/Header";
-import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
-import { useParams } from "react-router-dom";
 import ChatBotIcon from "../components/ChatBotIcon";
 import Ai from "../integration/Ai";
 import MovieObject from "../components/MovieObject";
@@ -14,45 +12,12 @@ import { useMyContext } from "../context/MyContext";
 
 const Trending = () => {
 
-  const {trendingData} = useMyContext();
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
-  const { timeFrame } = useParams();
-
-  const page = searchParams.get("page");
-
-  const [movies, setMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [total_pages, setTotal_pages] = useState(0);
+  const { trendingPages, trendingData, page, timeFrame} = useMyContext();
 
   const [chatBotState, setChatBotState] = useState(false);
 
   const changeChatBotState = (newState) => {
     setChatBotState(newState);
-  };
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-      `Bearer ${import.meta.env.VITE_TMDB_AUTHORIZATION_TOKEN}`,
-    },
-  };
-
-  const search = () => {
-    navigate(`/search/${searchTerm}?page=${1}`);
-  };
-
-  const handleSearchKeyDown = (e) => {
-    if (e.key === "Enter") {
-      if (searchTerm.length > 0) {
-        search();
-      }
-    }
   };
 
   const Loading_skeleton = [...Array(15)].map((_, index) => {
@@ -68,7 +33,7 @@ const Trending = () => {
 
         <div className="info-pagination-movie-container">
 
-        <PageInfo page="Discover" isTrendingPage={true}/>
+        <PageInfo page="Discover" isTrendingPage={true} pageNumber={page}/>
 
           <div className="movie-container">
       
@@ -83,7 +48,7 @@ const Trending = () => {
 
           <Pagination
             page={page}
-            total_pages={total_pages}
+            total_pages={trendingPages}
             pageToPaginate="Trending"
             timeframe={timeFrame}
           />

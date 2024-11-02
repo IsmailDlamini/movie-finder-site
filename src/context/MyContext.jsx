@@ -17,6 +17,7 @@ export const MyContextProvider = ({ children }) => {
 
   const searchParams = new URLSearchParams(location.search);
 
+  // parameter data
   const query = searchParams.get("query");
   const year = searchParams.get("year");
   const rating = searchParams.get("ratings");
@@ -24,6 +25,7 @@ export const MyContextProvider = ({ children }) => {
   const page = searchParams.get("page");
   const sort = searchParams.get("sortBy");
 
+  // movie data listing from the api calls
   const [discoveryData, setDiscoveryData] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
@@ -34,6 +36,7 @@ export const MyContextProvider = ({ children }) => {
   const [searchPages, setSearchPages] = useState(0);
   const [trendingPages, setTrendingPages] = useState(0);
 
+  // options for the request to be sent to the api
   const options = {
     method: "GET",
     headers: {
@@ -50,6 +53,8 @@ export const MyContextProvider = ({ children }) => {
           searchDataResponse,
           trendingDataResponse,
         ] = await Promise.all([
+          // check if we are in the main(discovery page) page and make the request if true
+          location.pathname == "/" ? 
           fetch(
             `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${
               page || 1
@@ -59,8 +64,9 @@ export const MyContextProvider = ({ children }) => {
               genre ? `&with_genres=${genre}` : ""
             }`,
             options
-          ),
+          ) : Promise.resolve(new Response("{}")),
 
+          // check if we are in the search page and make the request if it is true
           location.pathname.includes("search")
             ? fetch(
                 `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US${
@@ -70,6 +76,7 @@ export const MyContextProvider = ({ children }) => {
               )
             : Promise.resolve(new Response("{}")),
 
+          // check if we are in the trending page and make the request if it is true
           location.pathname.includes("trending")
             ? fetch(
                 `https://api.themoviedb.org/3/trending/movie/${
@@ -104,13 +111,20 @@ export const MyContextProvider = ({ children }) => {
     fetchMovieData();
   }, [page, year, rating, genre, sort, query, location.pathname, timeFrame]);
 
+  // values to be exported to children of context
   const contextValues = {
     discoveryData,
     searchData,
     trendingData,
     discoveryPages,
+    searchPages,
+    trendingPages,
+    page,
+    timeFrame
   };
-  
+
+  // Further improvements to be made to the code for efficiency
+
   return (
     <MyContext.Provider value={contextValues}>{children}</MyContext.Provider>
   );

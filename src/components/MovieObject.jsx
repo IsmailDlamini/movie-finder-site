@@ -11,7 +11,6 @@ const MovieObject = ({ movie_json, index }) => {
 
   return (
     <>
-    
         <div
           className="movie-object"
           key={index}
