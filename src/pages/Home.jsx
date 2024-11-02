@@ -17,7 +17,7 @@ import { useMyContext } from "../context/MyContext";
 
 const Home = () => {
 
-  const {discoveryData} =  useMyContext();
+  const {discoveryPages ,discoveryData} =  useMyContext();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -86,8 +86,8 @@ const Home = () => {
 
         <div className="info-pagination-movie-container">
           
-          <PageInfo page="Discover" trendingPage={false} pageNumber={page}/>
-
+          <PageInfo page="Discover" isTrendingPage={false} pageNumber={page}/>
+          
           <div className="movie-container" >
       
             {discoveryData.length > 0
@@ -101,7 +101,7 @@ const Home = () => {
 
           <Pagination
             page={page}
-            total_pages={total_pages}
+            total_pages={discoveryPages}
             pageToPaginate="Discover"
           />
         </div>

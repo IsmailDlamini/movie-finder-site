@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import propTypes from "prop-types";
 
-const PageInfo = ({ page, pageNumber, numberOfResults, trendingPage }) => {
+const PageInfo = ({ page, pageNumber, numberOfResults, isTrendingPage }) => {
   const { query } = useParams();
 
   const location = useLocation();
@@ -11,11 +11,11 @@ const PageInfo = ({ page, pageNumber, numberOfResults, trendingPage }) => {
       return (
         <div
           className={`list-page-info ${
-            trendingPage ? "trending-page-info" : ""
+            isTrendingPage ? "trending-page-info" : ""
           }`}
         >
           <div className="list-type">
-            {trendingPage == false
+            {isTrendingPage == false
               ? "Discover"
               : location.pathname.includes("today")
               ? "Trending Today"
@@ -45,7 +45,7 @@ PageInfo.propTypes = {
   page: propTypes.string.isRequired,
   pageNumber: propTypes.string,
   numberOfResults: propTypes.number,
-  trendingData: propTypes.boolean,
+  isTrendingPage: propTypes.boolean,
 };
 
 export default PageInfo;

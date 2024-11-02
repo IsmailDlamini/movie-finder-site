@@ -104,7 +104,7 @@ const Search = () => {
       <SearchFilter currentPage="Search"/>
 
         <div className="info-pagination-movie-container">
-          <PageInfo page="Search" pageNumber={page} numberOfResults={numberOfResults}/>
+          <PageInfo page="Search" pageNumber={page} isTrendingPage={false} numberOfResults={numberOfResults}/>
 
           <div className="movie-container">
             {!loadingResults ? (

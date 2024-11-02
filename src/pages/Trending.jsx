@@ -68,7 +68,7 @@ const Trending = () => {
 
         <div className="info-pagination-movie-container">
 
-        <PageInfo page="Discover" trendingPage={true}/>
+        <PageInfo page="Discover" isTrendingPage={true}/>
 
           <div className="movie-container">
       

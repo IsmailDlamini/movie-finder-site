@@ -27,6 +27,12 @@ export const MyContextProvider = ({ children }) => {
   const [discoveryData, setDiscoveryData] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
+  const [total_pages, setTotalPages] = useState(0);
+
+  //number of pages in results per request
+  const [discoveryPages, setDiscoveryPages] = useState(0);
+  const [searchPages, setSearchPages] = useState(0);
+  const [trendingPages, setTrendingPages] = useState(0);
 
   const options = {
     method: "GET",
@@ -45,11 +51,13 @@ export const MyContextProvider = ({ children }) => {
           trendingDataResponse,
         ] = await Promise.all([
           fetch(
-            `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page || 1}${
-              year ? `&primary_release_year=${year}` : ""
-            }${sort ? `&sort_by=${sort}` : ""}${
-              rating ? `&vote_average.gte=${rating}` : ""
-            }${genre ? `&with_genres=${genre}` : ""}`,
+            `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${
+              page || 1
+            }${year ? `&primary_release_year=${year}` : ""}${
+              sort ? `&sort_by=${sort}` : ""
+            }${rating ? `&vote_average.gte=${rating}` : ""}${
+              genre ? `&with_genres=${genre}` : ""
+            }`,
             options
           ),
 
@@ -60,7 +68,7 @@ export const MyContextProvider = ({ children }) => {
                 }&page=${page || 1}`,
                 options
               )
-            : Promise.resolve(new Response('{}')),
+            : Promise.resolve(new Response("{}")),
 
           location.pathname.includes("trending")
             ? fetch(
@@ -69,22 +77,27 @@ export const MyContextProvider = ({ children }) => {
                 }?language=en-US&page=${page || 1}`,
                 options
               )
-            : Promise.resolve(new Response('{}')),
+            : Promise.resolve(new Response("{}")),
         ]);
 
-        const discoveryData = (await discoveryDataResponse.json()).results || [];
-        const searchData = query
-          ? (await searchDataResponse.json()).results || []
-          : [];
+        const discoveryData = (await discoveryDataResponse.json()) || [];
+        const searchData = query ? (await searchDataResponse.json()) || [] : [];
         const trendingData = location.pathname.includes("trending")
-          ? (await trendingDataResponse.json()).results || []
+          ? (await trendingDataResponse.json()) || []
           : [];
 
-        setDiscoveryData(discoveryData);
-        setSearchData(searchData);
-        setTrendingData(trendingData);
+        // collect movie listings
+        setDiscoveryData(discoveryData.results);
+        setSearchData(searchData.results);
+        setTrendingData(trendingData.results);
+
+        // collect the total number of pages per request
+        setDiscoveryPages(discoveryData.total_pages);
+        setSearchPages(searchData.total_pages);
+        setTrendingPages(trendingData.total_pages);
+
       } catch (err) {
-        console.error("An error occurred: ", err);
+        console.error("An error occurred while fetching movie data: ", err);
       }
     };
 
@@ -95,8 +108,9 @@ export const MyContextProvider = ({ children }) => {
     discoveryData,
     searchData,
     trendingData,
+    discoveryPages,
   };
-
+  
   return (
     <MyContext.Provider value={contextValues}>{children}</MyContext.Provider>
   );
