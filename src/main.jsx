@@ -6,7 +6,7 @@ import ReactGA from "react-ga4";
 import { MyContextProvider } from "./context/MyContext.jsx";
 import { BrowserRouter } from "react-router-dom";
 
-ReactGA.initialize("G-BTM6YJ7R5D");
+ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
