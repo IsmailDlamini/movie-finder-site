@@ -24,7 +24,7 @@ const Search = () => {
 
   const year = searchParams.get("year");
 
-  const [filterReleaseYear, setFilterReleaseYear] = useState(year);
+  const [filterReleaseYear] = useState(year);
 
   const [chatBotState, setChatBotState] = useState(false);
 
