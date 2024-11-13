@@ -14,7 +14,8 @@ export const useMyContext = () => {
 export const MyContextProvider = ({ children }) => {
   const location = useLocation();
 
-  const { timeFrame } = useParams();
+  const { timeFrame } = useParams();   
+  
   const { query } = useParams();
 
   const searchParams = new URLSearchParams(location.search);
@@ -147,8 +148,6 @@ export const MyContextProvider = ({ children }) => {
 
   // Further improvements to be made to the code for efficiency
 
-
-  // what i need to do
   return (
     <MyContext.Provider value={contextValues}>{children}</MyContext.Provider>
   );

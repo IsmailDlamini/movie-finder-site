@@ -14,6 +14,7 @@ function App() {
         <Route path="/trending/:timeFrame" element={<Trending />} />
         <Route path="/movie/:id" element={<Movie />}/>
         <Route path="/about" element={<About />}/>
+        <Route path="/tv-shows" element{} />
       </Routes>
   );
 }
