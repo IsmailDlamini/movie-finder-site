@@ -1,20 +1,17 @@
 import React from "react";
 import "./Home.css"
-
-
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const TvShows = () => {
 
-
-
-    
     const Loading_skeleton = [...Array(15)].map((_, index) => {
         return <div className="loading-skeleton" key={index}></div>;
       });
 
   return <>
 
-    <Header />
+    <Header tab={"tv-shows"} />
       <div className="shows-page-container">
       
         <SearchFilter currentPage="Discover"/>

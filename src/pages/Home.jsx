@@ -41,7 +41,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header tab="discover"/>
       <div className="home-page-container">
       
         <SearchFilter currentPage="Discover"/>

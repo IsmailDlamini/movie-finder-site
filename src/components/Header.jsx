@@ -22,11 +22,11 @@ const Header = ({tab}) => {
           onClick={() => (window.location.href = "/")}
         />
         <ul>
-          <li onClick={() => (window.location.href = "/")}>Discover</li>
-          <li onClick={() => (window.location.href = "/trending/today")}>
+          <li onClick={() => (window.location.href = "/")} className={`${tab == "discover" ? "active" : ""}`}>Discover</li>
+          <li onClick={() => (window.location.href = "/trending/today")} className={`${tab == "trending" ? "active" : ""}`}>
             Trending
           </li>
-          <li onClick={() => (window.location.href = "/tv-shows")}>
+          <li onClick={() => (window.location.href = "/tv-shows")} className={`${tab == "tv-shows" ? "active" : ""}`}>
             Tv Shows
           </li>
           

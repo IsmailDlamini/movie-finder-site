@@ -38,7 +38,7 @@ const Search = () => {
 
   return (
     <>
-      <Header />
+      <Header/>
       <div className="home-page-container">
        
       <SearchFilter currentPage="Search"/>

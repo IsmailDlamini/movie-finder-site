@@ -25,7 +25,7 @@ const Trending = () => {
 
   return (
     <>
-      <Header />
+      <Header tab={"trending"}/>
       <div className="home-page-container">
         <SearchFilter currentPage="Trending" />
 
