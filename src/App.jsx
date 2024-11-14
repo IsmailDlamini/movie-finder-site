@@ -5,6 +5,7 @@ import Search from './pages/Search';
 import Trending from './pages/Trending';
 import Movie from './pages/Movie';
 import About from './pages/About';
+import TvShows from './pages/TvShows'
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route path="/trending/:timeFrame" element={<Trending />} />
         <Route path="/movie/:id" element={<Movie />}/>
         <Route path="/about" element={<About />}/>
-        <Route path="/tv-shows" element{} />
+        <Route path="/tv-shows" element={<TvShows/>}/>
       </Routes>
   );
 }

@@ -7,8 +7,10 @@ import { IoInformationCircle } from "react-icons/io5";
 import { MdContactPhone } from "react-icons/md";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import TvShows from "../pages/TvShows";
 
-const Header = () => {
+const Header = ({tab}) => {
   const [mobileNavBarOpen, setMobileNavBarState] = useState(false);
 
   return (
@@ -24,9 +26,10 @@ const Header = () => {
           <li onClick={() => (window.location.href = "/trending/today")}>
             Trending
           </li>
-          {/* <li>Home</li> */}
-          <li>About</li>
-          <li>Contact</li>
+          <li onClick={() => (window.location.href = "/tv-shows")}>
+            Tv Shows
+          </li>
+          
         </ul>
 
         <div className="mobile-nav ">
@@ -40,7 +43,7 @@ const Header = () => {
 
         <div className="slogan">Find Your Next Favorite Flick</div>
 
-        <div className="beta-tag">beta</div>
+        <div className="beta-tag">v.1.0.0</div>
 
         <div
           className={`mobile-navigation ${
@@ -62,23 +65,25 @@ const Header = () => {
             </Link>
             <HiTrendingUp className="icon" />
           </div>
-          <div className="about">
-            <Link to={"/"} style={{ textDecoration: "none", color: "#c6d2e0" }}>
-              About
-            </Link>
-            <IoInformationCircle className="icon" />
-          </div>
 
-          <div className="contact">
-            <Link to={"/"} style={{ textDecoration: "none", color: "#c6d2e0" }}>
-              Contact
+          <div className="trending">
+            <Link
+              to={"/tv-shows"}
+              style={{ textDecoration: "none", color: "#c6d2e0" }}
+            >
+              Tv Shows
             </Link>
-            <MdContactPhone className="icon" />
+            <HiTrendingUp className="icon" />
           </div>
+         
         </div>
       </header>
     </>
   );
 };
+
+TvShows.prototypes = {
+  tab: PropTypes.string.isRequired,
+}
 
 export default Header;
