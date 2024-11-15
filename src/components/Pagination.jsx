@@ -1,39 +1,29 @@
 import "./Pagination.css";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
+import { useMyContext } from "../context/MyContext";
 
 const Pagination = (prop) => {
-
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
-  const year = searchParams.get("year");
-  const rating = searchParams.get("ratings");
-  const genre = searchParams.get("genre");
-  const sort = searchParams.get("sortBy");
+  const { year, rating, genre, sort } = useMyContext();
 
   const { timeFrame } = useParams();
   const { query } = useParams();
 
-
   const changePage = (pageNumber) => {
     if (prop.pageToPaginate == "Discover") {
       window.location.href = `/?page=${pageNumber}${
-        rating != null
-          ? `&ratings=${rating}`
-          : ""
-      }${
-        year != null ? `&year=${year}` : ""
-      }${genre != null ? `&genre=${genre}` : ""}${
-        sort != null ? `&sortBy=${sort}` : ""
-      }`;
+        rating != null ? `&ratings=${rating}` : ""
+      }${year != null ? `&year=${year}` : ""}${
+        genre != null ? `&genre=${genre}` : ""
+      }${sort != null ? `&sortBy=${sort}` : ""}`;
     } else if (prop.pageToPaginate == "Search") {
       window.location.href = `/search/${query}?${
         year != null ? `year=${year}` : ""
       }&page=${pageNumber}`;
     } else if (prop.pageToPaginate == "Trending") {
       window.location.href = `/trending/${timeFrame}?page=${pageNumber}`;
+    } else if (prop.pageToPaginate == "tv-shows") {
+      window.location.href = `/Tv-shows/${page}`;
     }
   };
 

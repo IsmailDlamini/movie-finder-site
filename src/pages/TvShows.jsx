@@ -1,31 +1,47 @@
-import React from "react";
-import "./Home.css"
+import React, { useContext } from "react";
+import "./Home.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useMyContext } from "../context/MyContext";
+import ChatBotIcon from "../components/ChatBotIcon";
+import Pagination from "../components/Pagination";
+import PageInfo from "../components/PageInfo";
+import SearchFilter from "../components/SearchFilter";
+import { useState } from "react";
+import MovieObject from "../components/MovieObject";
 
 const TvShows = () => {
+  const { tvShowData, page, tvShowPages } = useMyContext();
 
-    const Loading_skeleton = [...Array(15)].map((_, index) => {
-        return <div className="loading-skeleton" key={index}></div>;
-      });
+  const [chatBotState, setChatBotState] = useState(false);
 
-  return <>
+  const changeChatBotState = (newState) => {
+    setChatBotState(newState);
+  };
 
-    <Header tab={"tv-shows"} />
-      <div className="shows-page-container">
-      
-        <SearchFilter currentPage="Discover"/>
+  const Loading_skeleton = [...Array(15)].map((_, index) => {
+    return <div className="loading-skeleton" key={index}></div>;
+  });
+
+  return (
+    <>
+      <Header tab={"tv-shows"} />
+      <div className="home-page-container">
+        <SearchFilter currentPage="Discover" />
 
         <div className="info-pagination-movie-container">
-          
-          <PageInfo page="Discover" isTrendingPage={false} pageNumber={page}/>
-          
-          <div className="movie-container" >
-      
-            {discoveryData.length > 0
-              ? discoveryData.map((movie, index) => {
+          <PageInfo page="Discover" isTrendingPage={false} pageNumber={page} />
+
+          <div className="movie-container">
+            {tvShowData.length > 0
+              ? tvShowData.map((movie, index) => {
                   return (
-                    <MovieObject index={index} movie_json={movie} key={index} />
+                    <MovieObject
+                      index={index}
+                      movie_json={movie}
+                      key={index}
+                      page={"tv-shows"}
+                    />
                   );
                 })
               : Loading_skeleton}
@@ -33,8 +49,8 @@ const TvShows = () => {
 
           <Pagination
             page={page}
-            total_pages={discoveryPages}
-            pageToPaginate="Discover"
+            total_pages={tvShowPages}
+            pageToPaginate="Tv-shows"
           />
         </div>
 
@@ -47,7 +63,8 @@ const TvShows = () => {
       </div>
 
       <Footer />
-  </>;
+    </>
+  );
 };
 
 export default TvShows;

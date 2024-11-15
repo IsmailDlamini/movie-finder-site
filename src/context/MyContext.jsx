@@ -1,3 +1,4 @@
+import { GenerativeModel } from "@google/generative-ai";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -14,8 +15,8 @@ export const useMyContext = () => {
 export const MyContextProvider = ({ children }) => {
   const location = useLocation();
 
-  const { timeFrame } = useParams();   
-  
+  const { timeFrame } = useParams();
+
   const { query } = useParams();
 
   const searchParams = new URLSearchParams(location.search);
@@ -31,12 +32,14 @@ export const MyContextProvider = ({ children }) => {
   const [discoveryData, setDiscoveryData] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
+  const [tvShowData, setTvShowData] = useState([]);
   const [total_pages, setTotalPages] = useState(0);
 
   //number of pages in results per request
   const [discoveryPages, setDiscoveryPages] = useState(0);
   const [searchPages, setSearchPages] = useState(0);
   const [trendingPages, setTrendingPages] = useState(0);
+  const [tvShowPages, setTvShowPages] = useState(0);
 
   // search page extra states
   const [total_results, setTotalResults] = useState(0);
@@ -58,6 +61,7 @@ export const MyContextProvider = ({ children }) => {
           discoveryDataResponse,
           searchDataResponse,
           trendingDataResponse,
+          tvShowDataResponse,
         ] = await Promise.all([
           // check if we are in the main(discovery page) page and make the request if true
           location.pathname == "/"
@@ -94,38 +98,57 @@ export const MyContextProvider = ({ children }) => {
                 options
               )
             : Promise.resolve(new Response("{}")),
+
+            // che
+          location.pathname.includes("tv")
+            ? fetch(
+                `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc`,
+                options
+              )
+            : Promise.resolve(new Response("{}")),
         ]);
+
+ 
 
         // fetch the movie data and store them in variables
         const discoveryDataCollection =
           location.pathname == "/"
             ? (await discoveryDataResponse.json()) || []
-            : [];
+            : []; // data from the dicover data api call
+
         const searchDataCollection = location.pathname.includes("search")
           ? (await searchDataResponse.json()) || []
-          : [];
+          : []; // data from the search api call
+
         const trendingDataCollection = location.pathname.includes("trending")
           ? (await trendingDataResponse.json()) || []
-          : [];
+          : []; // data from the trending api call
+
+        const tvShowDataCollection = location.pathname.includes("tv")
+          ? (await tvShowDataResponse.json()) || []
+          : []; // data from the tv shows api call
 
         // collect movie listings
         setDiscoveryData(discoveryDataCollection.results);
         setSearchData(searchDataCollection.results);
         setTrendingData(trendingDataCollection.results);
+        setTvShowData(tvShowDataCollection.results);
 
         // collect the total number of pages per request
         setDiscoveryPages(discoveryDataCollection.total_pages);
         setSearchPages(searchDataCollection.total_pages);
         setTrendingPages(trendingDataCollection.total_pages);
+        setTvShowPages(tvShowDataCollection.total_pages);
+        
 
-        setTotalResults(searchDataCollection.total_results);
+        setTotalResults(searchDataCollection.total_results); // we get the total results returned 
         location.pathname.includes("search")
           ? searchData != []
             ? setLoadingData(false)
             : setLoadingData(true)
           : "";
       } catch (err) {
-        console.error("An error occurred while fetching movie data: ", err);
+        console.error("An error occurred while fetching data: ", err);
       }
     };
 
@@ -144,9 +167,13 @@ export const MyContextProvider = ({ children }) => {
     timeFrame,
     total_results,
     loadingData,
+    tvShowData,
+    tvShowPages,
+    year,
+    rating, 
+    genre,
+    sort,
   };
-
-  // Further improvements to be made to the code for efficiency
 
   return (
     <MyContext.Provider value={contextValues}>{children}</MyContext.Provider>
