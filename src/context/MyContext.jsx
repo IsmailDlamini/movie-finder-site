@@ -66,7 +66,7 @@ export const MyContextProvider = ({ children }) => {
           // check if we are in the main(discovery page) page and make the request if true
           location.pathname == "/"
             ? fetch(
-                `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${
+                `https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=true&language=en-US&page=${
                   page || 1
                 }${year ? `&primary_release_year=${year}` : ""}${
                   sort ? `&sort_by=${sort}` : ""
@@ -99,7 +99,6 @@ export const MyContextProvider = ({ children }) => {
               )
             : Promise.resolve(new Response("{}")),
 
-            // che
           location.pathname.includes("tv")
             ? fetch(
                 `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc`,
@@ -107,8 +106,6 @@ export const MyContextProvider = ({ children }) => {
               )
             : Promise.resolve(new Response("{}")),
         ]);
-
- 
 
         // fetch the movie data and store them in variables
         const discoveryDataCollection =
@@ -141,7 +138,7 @@ export const MyContextProvider = ({ children }) => {
         setTvShowPages(tvShowDataCollection.total_pages);
         
 
-        setTotalResults(searchDataCollection.total_results); // we get the total results returned 
+        setTotalResults(searchDataCollection.total_results); // we get the total search results returned 
         location.pathname.includes("search")
           ? searchData != []
             ? setLoadingData(false)

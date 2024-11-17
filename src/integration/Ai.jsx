@@ -18,6 +18,7 @@ const Ai = ({ changeChatBotState }) => {
     sessionStorage.getItem("chatSession") || "[]"
   );
 
+  // this is to chekc if the model encountered and error
   const storedEncounteredError = JSON.parse(
     sessionStorage.getItem("errorState") || "false"
   );
@@ -33,6 +34,8 @@ const Ai = ({ changeChatBotState }) => {
 
   const [errorCountDownValue, setErrorCountDownValue] = useState(60);
 
+  // define the safety settings to be used in the model
+  //all the safety settings should be set to none in this case
   const safetySettings = [
     {
       category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -52,16 +55,19 @@ const Ai = ({ changeChatBotState }) => {
     },
   ];
 
+  // provide the api key from google gemini
   const genAI = new GoogleGenerativeAI(
     import.meta.env.VITE_GOOGLE_GEMINI_API_KEY
   );
 
+  // define the type of model to be used in this case
   const model = genAI.getGenerativeModel({
     model: import.meta.env.VITE_AI_MODEL, 
     systemInstruction: import.meta.env.VITE_SYSTEM_INSTRUCTIONS,
     safetySettings,
   });
 
+  // define safety paramters for the chatbot model
   const generationConfig = {
     temperature: import.meta.env.VITE_GENERATION_CONFIG_TEMPERATURE,
     topP: import.meta.env.VITE_GENERATION_CONFIG_TOPP,
@@ -140,7 +146,7 @@ const Ai = ({ changeChatBotState }) => {
     });
   };
 
-  //Ghost Function
+  //Ghost Function -- to be removed soon when code is made public
   const sendMessageToDatabase = (userMessage) => {
     axios.post(
       `https://${import.meta.env.VITE_REVIEW_SYSTEM_API_BASE_URL}/api/chat`,
