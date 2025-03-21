@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --font-experimental: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-inter: 'Inter';
+    --font-poppins: 'Poppins';
+    --font-raleway: 'Raleway';
+}
+
+header{
+    width: 100vw;
+    background-color: #25292E;
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    padding: 10px 30px;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(84, 84, 84);
+    position: fixed;
+    z-index: 1;
+}
+
+header .mobile-nav{
+ display: none;   
+}
+
+header img{
+    width: 100px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+header ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    gap: 15px;
+    margin-right: 50px;
+    color: #747c86;
+    font-family: var(--font-raleway);
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+header ul li:nth-child(1){
+    color: rgb(70, 134, 218);
+}
+
+
+header ul li:nth-child(2){
+    color: rgb(70, 134, 218);
+}
+
+header ul li{
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+header .slogan{
+    position: absolute;
+    left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  font-family: var(--font-poppins);
+  font-size: .8rem;
+  color: #9eaec0;
+}
+
+header .beta-tag{
+    position: absolute;
+    left: 180px;
+  transform: translate(-50%, -50%);
+  top: 52%;
+  font-family: var(--font-poppins);
+  padding: 0 10px;
+  background-color: #808080;
+  border-radius: 10px;
+  color: #ccd5e3;
+  font-size: .7rem;
+}
+
+header .mobile-navigation{
+    display: none;
+}
+
+header .active{
+    border-bottom: 2px solid rgb(70, 134, 218);
+}
+
+
+@media only screen and (min-width: 700px) and (max-width: 1024px) {
+
+    header{
+        height: 70px;
+        padding: 10px 25px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgb(84, 84, 84);
+        z-index: 1;
+    }
+    
+    header img{
+        width: 80px;
+        margin-left: 0px;
+    }
+    
+    header ul{
+        display: flex;
+        list-style-type: none;
+        justify-content: space-between;
+        width: 280px;
+        margin-right: 50px;
+        color: #747c86;
+        font-family: var(--font-raleway);
+        font-size: .8rem;
+        font-weight: 700;
+        display: none;
+    }
+    
+    header ul li:nth-child(1){
+        color: rgb(70, 134, 218);
+    }
+    
+    
+    header ul li:nth-child(2){
+        color: rgb(70, 134, 218);
+    }
+    
+    header ul li{
+        cursor: pointer;
+    }
+    
+    header .slogan{
+    left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: .7rem;
+      display: block;
+    }
+    
+    header .beta-tag{
+        left: 125px;
+      top: 52%;
+      padding: 0 5px;
+      font-size: .5rem;
+    }
+    
+    header .mobile-nav{
+    display: block;
+    }
+    
+    header .mobile-nav #mobile-burger-menu{
+        font-size: 1.5rem;
+        color: #587190;
+    }
+    
+    header .mobile-navigation{
+        display: block;
+        width: 140px;
+        right: 0;
+        height: 205px;
+        position: absolute;
+        background-color: #25292E;
+        margin-top: 280px;
+        border-bottom-left-radius: 0;
+        border: 2px solid rgb(84, 84, 84);
+        padding-left: 15px;
+        padding-top: 5px;
+        padding-right: 10px;
+        transition: .4s all ease-in-out;
+        z-index: -1;
+        border-bottom: 4px solid rgb(20, 123, 192);
+    
+    }
+    
+    header .mobile-navigation div{
+        margin-top: 20px;
+        font-family: var(--font-inter);
+        font-weight: 700;
+        color: #c6d2e0;
+        padding: 2px 4px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+    
+    header .open{
+        transform: translateX(0);
+    }
+    
+    header .closed{
+        transform: translateX(600px);
+    }
+    
+    header .mobile-navigation div .icon{
+        margin-left: 10px;
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+
+header{
+    height: 70px;
+    padding: 10px 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(84, 84, 84);
+    z-index: 1;
+}
+
+header img{
+    width: 80px;
+    margin-left: 0px;
+}
+
+header ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    width: 280px;
+    margin-right: 50px;
+    color: #747c86;
+    font-family: var(--font-raleway);
+    font-size: .8rem;
+    font-weight: 700;
+    display: none;
+}
+
+header ul li:nth-child(1){
+    color: rgb(70, 134, 218);
+}
+
+
+header ul li:nth-child(2){
+    color: rgb(70, 134, 218);
+}
+
+header ul li{
+    cursor: pointer;
+}
+
+header .slogan{
+left: 60%;
+  transform: translate(-50%, -50%);
+  font-size: .7rem;
+  display: none;
+}
+
+header .beta-tag{
+    left: 125px;
+  top: 52%;
+  padding: 0 5px;
+  font-size: .5rem;
+}
+
+header .mobile-nav{
+display: block;
+}
+
+header .mobile-nav #mobile-burger-menu{
+    font-size: 1.5rem;
+    color: #587190;
+}
+
+header .mobile-navigation{
+    display: block;
+    width: 140px;
+    right: 0;
+    height: 205px;
+    position: absolute;
+    background-color: #25292E;
+    margin-top: 280px;
+    border-bottom-left-radius: 0;
+    border: 2px solid rgb(84, 84, 84);
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-right: 10px;
+    transition: .4s all ease-in-out;
+    z-index: -1;
+    border-bottom: 4px solid rgb(20, 123, 192);
+
+}
+
+header .mobile-navigation div{
+    margin-top: 20px;
+    font-family: var(--font-inter);
+    font-weight: 700;
+    color: #c6d2e0;
+    padding: 2px 4px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+
+}
+
+header .open{
+    transform: translateX(0);
+}
+
+header .closed{
+    transform: translateX(600px);
+}
+
+
+
+header .mobile-navigation div .icon{
+    margin-left: 10px;
+}
+
+
+
+}

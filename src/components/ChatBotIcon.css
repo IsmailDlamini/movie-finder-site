@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --font-experimental: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-inter: "Inter";
+  --font-poppins: "Poppins";
+  --font-raleway: "Raleway";
+}
+
+.chat-bot-icon {
+  position: fixed;
+  bottom: 3%;
+  right: 2%;
+  z-index: 2;
+  display: flex;
+}
+
+.chat-bot-icon img {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.chat-bot-availability-hint {
+  width: 250px;
+  margin-right: 15px;
+  background-color: rgb(22, 32, 41);
+  padding: 12px;
+  border-radius: 10px;
+  font-family: var(--font-poppins);
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #d9e3ea;
+  position: fixed;
+  border-top-right-radius: 40px;
+  bottom: 3%;
+  right: 7%;
+  z-index: 5;
+}
+
+.chat-bot-availability-hint #close-message-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+
+.chat-bot-availability-hint span{
+  font-weight: 700;
+}
+
+
+
+
+@media only screen and (min-width: 700px) and (max-width: 1024px) {
+
+  
+
+}
+
+
+@media screen and (max-width: 700px) {
+
+
+  .chat-bot-icon {
+    position: fixed;
+    bottom: 3%;
+    right: 2%;
+    z-index: 2;
+    display: flex;
+  }
+  
+  .chat-bot-icon img {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    flex: 1;
+  }
+  
+  .chat-bot-availability-hint {
+    width: 250px;
+    margin-right: 15px;
+    background-color: rgb(22, 32, 41);
+    padding: 12px;
+    border-radius: 10px;
+    font-family: var(--font-poppins);
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #d9e3ea;
+    position: fixed;
+    border-top-right-radius: 40px;
+    bottom: 3%;
+    right: 20%;
+    z-index: 5;
+  }
+  
+  .chat-bot-availability-hint #close-message-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+  
+  
+  
+}
